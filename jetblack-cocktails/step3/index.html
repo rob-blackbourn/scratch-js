@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="cocktailApp">
+<head>
+  <meta charset="utf-8" />
+  <title>Cocktails</title>
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="app.module.js"></script>
+  <script src="core/cocktail/cocktail.value.js"></script>
+  <script src="core/cocktail/cocktail.factory.js"></script>
+  <script src="app.controller.js"></script>
+</head>
+<body ng-controller="cocktailCtrl as ctrl">
+  <h1>Cocktails</h1>
+  <ul>
+    <li ng-repeat="cocktail in ctrl.getAll()">
+
+      <h2>{{cocktail.name}}</h2>
+
+      <h3>Equipment</h3>
+      <ul>
+        <li ng-repeat="item in cocktail.equipment">
+          {{item.name}}
+        </li>
+      </ul>
+
+      <h3>Ingredients</h3>
+      <ul>
+        <li ng-repeat="ingredient in cocktail.ingredients">
+          {{ingredient.quantity}} {{ingredient.unit}} {{ingredient.name}}
+        </li>
+      </ul>
+
+      <h3>Preparation</h3>
+      <ol>
+        <li ng-repeat="step in cocktail.method">
+          {{step}}
+        </li>
+      </ol>
+    </li>
+  </ul>
+</body>
+</html>
