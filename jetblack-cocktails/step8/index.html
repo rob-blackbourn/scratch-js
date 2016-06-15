@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="cocktailApp">
+<head>
+  <meta charset="utf-8" />
+  <title>Cocktails</title>
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-route/angular-route.min.js"></script>
+  <script src="bower_components/angular-uuid-service/angular-uuid-service.min.js"></script>
+  <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+  <script src="app.module.js"></script>
+  <script src="app.config.js"></script>
+  <script src="cocktail/model/value.js"></script>
+  <script src="cocktail/model/localStorageFactory.js"></script>
+  <script src="cocktail/controller/cocktailList.js"></script>
+  <script src="cocktail/controller/cocktailDetail.js"></script>
+  <script src="cocktail/controller/cocktailEdit.js"></script>
+</head>
+<body>
+  <div ng-view></div>
+</body>
+</html>
