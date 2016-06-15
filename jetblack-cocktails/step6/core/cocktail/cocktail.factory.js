@@ -71,6 +71,16 @@ angular
 
             resolve(id);
           });
+        },
+
+        reset: function() {
+          return $q(function(resolve, reject) {
+            if (self.cocktailStorage.clearAll()) {
+              resolve(null);
+            } else {
+              reject(null);
+            }
+          });
         }
       };
     }

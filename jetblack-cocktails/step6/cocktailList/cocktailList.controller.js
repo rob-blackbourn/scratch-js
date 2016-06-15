@@ -18,5 +18,14 @@ angular
       self.addCocktail = function() {
         $location.path('/cocktails/add');
       };
+
+      self.reset = function() {
+        CocktailFactory.reset()
+        .then(function(ok) {
+          $location.path('/cocktails/list');
+        }, function(err) {
+          self.errorMessage = "Failed to reset";
+        });
+      };
     }
   ]);
