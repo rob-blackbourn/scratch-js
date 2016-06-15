@@ -1,0 +1,7 @@
+<ul>
+  <li ng-repeat="cocktail in cocktailListCtrl.cocktails">
+    <a ng-href="#/cocktails/detail/{{cocktail.id}}" ng-bind="cocktail.name"></a>
+  </li>
+</ul>
+
+<button type="button" ng-click="cocktailListCtrl.addCocktail()" ng-disabled="isDisabled">Add</button>
