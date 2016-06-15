@@ -17,10 +17,6 @@ angular
         }
       }
 
-      function clone(obj) {
-        return JSON.parse(JSON.stringify(obj));
-      }
-
       return {
 
         getList: function() {
@@ -33,7 +29,7 @@ angular
           return $q(function(resolve, reject) {
             var cocktail = self.cocktailStorage.get(id);
             if (cocktail) {
-              resolve(clone(cocktail));
+              resolve(cocktail);
             } else {
               reject(id);
             }
