@@ -2,10 +2,10 @@
 
   Name: <input type="text" ng-model="cocktailEditCtrl.cocktail.name" required />
 
-  <fieldset>
+  <fieldset name="equipmentForm">
     <legend>Equipment</legend>
     <ul>
-      <li ng-repeat="item in cocktailEditCtrl.cocktail.equipment">
+      <li ng-repeat="item in cocktailEditCtrl.cocktail.equipment track by $index">
         <input type="text" ng-model="cocktailEditCtrl.cocktail.equipment[$index].name" />
       </li>
     </ul>
@@ -15,7 +15,7 @@
   <fieldset>
     <legend>Ingredients</legend>
     <ul>
-      <li ng-repeat="ingredient in cocktailEditCtrl.cocktail.ingredients">
+      <li ng-repeat="ingredient in cocktailEditCtrl.cocktail.ingredients track by $index">
         <input type="number" ng-model="cocktailEditCtrl.cocktail.ingredients[$index].quantity" />
         <input type="text" ng-model="cocktailEditCtrl.cocktail.ingredients[$index].unit" />
         <input type="text" ng-model="cocktailEditCtrl.cocktail.ingredients[$index].name" />
@@ -27,7 +27,7 @@
   <fieldset>
     <legend>Preparation</legend>
     <ol>
-      <li ng-repeat="step in cocktailEditCtrl.cocktail.method">
+      <li ng-repeat="step in cocktailEditCtrl.cocktail.method track by $index">
         <ng-form name="methodStepForm">
           <textarea ng-model="cocktailEditCtrl.cocktail.method[$index]"></textarea>
         </ng-form>
