@@ -15,8 +15,16 @@ angular
           self.errorMessage = "Failed to find id: " + id;
         });
 
+        self.delete = function() {
+          CocktailFactory.delete(self.cocktail.id)
+          .then(function(ok) {
+            $location.path('/cocktails/list' + self.cocktail.id);
+          }, function (err) {
+            self.errorMessage = "Failed to delete id: " + id;
+          });
+        };
+
         self.edit = function() {
-          // Need to disable the button until the data has arrived.
           $location.path('/cocktails/edit/' + self.cocktail.id);
         };
 
