@@ -19,5 +19,9 @@ angular
           // Need to disable the button until the data has arrived.
           $location.path('/cocktails/edit/' + self.cocktail.id);
         };
+
+        self.back = function() {
+          $location.path('/cocktails/list');
+        };
     }
   ]);
