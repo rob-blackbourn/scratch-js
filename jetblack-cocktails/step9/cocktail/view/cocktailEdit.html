@@ -1,0 +1,47 @@
+<form ng-submit="cocktailEditCtrl.submit()" name="cocktailEditForm">
+
+  Name: <input type="text" ng-model="cocktailEditCtrl.cocktail.name" required />
+
+  <fieldset name="equipmentForm">
+    <legend>Equipment</legend>
+    <ul>
+      <li ng-repeat="item in cocktailEditCtrl.cocktail.equipment track by $index">
+        <input type="text" ng-model="cocktailEditCtrl.cocktail.equipment[$index].name" />
+        <button type="button" ng-click="cocktailEditCtrl.removeEquipment($index)">Remove</button>
+      </li>
+    </ul>
+    <button type="button" ng-click="cocktailEditCtrl.addEquipment()">Add</button>
+  </fieldset>
+
+  <fieldset>
+    <legend>Ingredients</legend>
+    <ul>
+      <li ng-repeat="ingredient in cocktailEditCtrl.cocktail.ingredients track by $index">
+        <input type="number" ng-model="cocktailEditCtrl.cocktail.ingredients[$index].quantity" />
+        <input type="text" ng-model="cocktailEditCtrl.cocktail.ingredients[$index].unit" />
+        <input type="text" ng-model="cocktailEditCtrl.cocktail.ingredients[$index].name" />
+        <button type="button" ng-click="cocktailEditCtrl.removeIngredient($index)">Remove</button>
+      </li>
+    </ul>
+    <button type="button" ng-click="cocktailEditCtrl.addIngredient()">Add</button>
+  </fieldset>
+
+  <fieldset>
+    <legend>Preparation</legend>
+    <ol>
+      <li ng-repeat="step in cocktailEditCtrl.cocktail.method track by $index">
+        <ng-form name="methodStepForm">
+          <textarea ng-model="cocktailEditCtrl.cocktail.method[$index]"></textarea>
+          <button type="button" ng-click="cocktailEditCtrl.removeStep($index)">Remove</button>
+        </ng-form>
+      </li>
+    </ol>
+    <button type="button" ng-click="cocktailEditCtrl.addStep()">Add</button>
+  </fieldset>
+
+  <div>
+    <button type="button" ng-click="cocktailEditCtrl.cancel()">Cancel</button>
+    <input type="submit" value="OK" ng-disabled="cocktailForm.$invalid || cocktailEditForm.isDisabled" />
+  </div>
+
+</form>
