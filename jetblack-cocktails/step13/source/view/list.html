@@ -1,0 +1,22 @@
+<div class="container-fluid">
+
+  <h1>Sources</h1>
+
+  <ul>
+    <li ng-repeat="source in sourceListCtrl.sources">
+      <a ng-href="#/sources/detail/{{source.id}}" ng-bind="source.name"></a>
+    </li>
+  </ul>
+
+  <div>
+    <button type="button" ng-click="sourceListCtrl.reset()" ng-disabled="isDisabled" class="btn btn-danger">Reset</button>
+
+    <div class="pull-right">
+      <button type="button" ng-click="sourceListCtrl.add()" class="btn btn-primary" ng-disabled="isDisabled">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      </button>
+    </div>
+
+  </div>
+
+</div>
