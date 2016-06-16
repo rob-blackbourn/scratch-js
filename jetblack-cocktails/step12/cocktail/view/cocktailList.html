@@ -1,0 +1,22 @@
+<div class="container-fluid">
+
+  <h1>Cocktails</h1>
+
+  <ul>
+    <li ng-repeat="cocktail in cocktailListCtrl.cocktails">
+      <a ng-href="#/cocktails/detail/{{cocktail.id}}" ng-bind="cocktail.name"></a>
+    </li>
+  </ul>
+
+  <div>
+    <button type="button" ng-click="cocktailListCtrl.reset()" ng-disabled="isDisabled" class="btn btn-danger">Reset</button>
+
+    <div class="pull-right">
+      <button type="button" ng-click="cocktailListCtrl.addCocktail()" class="btn btn-primary" ng-disabled="isDisabled">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      </button>
+    </div>
+
+  </div>
+
+</div>

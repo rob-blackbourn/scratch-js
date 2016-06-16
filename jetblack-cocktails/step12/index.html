@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="cocktailApp">
+<head>
+  <title>Cocktails</title>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel='stylesheet' href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel='stylesheet' href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
+
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-route/angular-route.min.js"></script>
+  <script src="bower_components/angular-uuid-service/angular-uuid-service.min.js"></script>
+  <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+  <script src="app/module.js"></script>
+  <script src="app/config.js"></script>
+  <script src="app/navigator.js"></script>
+  <script src="app/localStorageCollection.js"></script>
+  <script src="cocktail/model/value.js"></script>
+  <script src="cocktail/model/localStorageFactory.js"></script>
+  <script src="cocktail/controller/cocktailList.js"></script>
+  <script src="cocktail/controller/cocktailDetail.js"></script>
+  <script src="cocktail/controller/cocktailEdit.js"></script>
+</head>
+<body>
+  <div ng-view></div>
+</body>
+</html>
