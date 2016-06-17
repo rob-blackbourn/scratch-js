@@ -1,11 +1,23 @@
 angular
   .module('cocktailApp')
-  .controller('CocktailDetailCtrl', ['$location', '$routeParams', 'CocktailFactory', 'Navigator',
-    function($location, $routeParams, CocktailFactory, Navigator) {
+  .controller('CocktailDetailCtrl', ['$location', '$routeParams', 'Navigator', 'CocktailFactory', 'SourceFactory',
+    function($location, $routeParams, Navigator, CocktailFactory, SourceFactory) {
 
       var self = this;
 
       self.isDisabled = true;
+
+      CocktailFactory.get($routeParams.id)
+        .then(function(cocktail) {
+          self.cocktail = cocktail;
+          return SourceFactory.get(cocktail.source);
+        })
+        .then(function(source) {
+          self.cocktail.source = {id: source.id, name: source.name};
+          self.isDisabled = false;
+        }, function (err) {
+          self.errorMessage = "Failed to find id: " + id;
+        });
 
       CocktailFactory.get($routeParams.id)
         .then(function(cocktail) {

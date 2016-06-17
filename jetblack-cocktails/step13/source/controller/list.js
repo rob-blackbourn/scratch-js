@@ -19,7 +19,7 @@ angular
         Navigator.addSource();
       };
 
-      self.reset = function() {
+      self.clear = function() {
         SourceFactory.reset()
         .then(function(ok) {
           Navigator.listSources();

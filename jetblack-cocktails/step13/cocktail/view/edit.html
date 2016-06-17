@@ -2,10 +2,17 @@
 
   <form ng-submit="cocktailEditCtrl.submit()" name="cocktailEditForm">
 
-    <div class="form-group">
-      <label for="cocktailNameInput">Name</label>
-      <input type="text" ng-model="cocktailEditCtrl.cocktail.name" required id="cocktailNameInput" class="form-control" placeholder="Cocktail Name" />
-    </div>
+    <fieldset>
+
+      <legend>Description</legend>
+
+        <label for="cocktailNameInput">Name</label>
+        <input type="text" ng-model="cocktailEditCtrl.cocktail.name" required id="cocktailNameInput" class="form-control" placeholder="Cocktail Name" />
+
+        <label for="cocktailSourceInput">Source</label>
+        <input type="text" ng-model="cocktailEditCtrl.cocktail.source.name" required id="cocktailSourceInput" class="form-control" placeholder="Cocktail Source" />
+
+    </fieldSet>
 
     <fieldset name="equipmentForm">
 

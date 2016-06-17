@@ -18,13 +18,13 @@ angular
       self.addCocktail = function() {
         Navigator.addCocktail();
       };
-      
+
       self.sources = function() {
         Navigator.listSources();
       };
 
       self.reset = function() {
-        CocktailFactory.reset()
+        CocktailFactory.clear()
         .then(function(ok) {
           Navigator.listCocktails();
         }, function(err) {

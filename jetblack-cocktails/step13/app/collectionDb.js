@@ -1,7 +1,15 @@
 function CollectionDb($q, rfc4122, seedData, collection) {
+  this.$q = $q;
+  this.rfc4122 = rfc4122;
+  this.collection = collection;
 
-  // Initialise the collection if empty.
-  collection.count()
+  this.initialise(seedData);
+}
+
+CollectionDb.prototype.initialise = function(seedData) {
+  var self = this;
+
+  self.collection.count()
     .then(function(count) {
       if (count === 0) {
         var onSuccess = function(value) {};
@@ -10,46 +18,56 @@ function CollectionDb($q, rfc4122, seedData, collection) {
         };
         for (var i = 0; i < seedData.length; ++i) {
           var item = seedData[i];
-          collection.add(item.id, item)
+          self.collection.add(item.id, item)
             .then(onSuccess, onFailure);
         }
       }
     }, function(err) {
       throw Error("Failed to get count");
     });
+};
 
-  this.getList = function() {
-    return $q(function(resolve, reject) {
+CollectionDb.prototype.getList = function() {
+  var self = this;
 
-      collection.items()
-        .then(function(items) {
-          resolve(items.map(function(item) {
-            return {
-              id: item.key,
-              name: item.value.name
-            };
-          }));
-        }, function(err) {
-          reject(err);
-        });
-    });
-  };
+  return self.$q(function(resolve, reject) {
 
-  this.get = collection.get;
+    self.collection.items()
+      .then(function(items) {
+        resolve(items.map(function(item) {
+          return {
+            id: item.key,
+            name: item.value.name
+          };
+        }));
+      }, function(err) {
+        reject(err);
+      });
+  });
+};
 
-  this.set = function(value) {
-    return $q(function(resolve, reject) {
+CollectionDb.prototype.get = function(key) {
+  return this.collection.get(key);
+};
 
-      if (!value.id) {
-        value.id = rfc4122.v4();
-      }
+CollectionDb.prototype.set = function(value) {
+  var self = this;
 
-      collection.set(value.id, value)
-        .then(resolve, reject);
-    });
-  };
+  return self.$q(function(resolve, reject) {
 
-  this.delete = collection.remove;
+    if (!value.id) {
+      value.id = rfc4122.v4();
+    }
 
-  this.reset = collection.clear;
-}
+    self.collection.set(value.id, value)
+      .then(resolve, reject);
+  });
+};
+
+CollectionDb.prototype.delete = function(key) {
+  return this.collection.remove(key);
+};
+
+CollectionDb.prototype.clear = function() {
+  return this.collection.clear();
+};
