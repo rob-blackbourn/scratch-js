@@ -1,16 +1,16 @@
 angular
   .module('cocktailApp')
-  .controller('CocktailDetailCtrl', ['$location', '$routeParams', 'Navigator', 'CocktailFactory', 'SourceFactory',
-    function($location, $routeParams, Navigator, CocktailFactory, SourceFactory) {
+  .controller('CocktailDetailCtrl', ['$location', '$routeParams', 'navigator', 'cocktailCollection', 'sourceCollection',
+    function($location, $routeParams, navigator, cocktailCollection, sourceCollection) {
 
       var self = this;
 
       self.isDisabled = true;
 
-      CocktailFactory.get($routeParams.id)
+      cocktailCollection.get($routeParams.id)
         .then(function(cocktail) {
           self.cocktail = cocktail;
-          return SourceFactory.get(cocktail.source);
+          return sourceCollection.get(cocktail.source);
         })
         .then(function(source) {
           self.cocktail.source = {id: source.id, name: source.name};
@@ -19,7 +19,7 @@ angular
           self.errorMessage = "Failed to find id: " + id;
         });
 
-      CocktailFactory.get($routeParams.id)
+      cocktailCollection.get($routeParams.id)
         .then(function(cocktail) {
           self.cocktail = cocktail;
           self.isDisabled = false;
@@ -28,22 +28,20 @@ angular
         });
 
         self.delete = function() {
-          CocktailFactory.delete(self.cocktail.id)
+          cocktailCollection.delete(self.cocktail.id)
           .then(function(ok) {
-            Navigator.listCocktails();
+            navigator.listCocktails();
           }, function (err) {
             self.errorMessage = "Failed to delete id: " + id;
           });
         };
 
         self.edit = function() {
-          Navigator.editCocktail(self.cocktail.id);
+          navigator.editCocktail(self.cocktail.id);
         };
 
         self.back = function() {
-          Navigator.listCocktails();
+          navigator.listCocktails();
         };
-
-
     }
   ]);

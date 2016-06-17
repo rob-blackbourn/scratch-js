@@ -1,6 +1,6 @@
 angular.module('cocktailApp')
-  .factory('SourceFactory', ['$q', 'rfc4122', 'sourceList', 'storageCollection',
-    function($q, rfc4122, sourceList, storageCollection) {
+  .factory('sourceCollection', ['$q', 'rfc4122', 'storageCollection', 'sourceList',
+    function($q, rfc4122, storageCollection, sourceList) {
       var collection = storageCollection.getCollection("sources");
       db = new CollectionDb($q, rfc4122, collection);
       db.initialise(sourceList)

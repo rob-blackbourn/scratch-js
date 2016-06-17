@@ -1,13 +1,13 @@
 angular
   .module('cocktailApp')
-  .controller('CocktailListCtrl', ['$location', 'CocktailFactory', 'Navigator',
-    function($location, CocktailFactory, Navigator) {
+  .controller('CocktailListCtrl', ['$location', 'navigator', 'cocktailCollection',
+    function($location, navigator, cocktailCollection) {
 
       var self = this;
 
       self.isDisabled = true;
 
-      CocktailFactory.getList()
+      cocktailCollection.getList()
         .then(function(cocktails) {
           self.cocktails = cocktails;
           self.isDisabled = false;
@@ -16,17 +16,17 @@ angular
         });
 
       self.addCocktail = function() {
-        Navigator.addCocktail();
+        navigator.addCocktail();
       };
 
       self.sources = function() {
-        Navigator.listSources();
+        navigator.listSources();
       };
 
       self.reset = function() {
-        CocktailFactory.clear()
+        cocktailCollection.clear()
         .then(function(ok) {
-          Navigator.listCocktails();
+          navigator.listCocktails();
         }, function(err) {
           self.errorMessage = "Failed to reset";
         });

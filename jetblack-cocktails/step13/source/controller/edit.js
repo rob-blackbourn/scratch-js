@@ -1,7 +1,7 @@
 angular
   .module('cocktailApp')
-  .controller('SourceEditCtrl', ['$location', '$routeParams', 'SourceFactory', 'Navigator',
-    function($location, $routeParams, SourceFactory, Navigator) {
+  .controller('SourceEditCtrl', ['$location', '$routeParams', 'navigator', 'sourceCollection',
+    function($location, $routeParams, navigator, sourceCollection) {
 
       var self = this;
 
@@ -11,7 +11,7 @@ angular
         self.source = {};
         self.isDisabled = false;
       } else {
-        SourceFactory.get($routeParams.id)
+        sourceCollection.get($routeParams.id)
           .then(function(source) {
             self.source = source;
             self.isDisabled = false;
@@ -21,9 +21,9 @@ angular
       }
 
       self.submit = function() {
-        SourceFactory.set(self.source)
+        sourceCollection.set(self.source)
           .then(function(source) {
-            Navigator.viewSource(self.source.id);
+            navigator.viewSource(self.source.id);
           }, function(err) {
             self.errorMessage = "Failed to set";
             console.log("Failed to set");
@@ -31,7 +31,7 @@ angular
       };
 
       self.cancel = function() {
-        Navigator.viewSource(self.source.id);
+        navigator.viewSource(self.source.id);
       };
     }
   ]);

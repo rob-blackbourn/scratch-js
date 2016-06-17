@@ -1,5 +1,5 @@
 angular.module('cocktailApp')
-  .factory('Navigator', ['$location',
+  .factory('navigator', ['$location',
     function($location) {
       return {
 

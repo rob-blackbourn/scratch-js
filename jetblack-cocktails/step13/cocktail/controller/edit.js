@@ -1,7 +1,7 @@
 angular
   .module('cocktailApp')
-  .controller('CocktailEditCtrl', ['$location', '$routeParams', 'CocktailFactory', 'Navigator',
-    function($location, $routeParams, CocktailFactory, Navigator) {
+  .controller('CocktailEditCtrl', ['$location', '$routeParams', 'navigator', 'cocktailCollection',
+    function($location, $routeParams, navigator, cocktailCollection) {
 
       var self = this;
 
@@ -11,7 +11,7 @@ angular
         self.cocktail = {};
         self.isDisabled = false;
       } else {
-        CocktailFactory.get($routeParams.id)
+        cocktailCollection.get($routeParams.id)
           .then(function(cocktail) {
             self.cocktail = cocktail;
             self.isDisabled = false;
@@ -54,9 +54,9 @@ angular
       };
 
       self.submit = function() {
-        CocktailFactory.set(self.cocktail)
+        cocktailCollection.set(self.cocktail)
           .then(function(cocktail) {
-            Navigator.viewCocktail(self.cocktail.id);
+            navigator.viewCocktail(self.cocktail.id);
           }, function(err) {
             self.errorMessage = "Failed to set";
             console.log("Failed to set");
@@ -64,7 +64,7 @@ angular
       };
 
       self.cancel = function() {
-        Navigator.viewCocktail(self.cocktail.id);
+        navigator.viewCocktail(self.cocktail.id);
       };
     }
   ]);
