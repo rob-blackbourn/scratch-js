@@ -1,30 +1,41 @@
-function CollectionDb($q, rfc4122, seedData, collection) {
+function CollectionDb($q, rfc4122, collection) {
   this.$q = $q;
   this.rfc4122 = rfc4122;
   this.collection = collection;
-
-  this.initialise(seedData);
 }
 
+// Populate the collection with initial values
 CollectionDb.prototype.initialise = function(seedData) {
   var self = this;
 
-  self.collection.count()
-    .then(function(count) {
-      if (count === 0) {
-        var onSuccess = function(value) {};
-        var onFailure = function(value) {
-          throw Error("Failed to add item");
-        };
-        for (var i = 0; i < seedData.length; ++i) {
-          var item = seedData[i];
-          self.collection.add(item.id, item)
-            .then(onSuccess, onFailure);
+  return self.$q(function(resolve, reject) {
+    // Find the count asynchronously.
+    self.collection.count()
+      .then(function(count) {
+        if (count > 0) {
+          resolve(self);
+        } else {
+          var onSuccess = function(value) {};
+          var failures = [];
+          var onFailure = function(err) {
+            failures.push(err);
+          };
+          for (var i = 0; i < seedData.length; ++i) {
+            var item = seedData[i];
+            self.collection.add(item.id, item)
+              .then(onSuccess, onFailure);
+          }
+          if (failures.length > 0) {
+            reject(failures);
+          } else {
+            resolve(self);
+          }
         }
-      }
-    }, function(err) {
-      throw Error("Failed to get count");
-    });
+      }, function(err) {
+        reject(err);
+      });
+  });
+
 };
 
 CollectionDb.prototype.getList = function() {
