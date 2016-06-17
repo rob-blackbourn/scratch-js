@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="cocktailApp">
+<head>
+  <title>Cocktails</title>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel='stylesheet' href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel='stylesheet' href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
+
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-route/angular-route.min.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="bower_components/angular-touch/angular-touch.min.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+  <script src="bower_components/angular-uuid-service/angular-uuid-service.min.js"></script>
+  <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+
+  <script src="app/module.js"></script>
+  <script src="app/config.js"></script>
+  <script src="app/navigator.js"></script>
+  <script src="app/localStorageCollection.js"></script>
+  <script src="app/collectionDb.js"></script>
+  <script src="source/model/value.js"></script>
+  <script src="source/model/factory.js"></script>
+  <script src="source/controller/list.js"></script>
+  <script src="source/controller/detail.js"></script>
+  <script src="source/controller/edit.js"></script>
+  <script src="cocktail/model/value.js"></script>
+  <script src="cocktail/model/factory.js"></script>
+  <script src="cocktail/controller/list.js"></script>
+  <script src="cocktail/controller/detail.js"></script>
+  <script src="cocktail/controller/edit.js"></script>
+</head>
+<body>
+  <div ng-view></div>
+</body>
+</html>
