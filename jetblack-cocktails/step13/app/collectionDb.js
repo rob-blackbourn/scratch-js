@@ -1,8 +1,13 @@
-function CollectionDb($q, rfc4122, collection) {
+function CollectionDb($q, rfc4122, collection, relations) {
   this.$q = $q;
   this.rfc4122 = rfc4122;
   this.collection = collection;
+  this.relations = relations || [];
 }
+
+CollectionDb.prototype.clone = function(value) {
+  return JSON.parse(JSON.stringify(value));
+};
 
 // Populate the collection with initial values
 CollectionDb.prototype.initialise = function(seedData) {
@@ -58,17 +63,48 @@ CollectionDb.prototype.getList = function() {
 };
 
 CollectionDb.prototype.get = function(key) {
-  return this.collection.get(key);
+  var self = this;
+
+  function resolveRelation(item, relation) {
+    relation.collection.get(item[relation.name])
+      .then(function(relationValue) {
+        item[relation.name] = relationValue;
+      }, function(err) {
+        item[relation.name] = null;
+      });
+  }
+
+  return self.$q(function(resolve, reject) {
+    self.collection.get(key)
+      .then(function(value) {
+        if (value) {
+          self.relations.forEach(function (relation) {
+            resolveRelation(value, relation);
+          });
+      }
+      resolve(value);
+    }, function (err) {
+      reject(err);
+    });
+  });
 };
 
 CollectionDb.prototype.set = function(value) {
   var self = this;
+
+  value = self.clone(value);
 
   return self.$q(function(resolve, reject) {
 
     if (!value.id) {
       value.id = rfc4122.v4();
     }
+
+    self.relations.foreach(function(relation) {
+      if (value[relation.name]) {
+        value[relation.name] = value[relation.name].id;
+      }
+    });
 
     self.collection.set(value.id, value)
       .then(resolve, reject);
