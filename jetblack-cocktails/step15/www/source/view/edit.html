@@ -1,0 +1,31 @@
+<div class="container-fluid">
+
+  <form ng-submit="sourceEditCtrl.submit()" name="sourceEditForm">
+
+    <div class="form-group">
+      <label for="sourceNameInput">Name</label>
+      <input type="text" ng-model="sourceEditCtrl.source.name" required id="sourceNameInput" class="form-control" placeholder="Source Name" />
+    </div>
+
+    <div class="form-group">
+      <label for="sourceDescriptionInput">Name</label>
+      <textarea ng-model="sourceEditCtrl.source.description" class="form-control" required id="sourceDescriptionInput" placeholder="Description"></textarea>
+    </div>
+
+    <div>
+      <div class="pull-left">
+        <button type="button" ng-click="sourceEditCtrl.cancel()" class="btn btn-default">
+          <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <div class="pull-right">
+        <button type="submit" class="btn btn-primary" ng-disabled="sourceForm.$invalid || sourceEditForm.isDisabled">
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+
+  </form>
+
+</div>
