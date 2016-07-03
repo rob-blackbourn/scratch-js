@@ -1,17 +1,27 @@
-describe("Fraction absolute", function() {
+define(['numbers'], function(numbers) {
 
-  it("should leave a positive fraction unchanged", function() {
-    var a = new Fraction(1, 2);
-    var f = a.abs();
-    expect(f.numerator).toEqual(1);
-    expect(f.denominator).toEqual(2);
+  var Fraction = numbers.Fraction;
+  var Arithmetic = numbers.Arithmetic;
+
+  describe("Fraction absolute", function() {
+
+    it("should leave a positive fraction unchanged", function() {
+      var a = new Fraction(1, 2);
+      var f = a.abs();
+      expect(f.numerator)
+        .toEqual(1);
+      expect(f.denominator)
+        .toEqual(2);
+    });
+
+    it("should make a negative fraction positive", function() {
+      var a = new Fraction(-1, 2);
+      var f = a.abs();
+      expect(f.numerator)
+        .toEqual(1);
+      expect(f.denominator)
+        .toEqual(2);
+    });
+
   });
-
-  it("should make a negative fraction positive", function() {
-    var a = new Fraction(-1, 2);
-    var f = a.abs();
-    expect(f.numerator).toEqual(1);
-    expect(f.denominator).toEqual(2);
-  });
-
 });

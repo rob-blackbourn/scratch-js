@@ -273,94 +273,10 @@
     }
   };
 
-  function Real(value) {
-
-    var valueType = typeof(value);
-
-    if (valueType === 'number') {
-      if (Number.isInteger(value)) {
-        this.value = new Fraction(Math.trunc(value), 1);
-      } else {
-        this.value = value;
-      }
-    } else if (value instanceof Fraction) {
-      if (value.isNaN()) {
-        this.value = Number.NaN;
-      } else {
-        this.value = value;
-      }
-    } else {
-      if (/^\s*[+-]?\d*\.\d+([Ee][+-]?\d+)?\s*$/.test(value)) {
-        this.value = parseFloat(value);
-      } else {
-        this.value = Fraction.parse(value);
-        if (this.value.isNaN()) {
-          this.value = Number.NaN;
-        }
-      }
-    }
-  }
-
-  Real.prototype.toString = function() {
-    return this.value.toString();
-  };
-
-  Real.prototype.isFloat = function() {
-    return typeof(this.value) === 'number';
-  };
-
-  Real.prototype.valueOf = function() {
-    return this.value.valueOf();
-  };
-
-  function areBothRealFractions(lhs, rhs) {
-    return lhs instanceof Real && rhs instanceof Real && lhs.value instanceof Fraction && rhs.value instanceof Fraction;
-  }
-
-  Real.prototype.eq = function(number) {
-    return areBothRealFractions(this, number) ? this.value.eq(number.value) : this.value == number;
-  };
-
-  Real.prototype.ne = function(number) {
-    return areBothRealFractions(this, number) ? this.value.ne(number.value) : this.value != number;
-  };
-
-  Real.prototype.lt = function(number) {
-    return areBothRealFractions(this, number) ? this.value.lt(number.value) : this.value < number;
-  };
-
-  Real.prototype.le = function(number) {
-    return areBothRealFractions(this, number) ? this.value.le(number.value) : this.value <= number;
-  };
-
-  Real.prototype.gt = function(number) {
-    return areBothRealFractions(this, number) ? this.value.gt(number.value) : this.value > number;
-  };
-
-  Real.prototype.ge = function(number) {
-    return areBothRealFractions(this, number) ? this.value.ge(number.value) : this.value >= number;
-  };
-
-  Real.prototype.add = function(number) {
-    return new Real(areBothRealFractions(this, number) ? this.value.add(number.value) : this.value + number);
-  };
-
-  Real.prototype.sub = function(number) {
-    return new Real(areBothRealFractions(this, number) ? this.value.sub(number.value) : this.value - number);
-  };
-
-  Real.prototype.mul = function(number) {
-    return new Real(areBothRealFractions(this, number) ? this.value.mul(number.value) : this.value * number);
-  };
-
-  Real.prototype.div = function(number) {
-    return new Real(areBothRealFractions(this, number) ? this.value.div(number.value) : this.value / number);
-  };
-
   if (typeof define === "function" && define.amd) {
     define({
       Fraction: Fraction,
-      Real: Real
+      Arithmetic: Arithmetic
     });
   } else if (typeof exports === "object") {
     module.exports = {
@@ -370,7 +286,6 @@
     };
   } else {
     context.Fraction = Fraction;
-    context.Real = Real;
     context.Arithmetic = Arithmetic;
   }
 
