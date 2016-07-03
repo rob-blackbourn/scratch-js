@@ -1,7 +1,5 @@
-define(['numbers'], function(numbers) {
+define(['fraction'], function(Fraction) {
 
-  var Fraction = numbers.Fraction;
-  var Arithmetic = numbers.Arithmetic;
   describe("Fraction fromFloat", function() {
 
     it('should convert simple float', function() {

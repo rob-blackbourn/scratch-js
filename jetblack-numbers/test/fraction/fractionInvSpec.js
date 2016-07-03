@@ -1,7 +1,5 @@
-define(['numbers'], function(numbers) {
+define(['fraction'], function(Fraction) {
 
-  var Fraction = numbers.Fraction;
-  var Arithmetic = numbers.Arithmetic;
 
   describe("Fraction inverse", function() {
 

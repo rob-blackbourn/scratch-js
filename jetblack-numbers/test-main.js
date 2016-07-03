@@ -17,7 +17,8 @@ require.config({
   baseUrl: '/base',
 
   paths: {
-    'numbers': "js/numbers"
+    'fraction': "js/fraction",
+    'arithmetic': "js/arithmetic",
   },
 
   // dynamically load all test files

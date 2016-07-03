@@ -1,7 +1,4 @@
-define(['numbers'], function(numbers) {
-
-  var Fraction = numbers.Fraction;
-  var Arithmetic = numbers.Arithmetic;
+define(['fraction', 'arithmetic'], function(Fraction, Arithmetic) {
 
   describe("Arithmetic multiply", function() {
 
