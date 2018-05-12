@@ -1,0 +1,1 @@
+export const ChickenEgg = "food/chicken/eggs";

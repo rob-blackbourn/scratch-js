@@ -1,0 +1,1 @@
+export const Butter = "food/butter";
