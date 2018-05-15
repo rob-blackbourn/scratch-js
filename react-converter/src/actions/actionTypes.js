@@ -1,0 +1,5 @@
+export const SET_DOMAIN = 'SET_SOURCE_DOMAIN'
+export const SET_SYSTEM = 'SET_SOURCE_SYSTEM'
+export const SET_AUTHORITY = 'SET_SOURCE_AUTHORITY'
+export const SET_NAME = 'SET_SOURCE_NAME'
+export const SET_VALUE = 'SET_SOURCE_VALUE'
