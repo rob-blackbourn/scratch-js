@@ -1,18 +1,18 @@
-import Fraction from './Fraction';
+import Fraction from './Fraction'
 
 export function parseNumber(text) {
     
-    let result = Fraction.parse(text);
+    let result = Fraction.parse(text)
     if (!result.isNaN()) {
-        return result;
+        return result
     }
 
-    result = Number.parseFloat(text);
+    result = Number.parseFloat(text)
     if (Number.isInteger(result)) {
-        return new Fraction(result, 1);
+        return new Fraction(result, 1)
     }
 
-    return result;
+    return result
 }
 
 export function numberToString(value, precision=2, denominators=[1, 2, 3, 4, 8]) {
