@@ -4,7 +4,8 @@ import {
     setSystem, 
     setAuthority, 
     setName,
-    setValue
+    setValue,
+    setStyle
 } from '../../actions'
 import UnitSelector from '../../components/Converter/UnitSelector'
 
@@ -22,7 +23,8 @@ const mapStateToPropsFactory = isSource => state => {
         systems: target.systems,
         authorities: target.authorities,
         names: target.names,
-        value: target.value
+        value: target.value,
+        style: target.style
     }
 }
 
@@ -32,7 +34,8 @@ const mapDispatchToPropsFactory = isSource => dispatch => (
         onSystemChanged: system => dispatch(setSystem(system, isSource)),
         onAuthorityChanged: authority => dispatch(setAuthority(authority, isSource)),
         onNameChanged: name => dispatch(setName(name, isSource)),
-        onValueChanged: value => dispatch(setValue(value, isSource))
+        onValueChanged: value => dispatch(setValue(value, isSource)),
+        onStyleChanged: (isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision) => dispatch(setStyle(isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision, isSource))
     }
 )
 

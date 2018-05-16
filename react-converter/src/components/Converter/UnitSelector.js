@@ -8,6 +8,8 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
 
+import DisplayMethod from './DisplayMethod'
+
 import uuid from '../../utils/uuid'
 
 const styles = theme => ({
@@ -33,7 +35,8 @@ const UnitSelector = ({
     system, systems, onSystemChanged,
     authority, authorities, onAuthorityChanged,
     name, names, onNameChanged,
-    value, onValueChanged
+    value, onValueChanged,
+    style, onStyleChanged
 }) => {
 
     const domainId = uuid()
@@ -130,6 +133,18 @@ const UnitSelector = ({
                     margin="normal" />
             </FormControl>
 
+            <br />
+
+            <DisplayMethod 
+                isDecimal={style.isDecimal} 
+                decimalPrecision={style.decimalPrecision}
+                isFractionRounded={style.isFractionRounded} 
+                fractionDenominators={style.fractionDenominators}
+                isFractionRationalised={style.isFractionRationalised}
+                rationalisePrecision={style.rationalisePrecision}
+                fromFloatPrecision={style.fromFloatPrecision}
+                onStyleChanged={onStyleChanged} />
+
         </Fragment>
     )
 }
@@ -147,9 +162,19 @@ UnitSelector.propTypes = {
     onAuthorityChanged: PropTypes.func.isRequired,
     name: PropTypes.string,
     names: PropTypes.arrayOf(PropTypes.string),
-    onNameChanged: PropTypes.func,
+    onNameChanged: PropTypes.func.isRequired,
     value: PropTypes.string,
-    onValueChanged: PropTypes.func
+    onValueChanged: PropTypes.func.isRequired,
+    style: PropTypes.shape({
+        isDecimal: PropTypes.bool.isRequired,
+        decimalPrecision: PropTypes.number.isRequired,
+        isFractionRounded: PropTypes.bool.isRequired,
+        fractionDenominators: PropTypes.arrayOf(PropTypes.number).isRequired,
+        isFractionRationalised: PropTypes.bool.isRequired,
+        rationalisePrecision: PropTypes.number.isRequired,
+        fromFloatPrecision: PropTypes.number.isRequired
+    }).isRequired,
+    onStyleChanged: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(UnitSelector)

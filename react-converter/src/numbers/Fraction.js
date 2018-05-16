@@ -100,6 +100,26 @@ export default class Fraction {
     }
   }
 
+  toArray() {
+    if (this.isNaN()) {
+      return [0, 1, 0]
+    }
+
+    const whole = Math.trunc(this.numerator / this.denominator)
+    if (whole) {
+      const numerator = whole >= 0 ? this.numerator - whole * this.denominator : -this.numerator + whole * this.denominator
+      if (numerator === 0) {
+        return [whole, 0, 1]
+      } else {
+        return [whole, numerator, this.denominator]
+      }
+    } else if (this.numerator !== 0) {
+      return [0, this.numerator, this.denominator]
+    } else {
+      return [0, 0, 1]
+    }
+  }
+
   valueOf() {
     return this.isNaN() ? Number.NaN : this._numerator / this._denominator
   }

@@ -1,6 +1,9 @@
 import * as actionTypes from '../actions/actionTypes'
 import { UnitIdentifier } from '../converters/UnitConverter'
-import { parseNumber, numberToString } from '../numbers/parsers'
+import { parseNumber } from '../numbers/parsers'
+import Fraction from '../numbers/Fraction'
+
+export const ROUNDED_FRACTION_METHOD = 'fraction'
 
 export default repository => {
 
@@ -11,7 +14,16 @@ export default repository => {
             systems: [],
             authorities: [],
             names: [],
-            value: ''
+            value: '',
+            style: {
+                isDecimal: false,
+                decimalPrecision: 2,
+                isFractionRounded: true,
+                fractionDenominators: [1, 2, 3, 4, 6, 8, 12, 16],
+                isFractionRationalised: false,
+                rationalisePrecision: 2, 
+                fromFloatPrecision: 6
+            }
         },
         destination: {
             unitIdentifier: new UnitIdentifier(null, null, null, null),
@@ -19,8 +31,17 @@ export default repository => {
             systems: [],
             authorities: [],
             names: [],
-            value: ''
-        },
+            value: '',
+            style: {
+                isDecimal: false,
+                decimalPrecision: 2,
+                isFractionRounded: true,
+                fractionDenominators: [1, 2, 3, 4, 6, 8, 12, 16],
+                isFractionRationalised: false,
+                rationalisePrecision: 2, 
+                fromFloatPrecision: 6
+            }
+        }
     }
 
     function tryParse(value) {
@@ -31,12 +52,25 @@ export default repository => {
         }
     }
 
-    function tryConvert(fromUnit, value, toUnit) {
+    function tryConvert(fromUnit, value, toUnit, style) {
         try {
             value = tryParse(value)
             let result = repository.findAndConvert(fromUnit, value, toUnit)
-            result = numberToString(result)
-            return result
+
+            if (style.isDecimal) {
+                return result.valueOf().toFixed(style.decimalPrecision)
+            } else {
+                if (!(result instanceof Fraction)) {
+                    result = Fraction.fromFloat(result, Math.pow(10, -style.fromFloatPrecision))
+                }
+                if (style.isFractionRationalised) {
+                    result = result.rationalise(Math.pow(10, -style.rationalisePrecision))
+                }
+                if (style.isFractionRounded) {
+                    result = result.roundTo(style.fractionDenominators)
+                }
+                return result.toString()
+            }
         } catch (_) {
             return ''
         }
@@ -116,27 +150,27 @@ export default repository => {
                 try {
                     if (action.content.isSource) {
                         const unitIdentifier = new UnitIdentifier(state.source.unitIdentifier.domain, state.source.unitIdentifier.system, state.source.unitIdentifier.authority, action.content.name)
-                        const value = tryConvert(unitIdentifier, state.destination.value, state.source.unitIdentifier)
+                        const sourceValue = tryConvert(unitIdentifier, state.destination.value, state.source.unitIdentifier, state.source.style)
     
                         return {
                             ...state,
                             source: {
                                 ...state.source,
                                 unitIdentifier,
-                                value 
+                                value: sourceValue
                             }
                         }
                         }
                     else {
                         const unitIdentifier = new UnitIdentifier(state.destination.unitIdentifier.domain, state.destination.unitIdentifier.system, state.destination.unitIdentifier.authority, action.content.name)
-                        const value = tryConvert(state.source.unitIdentifier, state.source.value, unitIdentifier)
+                        const destinationValue = tryConvert(state.source.unitIdentifier, state.source.value, unitIdentifier, state.destination.style)
     
                         return {
                             ...state,
                             destination: {
                                 ...state.destination,
                                 unitIdentifier,
-                                value
+                                value: destinationValue
                             }
                         }
                         }
@@ -147,37 +181,61 @@ export default repository => {
             case actionTypes.SET_VALUE:
                 try {
                     if (action.content.isSource) {
-                        const value = action.content.value
-                        const converted = tryConvert(state.source.unitIdentifier, value, state.destination.unitIdentifier)
+                        const sourceValue = action.content.value
+                        const destinationValue = tryConvert(state.source.unitIdentifier, sourceValue, state.destination.unitIdentifier, state.destination.style)
     
                         return {
                             ...state,
                             source: {
                                 ...state.source,
-                                value
+                                value: sourceValue
                             },
                             destination: {
                                 ...state.destination,
-                                value: converted
+                                value: destinationValue
                             }
                         }
                     }
                     else {
-                        const value = action.content.value
-                        const converted = tryConvert(state.destination.unitIdentifier, value, state.source.unitIdentifier)
+                        const destinationValue = action.content.value
+                        const sourceValue = tryConvert(state.destination.unitIdentifier, destinationValue, state.source.unitIdentifier, state.source.style)
     
                         return {
                             ...state,
                             source: {
                                 ...state.source,
-                                value: converted
+                                value: sourceValue
                             },
                             destination: {
                                 ...state.destination,
-                                value
+                                value: destinationValue
                             }
                         }
                     }
+                }
+                catch (_) {
+                    return state
+                }
+            case actionTypes.SET_STYLE:
+                try {
+                    const key = action.content.isSource ? "source" : "destination"
+                    const altKey = action.content.isSource ? "destination" : "source"
+                    const obj = state[key]
+                    const altObj = state[altKey]
+                    const { isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision } = action.content
+                    const style = { isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision }
+
+                    const value = tryConvert(altObj.unitIdentifier, altObj.value, obj.unitIdentifier, style)
+
+                    return {
+                        ...state,
+                        [key]: {
+                            ...obj,
+                            style,
+                            value
+                        }
+                    }
+                    
                 }
                 catch (_) {
                     return state
