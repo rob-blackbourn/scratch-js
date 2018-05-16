@@ -1,15 +1,16 @@
-import React, { Fragment } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import { withStyles } from '@material-ui/core/styles'
-import FormControl from '@material-ui/core/FormControl'
-import { FormGroup, FormControlLabel } from 'material-ui/Form'
-import FormLabel from '@material-ui/core/FormLabel'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Switch from 'material-ui/Switch'
 import Checkbox from 'material-ui/Checkbox'
 import TextField from '@material-ui/core/TextField'
 import Tooltip from '@material-ui/core/Tooltip'
-
+import IconButton from '@material-ui/core/IconButton'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
 import Fraction from './Fraction'
 
 const styles = theme => ({
@@ -38,221 +39,308 @@ const styles = theme => ({
     }
 });
 
+class DisplayMethod extends Component {
 
-const DisplayMethod = ({ 
-    classes,
-    isDecimal,
-    decimalPrecision,
-    isFractionRounded,
-    fractionDenominators,
-    isFractionRationalised,
-    rationalisePrecision,
-    fromFloatPrecision,
-    onStyleChanged
-}) => {
-
-    const onIsDecimalChanged = (event, checked) => {
-        isDecimal = checked
-        onStyleChanged(isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision)
+    static propTypes = {
+        isDecimal: PropTypes.bool.isRequired,
+        decimalPrecision: PropTypes.number.isRequired,
+        isFractionRounded: PropTypes.bool.isRequired,
+        fractionDenominators: PropTypes.arrayOf(PropTypes.number).isRequired,
+        isFractionRationalised: PropTypes.bool.isRequired,
+        rationalisePrecision: PropTypes.number.isRequired,
+        fromFloatPrecision: PropTypes.number.isRequired,
+        onStyleChanged: PropTypes.func.isRequired
     }
+
+    state = {
+        anchorEl: null
+    }
+
+    handleRoundingMenuClick = event => {
+        this.setState({ anchorEl: event.currentTarget });
+    };
     
-    const onDecimalPrecisionChanged = (event) => {
-        decimalPrecision = Math.trunc(Number.parseFloat(event.target.value))
-        onStyleChanged(isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision)
+    handleRoundingMenuClose = () => {
+        this.setState({ anchorEl: null });
+    };
+
+    onIsDecimalChanged = (event, checked) => {
+        const isDecimal = checked
+        this.props.onStyleChanged(
+            isDecimal,
+            this.props.decimalPrecision,
+            this.props.isFractionRounded,
+            this.props.fractionDenominators,
+            this.props.isFractionRationalised,
+            this.props.rationalisePrecision,
+            this.props.fromFloatPrecision)
     }
 
-    const onIsFractionRoundedChanged = (event, checked) => {
-        isFractionRounded = checked
-        onStyleChanged(isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision)
+    onDecimalPrecisionChanged = (event) => {
+        const decimalPrecision = Math.trunc(Number.parseFloat(event.target.value))
+        this.props.onStyleChanged(
+            this.props.isDecimal,
+            decimalPrecision,
+            this.props.isFractionRounded,
+            this.props.fractionDenominators,
+            this.props.isFractionRationalised,
+            this.props.rationalisePrecision,
+            this.props.fromFloatPrecision)
     }
 
-    const onFractionDemonitorsChanged = (event, checked) => {
+    onIsFractionRoundedChanged = (event, checked) => {
+        const isFractionRounded = checked
+        this.props.onStyleChanged(
+            this.props.isDecimal,
+            this.props.decimalPrecision,
+            isFractionRounded,
+            this.props.fractionDenominators,
+            this.props.isFractionRationalised,
+            this.props.rationalisePrecision,
+            this.props.fromFloatPrecision)
+    }
+
+    onFractionDenominatorsChanged = (event, checked) => {
         const denominator = Math.trunc(Number.parseFloat(event.target.value))
+
         if (Number.isNaN(denominator)) {
             return
         }
-        fractionDenominators = checked
-            ? [...fractionDenominators, denominator].sort()
-            : fractionDenominators.filter(x => x !== denominator)
-            onStyleChanged(isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision)
-        }
 
-    const onIsFractionRationalisedChanged = (event, checked) => {
-        isFractionRationalised = checked
-        onStyleChanged(isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision)
+        const fractionDenominators = checked
+            ? [...this.props.fractionDenominators, denominator].sort()
+            : this.props.fractionDenominators.filter(x => x !== denominator)
+
+        this.props.onStyleChanged(
+            this.props.isDecimal,
+            this.props.decimalPrecision,
+            this.props.isFractionRounded,
+            fractionDenominators,
+            this.props.isFractionRationalised,
+            this.props.rationalisePrecision,
+            this.props.fromFloatPrecision)
     }
+
+    onIsFractionRationalisedChanged = (event, checked) => {
+        const isFractionRationalised = checked
+        this.props.onStyleChanged(
+            this.props.isDecimal,
+            this.props.decimalPrecision,
+            this.props.isFractionRounded,
+            this.props.fractionDenominators,
+            isFractionRationalised,
+            this.props.rationalisePrecision,
+            this.props.fromFloatPrecision)
+    }
+
+    onRationalisePrecisionChanged = (event) => {
+        const rationalisePrecision = Math.trunc(Number.parseFloat(event.target.value))
+        this.props.onStyleChanged(
+            this.props.isDecimal,
+            this.props.decimalPrecision,
+            this.props.isFractionRounded,
+            this.props.fractionDenominators,
+            this.props.isFractionRationalised,
+            rationalisePrecision,
+            this.props.fromFloatPrecision)
+    }
+
+    onFromFloatPrecisionChanged = (event) => {
+        const fromFloatPrecision = Math.trunc(Number.parseFloat(event.target.value))
+        this.props.onStyleChanged(
+            this.props.isDecimal,
+            this.props.decimalPrecision,
+            this.props.isFractionRounded,
+            this.props.fractionDenominators,
+            this.props.isFractionRationalised,
+            this.props.rationalisePrecision,
+            fromFloatPrecision)
+    }
+
+    render() {
+        const { classes} = this.props
+        const { anchorEl } = this.state
     
-    const onRationalisePrecisionChanged = (event) => {
-        rationalisePrecision = Math.trunc(Number.parseFloat(event.target.value))
-        onStyleChanged(isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision)
-    }
+        return (
+            <Fragment>
+                <FormControlLabel
+                    className={classes.formControl}
+                    label='Show as a decimal'
+                    control={
+                        <Switch 
+                            checked={this.props.isDecimal}
+                            onChange={this.onIsDecimalChanged}
+                        />
+                    }
+                />
     
-    const onFromFloatPrecisionChanged = (event) => {
-        fromFloatPrecision = Math.trunc(Number.parseFloat(event.target.value))
-        onStyleChanged(isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision)
-    }
-
-    return (
-        <Fragment>
-            <FormControlLabel
-                className={classes.formControl}
-                label='Show as a decimal'
-                control={
-                    <Switch 
-                        checked={isDecimal}
-                        onChange={onIsDecimalChanged}
-                    />
-                }
-            />
-
-            <br />
-
-            <TextField
-                label="Decimal precision" 
-                value={decimalPrecision}
-                disabled={!isDecimal}
-                type="number"
-                className={classes.textField}
-                onChange={onDecimalPrecisionChanged} />
-
-            <br />
-
-            <FormControlLabel
-                className={classes.formControl}
-                label='Is Rounded'
-                disabled={isDecimal}
-                control={
-                    <Switch 
-                        checked={isFractionRounded}
-                        onChange={onIsFractionRoundedChanged}
-                    />
-                }
-            />
-
-            <br />
-
-            <FormControl component="fieldset" className={classes.FormControl}>
-                <FormLabel component="legend">Fraction rounding</FormLabel>
-                <FormGroup row className={classes.formControl}>
-                    <FormControlLabel
-                        className={classes.formCheckboxControl}
-                        label={<Fraction numerator={1} denominator={2} />}
-                        control={
-                            <Checkbox
-                                checked={fractionDenominators.includes(2)}
-                                value="2"
-                                onChange={onFractionDemonitorsChanged} />
-                        } />
-                    <FormControlLabel
-                        className={classes.formCheckboxControl}
-                        label={<Fraction numerator={1} denominator={3} />}
-                        control={
-                            <Checkbox
-                                checked={fractionDenominators.includes(3)}
-                                value="3"
-                                onChange={onFractionDemonitorsChanged} />
-                        } />
-                    <FormControlLabel
-                        className={classes.formCheckboxControl}
-                        label={<Fraction numerator={1} denominator={4} />}
-                        control={
-                            <Checkbox
-                                checked={fractionDenominators.includes(4)}
-                                value="4"
-                                onChange={onFractionDemonitorsChanged} />
-                        } />
-                    <FormControlLabel
-                        className={classes.formCheckboxControl}
-                        label={<Fraction numerator={1} denominator={6} />}
-                        control={
-                            <Checkbox
-                                checked={fractionDenominators.includes(6)}
-                                value="6"
-                                onChange={onFractionDemonitorsChanged} />
-                        } />
-                    <FormControlLabel
-                        className={classes.formCheckboxControl}
-                        label={<Fraction numerator={1} denominator={8} />}
-                        control={
-                            <Checkbox
-                                checked={fractionDenominators.includes(8)}
-                                value="8"
-                                onChange={onFractionDemonitorsChanged} />
-                        } />
-                    <FormControlLabel
-                        className={classes.formCheckboxControl}
-                        label={<Fraction numerator={1} denominator={12} />}
-                        control={
-                            <Checkbox
-                                checked={fractionDenominators.includes(12)}
-                                value="12"
-                                onChange={onFractionDemonitorsChanged} />
-                        } />
-                    <FormControlLabel
-                        className={classes.formCheckboxControl}
-                        label={<Fraction numerator={1} denominator={16} />}
-                        control={
-                            <Checkbox
-                                checked={fractionDenominators.includes(16)}
-                                value="16"
-                                onChange={onFractionDemonitorsChanged} />
-                        } />
-                </FormGroup>
-
-            </FormControl>
-
-            <br />
-
-            <Tooltip title="The precision used when converting from a decimal to a fraction">
+                <br />
+    
                 <TextField
-                    label="From decimal precision" 
-                    value={fromFloatPrecision}
-                    disabled={isDecimal}
+                    label="Decimal precision" 
+                    value={this.props.decimalPrecision}
+                    disabled={!this.props.isDecimal}
                     type="number"
                     className={classes.textField}
-                    onChange={onFromFloatPrecisionChanged} />
-            </Tooltip>
+                    onChange={this.onDecimalPrecisionChanged} />
+    
+                <br />
+    
+                <FormControlLabel
+                    className={classes.formControl}
+                    label='Is Rounded'
+                    disabled={this.props.isDecimal}
+                    control={
+                        <Fragment>
+                        <Switch 
+                            disabled={this.props.isDecimal}
+                            checked={this.props.isFractionRounded}
+                            onChange={this.onIsFractionRoundedChanged}
+                        />
+                        <IconButton 
+                            disabled={this.props.isDecimal}
+                            onClick={this.handleRoundingMenuClick}>
+                            <MoreVertIcon />
+                        </IconButton>
+                        </Fragment>
+                    }
+                />
+    
+                <br />
+    
+                <Menu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={this.handleRoundingMenuClose}>
 
-            <br />
+                    <MenuItem>
+                        <FormControlLabel
+                            className={classes.formCheckboxControl}
+                            label={<Fraction numerator={1} denominator={2} />}
+                            control={
+                                <Checkbox
+                                    checked={this.props.fractionDenominators.includes(2)}
+                                    value="2"
+                                    onChange={this.onFractionDenominatorsChanged} />
+                            } />
+                    </MenuItem>
 
-            <FormControlLabel
-                className={classes.formControl}
-                label='Rationalise fraction'
-                control={
-                    <Switch 
-                        disabled={isDecimal}
-                        checked={isFractionRationalised}
-                        onChange={onIsFractionRationalisedChanged}
-                    />
-                }
-            />
+                    <MenuItem>
+                        <FormControlLabel
+                            className={classes.formCheckboxControl}
+                            label={<Fraction numerator={1} denominator={3} />}
+                            control={
+                                <Checkbox
+                                    checked={this.props.fractionDenominators.includes(3)}
+                                    value="3"
+                                    onChange={this.onFractionDenominatorsChanged} />
+                            } />
+                    </MenuItem>
 
-            <br />
+                    <MenuItem>
+                        <FormControlLabel
+                            className={classes.formCheckboxControl}
+                            label={<Fraction numerator={1} denominator={4} />}
+                            control={
+                                <Checkbox
+                                    checked={this.props.fractionDenominators.includes(4)}
+                                    value="4"
+                                    onChange={this.onFractionDenominatorsChanged} />
+                            } />
+                    </MenuItem>
 
-            <Tooltip title="The prevision used when reducing the demonitor of a fraction">
-                <TextField
-                    label="Rationalise precision" 
-                    value={rationalisePrecision}
-                    disabled={isDecimal}
-                    type="number"
-                    className={classes.textField}
-                    onChange={onRationalisePrecisionChanged} />
-            </Tooltip>
+                    <MenuItem>
+                        <FormControlLabel
+                            className={classes.formCheckboxControl}
+                            label={<Fraction numerator={1} denominator={6} />}
+                            control={
+                                <Checkbox
+                                    checked={this.props.fractionDenominators.includes(6)}
+                                    value="6"
+                                    onChange={this.onFractionDenominatorsChanged} />
+                            } />
+                    </MenuItem>
 
-                    
-        </Fragment>
-    )
-}
+                    <MenuItem>
+                        <FormControlLabel
+                            className={classes.formCheckboxControl}
+                            label={<Fraction numerator={1} denominator={8} />}
+                            control={
+                                <Checkbox
+                                    checked={this.props.fractionDenominators.includes(8)}
+                                    value="8"
+                                    onChange={this.onFractionDenominatorsChanged} />
+                            } />
+                    </MenuItem>
 
-DisplayMethod.propTypes = {
-    isDecimal: PropTypes.bool.isRequired,
-    decimalPrecision: PropTypes.number.isRequired,
-    isFractionRounded: PropTypes.bool.isRequired,
-    fractionDenominators: PropTypes.arrayOf(PropTypes.number).isRequired,
-    isFractionRationalised: PropTypes.bool.isRequired,
-    rationalisePrecision: PropTypes.number.isRequired,
-    fromFloatPrecision: PropTypes.number.isRequired,
-    onStyleChanged: PropTypes.func.isRequired
+                    <MenuItem>
+                        <FormControlLabel
+                            className={classes.formCheckboxControl}
+                            label={<Fraction numerator={1} denominator={12} />}
+                            control={
+                                <Checkbox
+                                    checked={this.props.fractionDenominators.includes(12)}
+                                    value="12"
+                                    onChange={this.onFractionDenominatorsChanged} />
+                            } />
+                    </MenuItem>
+
+                    <MenuItem>
+                        <FormControlLabel
+                            className={classes.formCheckboxControl}
+                            label={<Fraction numerator={1} denominator={16} />}
+                            control={
+                                <Checkbox
+                                    checked={this.props.fractionDenominators.includes(16)}
+                                    value="16"
+                                    onChange={this.onFractionDenominatorsChanged} />
+                            } />
+                    </MenuItem>
+    
+                </Menu>
+    
+                <br />
+    
+                <Tooltip title="The precision used when converting from a decimal to a fraction">
+                    <TextField
+                        label="From decimal precision" 
+                        value={this.props.fromFloatPrecision}
+                        disabled={this.props.isDecimal}
+                        type="number"
+                        className={classes.textField}
+                        onChange={this.onFromFloatPrecisionChanged} />
+                </Tooltip>
+    
+                <br />
+    
+                <FormControlLabel
+                    className={classes.formControl}
+                    label='Rationalise fraction'
+                    control={
+                        <Switch 
+                            disabled={this.props.isDecimal}
+                            checked={this.props.isFractionRationalised}
+                            onChange={this.onIsFractionRationalisedChanged}
+                        />
+                    }
+                />
+    
+                <br />
+    
+                <Tooltip title="The prevision used when reducing the demonitor of a fraction">
+                    <TextField
+                        label="Rationalise precision" 
+                        value={this.props.rationalisePrecision}
+                        disabled={this.props.isDecimal}
+                        type="number"
+                        className={classes.textField}
+                        onChange={this.onRationalisePrecisionChanged} />
+                </Tooltip>
+    
+                        
+            </Fragment>
+        )        
+    }
 }
 
 export default withStyles(styles)(DisplayMethod)
