@@ -11,8 +11,8 @@ export default repository => {
         source: {
             unitIdentifier: new UnitIdentifier(null, null, null, null),
             domains: Array.from(repository.converters.keys()),
-            systems: [],
             authorities: [],
+            systems: [],
             names: [],
             value: '',
             style: {
@@ -28,8 +28,8 @@ export default repository => {
         destination: {
             unitIdentifier: new UnitIdentifier(null, null, null, null),
             domains: Array.from(repository.converters.keys()),
-            systems: [],
             authorities: [],
+            systems: [],
             names: [],
             value: '',
             style: {
@@ -86,8 +86,8 @@ export default repository => {
                     const obj = state[key]
 
                     const unitIdentifier = new UnitIdentifier(action.content.domain, null, null, null)
-                    const systems = Array.from(repository.converters.get(action.content.domain).keys())
-                    const authorities = []
+                    const authorities = Array.from(repository.converters.get(action.content.domain).keys())
+                    const systems = []
                     const names = []
 
                     return {
@@ -95,30 +95,8 @@ export default repository => {
                         [key]: {
                             ...obj,
                             unitIdentifier,
+                            authorities,
                             systems,
-                            authorities,
-                            names
-                        }
-                    }
-                }
-                catch (_) {
-                    return state
-                }
-            case actionTypes.SET_SYSTEM:
-                try {
-                    const key = action.content.isSource ? "source" : "destination"
-                    const obj = state[key]
-
-                    const unitIdentifier = new UnitIdentifier(obj.unitIdentifier.domain, action.content.system, null, null)
-                    const authorities = Array.from(repository.converters.get(obj.unitIdentifier.domain).get(action.content.system).keys())
-                    const names = []
-
-                    return {
-                        ...state,
-                        [key]: {
-                            ...obj,
-                            unitIdentifier,
-                            authorities,
                             names
                         }
                     }
@@ -131,8 +109,35 @@ export default repository => {
                     const key = action.content.isSource ? "source" : "destination"
                     const obj = state[key]
 
-                    const unitIdentifier = new UnitIdentifier(obj.unitIdentifier.domain, obj.unitIdentifier.system, action.content.authority, null)
-                    const names = Array.from(repository.converters.get(obj.unitIdentifier.domain).get(obj.unitIdentifier.system).get(action.content.authority).keys())
+                    const unitIdentifier = new UnitIdentifier(
+                        obj.unitIdentifier.domain,
+                        action.content.authority,
+                        null,
+                        null)
+                    const systems = Array.from(
+                        repository.converters.get(obj.unitIdentifier.domain).get(action.content.authority).keys())
+                    const names = []
+
+                    return {
+                        ...state,
+                        [key]: {
+                            ...obj,
+                            unitIdentifier,
+                            systems,
+                            names
+                        }
+                    }
+                }
+                catch (_) {
+                    return state
+                }
+            case actionTypes.SET_SYSTEM:
+                try {
+                    const key = action.content.isSource ? "source" : "destination"
+                    const obj = state[key]
+
+                    const unitIdentifier = new UnitIdentifier(obj.unitIdentifier.domain, obj.unitIdentifier.authority, action.content.system, null)
+                    const names = Array.from(repository.converters.get(obj.unitIdentifier.domain).get(obj.unitIdentifier.authority).get(action.content.system).keys())
                     
                     return {
                         ...state,
@@ -149,7 +154,7 @@ export default repository => {
             case actionTypes.SET_NAME:
                 try {
                     if (action.content.isSource) {
-                        const unitIdentifier = new UnitIdentifier(state.source.unitIdentifier.domain, state.source.unitIdentifier.system, state.source.unitIdentifier.authority, action.content.name)
+                        const unitIdentifier = new UnitIdentifier(state.source.unitIdentifier.domain, state.source.unitIdentifier.authority, state.source.unitIdentifier.system, action.content.name)
                         const sourceValue = tryConvert(unitIdentifier, state.destination.value, state.source.unitIdentifier, state.source.style)
     
                         return {
@@ -162,7 +167,7 @@ export default repository => {
                         }
                         }
                     else {
-                        const unitIdentifier = new UnitIdentifier(state.destination.unitIdentifier.domain, state.destination.unitIdentifier.system, state.destination.unitIdentifier.authority, action.content.name)
+                        const unitIdentifier = new UnitIdentifier(state.destination.unitIdentifier.domain, state.destination.unitIdentifier.authority, state.destination.unitIdentifier.system, action.content.name)
                         const destinationValue = tryConvert(state.source.unitIdentifier, state.source.value, unitIdentifier, state.destination.style)
     
                         return {

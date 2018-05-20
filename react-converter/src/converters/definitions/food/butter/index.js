@@ -1,8 +1,8 @@
-import createAmericanUnits from './usa';
-import {Butter} from './constants';
+import createAmericanUnits from './usa'
+import { Butter, Stick } from './constants'
 
 export default repository => {
-    createAmericanUnits(repository);
+    createAmericanUnits(repository)
 }
 
-export {Butter}
+export { Butter, Stick }

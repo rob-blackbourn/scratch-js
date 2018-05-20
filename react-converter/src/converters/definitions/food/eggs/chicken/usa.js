@@ -8,14 +8,14 @@ import {ChickenEgg} from './constants';
 
 export default (repository) => {
 
-    const ounceConverter = repository.find(new UnitIdentifier(domains.Mass, Customary, UnitedStates, 'ounce'));
+    const ounceConverter = repository.find(new UnitIdentifier(domains.Mass, UnitedStates, Customary, 'ounce'));
 
     const jumboScalar = new Fraction(5, 2);
     repository.add(
         new UnitConverter(
             domains.Mass,
-            ChickenEgg,
             UnitedStates,
+            ChickenEgg,
             "jumbo",
             "jumbo",
             ounceConverter,
@@ -26,8 +26,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            ChickenEgg,
             UnitedStates,
+            ChickenEgg,
             "very large",
             "XL",
             ounceConverter,
@@ -38,8 +38,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            ChickenEgg,
             UnitedStates,
+            ChickenEgg,
             "large",
             "L",
             ounceConverter,
@@ -50,8 +50,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            ChickenEgg,
             UnitedStates,
+            ChickenEgg,
             "medium",
             "M",
             ounceConverter,
@@ -62,8 +62,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            ChickenEgg,
             UnitedStates,
+            ChickenEgg,
             "small",
             "S",
             ounceConverter,
@@ -74,8 +74,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            ChickenEgg,
             UnitedStates,
+            ChickenEgg,
             "peewee",
             "peewee",
             ounceConverter,

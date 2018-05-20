@@ -39,8 +39,8 @@ function createSiConverters(targetConverter) {
     return prefixes.map(prefix =>
             new UnitConverter(
                 targetConverter.domain,
-                targetConverter.system,
                 targetConverter.authority,
+                targetConverter.system,
                 prefix.name + targetConverter.name,
                 prefix.symbol + targetConverter.symbol,
                 targetConverter,
@@ -49,11 +49,11 @@ function createSiConverters(targetConverter) {
     );
 }
 
-export const MeterConverter = new UnitConverter(domains.Length, Metric, SystemInternational, Meter, "m", null, null, null);
-export const GrammeConverter = new UnitConverter(domains.Mass, Metric, SystemInternational, Gramme, "g", null, null, null);
-export const SecondConverter = new UnitConverter(domains.Time,  Metric, SystemInternational, Second, "s", null, null, null);
-export const LitreConverter = new UnitConverter(domains.Volume, Metric, SystemInternational, Litre, "l", null, null, null);
-export const KelvinConverter = new UnitConverter(domains.Temperature,  Metric, SystemInternational, Kelvin, "K", null, null, null);
+export const MeterConverter = new UnitConverter(domains.Length, SystemInternational, Metric, Meter, "m", null, null, null);
+export const GrammeConverter = new UnitConverter(domains.Mass, SystemInternational, Metric, Gramme, "g", null, null, null);
+export const SecondConverter = new UnitConverter(domains.Time, SystemInternational,  Metric, Second, "s", null, null, null);
+export const LitreConverter = new UnitConverter(domains.Volume, SystemInternational, Metric, Litre, "l", null, null, null);
+export const KelvinConverter = new UnitConverter(domains.Temperature, SystemInternational, Metric, Kelvin, "K", null, null, null);
 export const MassVolumeConverter = new DomainConverter(GrammeConverter, LitreConverter,(value, scalar) => mul(value, scalar),(value, scalar) => div(value, scalar));
 
 export function createUnitConverters() {

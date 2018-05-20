@@ -1,1 +1,1 @@
-export const Butter = "food/butter";
+export const Butter = "food/butter", Stick = "stick";

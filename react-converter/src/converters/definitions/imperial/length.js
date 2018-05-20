@@ -8,13 +8,13 @@ import {Imperial, ImperialFeet} from './constants';
 
 export default (repository) => {
 
-    const meterConverter = repository.find(new UnitIdentifier(domains.Length, Metric, SystemInternational, Meter));
+    const meterConverter = repository.find(new UnitIdentifier(domains.Length, SystemInternational, Metric, Meter));
     const meterScalar = new Fraction(3048, 10000);
     const feetConverter = repository.add(
         new UnitConverter(
             domains.Length,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             ImperialFeet,
             "ft",
             meterConverter,
@@ -25,8 +25,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Length,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "thou",
             "th",
             feetConverter,
@@ -37,8 +37,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Length,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "inch",
             "in",
             feetConverter,
@@ -49,8 +49,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Length,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "yard",
             "yd",
             feetConverter,
@@ -61,8 +61,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Length,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "chain",
             "ch",
             feetConverter,
@@ -73,8 +73,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Length,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "furlong",
             "fur",
             feetConverter,
@@ -85,8 +85,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Length,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "mile",
             "mi",
             feetConverter,
@@ -97,8 +97,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Length,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "league",
             "lea",
             feetConverter,

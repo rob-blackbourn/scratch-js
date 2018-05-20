@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import { 
     setDomain,
-    setSystem, 
     setAuthority, 
+    setSystem, 
     setName,
     setValue,
     setStyle
@@ -16,8 +16,8 @@ const mapStateToPropsFactory = isSource => state => {
     return {
         isSource,
         domain: target.unitIdentifier.domain,
-        system: target.unitIdentifier.system,
         authority: target.unitIdentifier.authority,
+        system: target.unitIdentifier.system,
         name: target.unitIdentifier.name,
         domains: target.domains,
         systems: target.systems,
@@ -31,8 +31,8 @@ const mapStateToPropsFactory = isSource => state => {
 const mapDispatchToPropsFactory = isSource => dispatch => (
     {
         onDomainChanged: domain => dispatch(setDomain(domain, isSource)),
-        onSystemChanged: system => dispatch(setSystem(system, isSource)),
         onAuthorityChanged: authority => dispatch(setAuthority(authority, isSource)),
+        onSystemChanged: system => dispatch(setSystem(system, isSource)),
         onNameChanged: name => dispatch(setName(name, isSource)),
         onValueChanged: value => dispatch(setValue(value, isSource)),
         onStyleChanged: (isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision) => dispatch(setStyle(isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision, isSource))

@@ -1,35 +1,35 @@
-import UnitConverter, {UnitIdentifier} from '../../UnitConverter';
-import {Fraction, mul, div} from '../../../numbers';
+import UnitConverter, {UnitIdentifier} from '../../UnitConverter'
+import {Fraction, mul, div} from '../../../numbers'
 
-import {Metric, Litre} from '../metric/constants';
-import {Imperial} from '../imperial/constants';
-import * as domains from '../domains';
-import {UnitedKingdom, SystemInternational} from '../authorities';
-import {Utensils} from './constants';
+import {Metric, Litre} from '../metric/constants'
+import {Imperial} from '../imperial/constants'
+import * as domains from '../domains'
+import {UnitedKingdom, SystemInternational} from '../authorities'
+import {Utensils} from './constants'
 
 export default (repository) => {
 
-    const litreConverter = repository.find(new UnitIdentifier(domains.Volume, Metric, SystemInternational, Litre));
-    const pintConverter = repository.find(new UnitIdentifier(domains.Volume, Imperial, UnitedKingdom, 'pint'));
+    const litreConverter = repository.find(new UnitIdentifier(domains.Volume, SystemInternational, Metric, Litre))
+    const pintConverter = repository.find(new UnitIdentifier(domains.Volume, UnitedKingdom, Imperial, 'pint'))
 
-    const teaspoonScalar = new Fraction(5, 1000);
+    const teaspoonScalar = new Fraction(5, 1000)
     repository.add(
         new UnitConverter(
             domains.Volume,
-            Utensils,
             UnitedKingdom,
+            Utensils,
             "teaspoon",
             "tsp",
             litreConverter,
             value => mul(value, teaspoonScalar),
-            value => div(value, teaspoonScalar)));
+            value => div(value, teaspoonScalar)))
 
-    const dessertspoonScalar = new Fraction(10, 1000);
+    const dessertspoonScalar = new Fraction(10, 1000)
     repository.add(
         new UnitConverter(
             domains.Volume,
-            Utensils,
             UnitedKingdom,
+            Utensils,
             "dessertspoon",
             "dstspn",
             litreConverter,
@@ -40,23 +40,23 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Volume,
-            Utensils,
             UnitedKingdom,
+            Utensils,
             "tablespoon",
             "tbsp",
             litreConverter,
             value => mul(value, tablespoonScalar),
-            value => div(value, tablespoonScalar)));
+            value => div(value, tablespoonScalar)))
 
     const cupScalar = 2;
     repository.add(
         new UnitConverter(
             domains.Volume,
-            Utensils,
             UnitedKingdom,
+            Utensils,
             "cup",
             "cup",
             pintConverter,
             value => div(value, cupScalar),
-            value => mul(value, cupScalar)));
-};
+            value => mul(value, cupScalar)))
+}

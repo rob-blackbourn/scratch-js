@@ -56,26 +56,26 @@ export default class Repository {
         if (!convertersInDomain) {
             this._converters.set(converter.domain, convertersInDomain = new Map());
         }
-        let convertersInSystem = convertersInDomain.get(converter.system);
-        if (!convertersInSystem) {
-            convertersInDomain.set(converter.system, convertersInSystem = new Map());
-        }
-        let convertersInAuthority = convertersInSystem.get(converter.authority);
+        let convertersInAuthority = convertersInDomain.get(converter.authority);
         if (!convertersInAuthority) {
-            convertersInSystem.set(converter.authority, convertersInAuthority = new Map());
+            convertersInDomain.set(converter.authority, convertersInAuthority = new Map());
         }
-        convertersInAuthority.set(converter.name, converter);
+        let convertersInSystem = convertersInAuthority.get(converter.system);
+        if (!convertersInSystem) {
+            convertersInAuthority.set(converter.system, convertersInSystem = new Map());
+        }
+        convertersInSystem.set(converter.name, converter);
         return converter;
     }
 
     find(unitIdentifier) {
         let convertersInDomain = this._converters.get(unitIdentifier.domain);
         if (convertersInDomain) {
-            let convertersInSystem = convertersInDomain.get(unitIdentifier.system);
-            if (convertersInSystem) {
-                let convertersInAuthority = convertersInSystem.get(unitIdentifier.authority);
-                if (convertersInAuthority) {
-                    return convertersInAuthority.get(unitIdentifier.name);
+            let convertersInAuthority = convertersInDomain.get(unitIdentifier.authority);
+            if (convertersInAuthority) {
+                let convertersInSystem = convertersInAuthority.get(unitIdentifier.system);
+                if (convertersInSystem) {
+                    return convertersInSystem.get(unitIdentifier.name);
                 }
             }
         }

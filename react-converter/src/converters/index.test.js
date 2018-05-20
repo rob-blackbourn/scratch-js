@@ -13,13 +13,13 @@ describe('converters', () => {
 
         it('should convert centimeters to inches', () => {
             const centimeters = 2.54;
-            const inches =  repository.findAndConvert(new UnitIdentifier(domains.Length, Metric, SystemInternational, 'centimeter'), centimeters, new UnitIdentifier(domains.Length, Imperial, UnitedKingdom, 'inch'));
+            const inches =  repository.findAndConvert(new UnitIdentifier(domains.Length, SystemInternational, Metric, 'centimeter'), centimeters, new UnitIdentifier(domains.Length, UnitedKingdom, Imperial, 'inch'));
             expect(inches).toBeCloseTo(1, 10);
         });
 
         it('should convert centimeters to inches with unit identifiers', () => {
             const centimeters = 2.54;
-            const inches =  repository.findAndConvert(new UnitIdentifier(domains.Length, Metric, SystemInternational, 'centimeter'), centimeters, new UnitIdentifier(domains.Length, Imperial, UnitedKingdom, 'inch'));
+            const inches =  repository.findAndConvert(new UnitIdentifier(domains.Length, SystemInternational, Metric, 'centimeter'), centimeters, new UnitIdentifier(domains.Length, UnitedKingdom, Imperial, 'inch'));
             expect(inches).toBeCloseTo(1, 10);
         });
 

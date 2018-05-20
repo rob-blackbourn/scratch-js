@@ -32,16 +32,16 @@ const UnitSelector = ({
     classes,
     isSource,
     domain, domains, onDomainChanged,
-    system, systems, onSystemChanged,
     authority, authorities, onAuthorityChanged,
+    system, systems, onSystemChanged,
     name, names, onNameChanged,
     value, onValueChanged,
     style, onStyleChanged
 }) => {
 
     const domainId = uuid()
-    const systemId = uuid()
     const authorityId = uuid()
+    const systemId = uuid()
     const nameId = uuid()
     const valueId = uuid()
 
@@ -67,25 +67,6 @@ const UnitSelector = ({
             <br />
 
             <FormControl className={classes.formControl}>
-                <InputLabel htmlFor={systemId}>System</InputLabel>
-                <Select
-                    value={system || ''}
-                    onChange={(e) => onSystemChanged(e.target.value, isSource)}
-                    inputProps={{
-                        name: 'system',
-                        id: systemId,
-                    }}>
-
-                    {systems.map(value => (
-                        <MenuItem value={value} key={value}>{value}</MenuItem>
-                    ))}
-
-                </Select>
-            </FormControl>
-
-            <br />
-
-            <FormControl className={classes.formControl}>
                 <InputLabel htmlFor={authorityId}>Authority</InputLabel>
                 <Select
                     value={authority || ''}
@@ -96,6 +77,25 @@ const UnitSelector = ({
                     }}>
 
                     {authorities.map(value => (
+                        <MenuItem value={value} key={value}>{value}</MenuItem>
+                    ))}
+
+                </Select>
+            </FormControl>
+
+            <br />
+
+            <FormControl className={classes.formControl}>
+                <InputLabel htmlFor={systemId}>System</InputLabel>
+                <Select
+                    value={system || ''}
+                    onChange={(e) => onSystemChanged(e.target.value, isSource)}
+                    inputProps={{
+                        name: 'system',
+                        id: systemId,
+                    }}>
+
+                    {systems.map(value => (
                         <MenuItem value={value} key={value}>{value}</MenuItem>
                     ))}
 

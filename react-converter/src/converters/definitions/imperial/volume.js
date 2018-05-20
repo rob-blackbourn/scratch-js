@@ -8,13 +8,13 @@ import {Imperial, ImperialPint} from './constants';
 
 export default (repository, system, authority) => {
 
-    const litreConverter = repository.find(new UnitIdentifier(domains.Volume, Metric, SystemInternational, Litre));
+    const litreConverter = repository.find(new UnitIdentifier(domains.Volume, SystemInternational, Metric, Litre));
     const litreScalar = new Fraction(56826125, 100000000);
     const pintConverter = repository.add(
         new UnitConverter(
             domains.Volume,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             ImperialPint,
             "pt",
             litreConverter,
@@ -25,8 +25,8 @@ export default (repository, system, authority) => {
     repository.add(
         new UnitConverter(
             domains.Volume,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "minim",
             "min",
             pintConverter,
@@ -37,8 +37,8 @@ export default (repository, system, authority) => {
     repository.add(
         new UnitConverter(
             domains.Volume,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "fluid scruple",
             "fl scruple",
             pintConverter,
@@ -49,8 +49,8 @@ export default (repository, system, authority) => {
     repository.add(
         new UnitConverter(
             domains.Volume,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "fluid drachm",
             "fl dr",
             pintConverter,
@@ -61,8 +61,8 @@ export default (repository, system, authority) => {
     repository.add(
         new UnitConverter(
             domains.Volume,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "fluid ounce",
             "fl oz",
             pintConverter,
@@ -73,8 +73,8 @@ export default (repository, system, authority) => {
     repository.add(
         new UnitConverter(
             domains.Volume,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "gill",
             "gl",
             pintConverter,
@@ -85,8 +85,8 @@ export default (repository, system, authority) => {
     repository.add(
         new UnitConverter(
             domains.Volume,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "quart",
             "qt",
             pintConverter,
@@ -97,8 +97,8 @@ export default (repository, system, authority) => {
     repository.add(
         new UnitConverter(
             domains.Volume,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "gallon",
             "gal",
             pintConverter,

@@ -15,13 +15,13 @@ describe('metric', () => {
 
         it('should convert kilometers to millimeters', () => {
             const kilometers = 1;
-            const millimeters =  repository.findAndConvert(new UnitIdentifier(domains.Length, Metric, SystemInternational, 'kilometer'), kilometers, new UnitIdentifier(domains.Length, Metric, SystemInternational, 'millimeter'));
+            const millimeters =  repository.findAndConvert(new UnitIdentifier(domains.Length, SystemInternational, Metric, 'kilometer'), kilometers, new UnitIdentifier(domains.Length, SystemInternational, Metric, 'millimeter'));
             expect(millimeters).toBe(1 * 1000 * 1000);
         });
 
         it('should convert millimeters to kilometers', () => {
             const millimeters = 1 * 1000 * 1000;
-            const kilometers =  repository.findAndConvert(new UnitIdentifier(domains.Length, Metric, SystemInternational, 'millimeter'), millimeters, new UnitIdentifier(domains.Length, Metric, SystemInternational, 'kilometer'));
+            const kilometers =  repository.findAndConvert(new UnitIdentifier(domains.Length, SystemInternational, Metric, 'millimeter'), millimeters, new UnitIdentifier(domains.Length, SystemInternational, Metric, 'kilometer'));
             expect(kilometers).toBe(1);
         });
 

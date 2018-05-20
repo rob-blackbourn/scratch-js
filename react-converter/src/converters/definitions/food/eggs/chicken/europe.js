@@ -14,8 +14,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            ChickenEgg,
             EuropeanUnion,
+            ChickenEgg,
             "very large",
             "XL",
             grammeConverter,
@@ -26,8 +26,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            ChickenEgg,
             EuropeanUnion,
+            ChickenEgg,
             "large",
             "L",
             grammeConverter,
@@ -38,8 +38,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            ChickenEgg,
             EuropeanUnion,
+            ChickenEgg,
             "medium",
             "M",
             grammeConverter,
@@ -50,8 +50,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            ChickenEgg,
             EuropeanUnion,
+            ChickenEgg,
             "small",
             "S",
             grammeConverter,

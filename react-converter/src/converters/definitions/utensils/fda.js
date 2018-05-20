@@ -8,14 +8,14 @@ import {Utensils} from './constants';
 
 export default repository => {
 
-    const litreConverter = repository.find(new UnitIdentifier(domains.Volume, Metric, SystemInternational, Litre));
+    const litreConverter = repository.find(new UnitIdentifier(domains.Volume, SystemInternational, Metric, Litre));
 
     const teaspoonScalar = new Fraction(5, 1000);
     repository.add(
         new UnitConverter(
             domains.Volume,
-            Utensils,
             FederalDrugAdministration,
+            Utensils,
             "teaspoon",
             "tsp",
             litreConverter,
@@ -26,8 +26,8 @@ export default repository => {
     repository.add(
         new UnitConverter(
             domains.Volume,
-            Utensils,
             FederalDrugAdministration,
+            Utensils,
             "tablespoon",
             "tbsp",
             litreConverter,
@@ -38,8 +38,8 @@ export default repository => {
     repository.add(
         new UnitConverter(
             domains.Volume,
-            Utensils,
             FederalDrugAdministration,
+            Utensils,
             "cup",
             "cup",
             litreConverter,

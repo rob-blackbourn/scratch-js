@@ -8,14 +8,14 @@ import {Utensils} from './constants';
 
 export default (repository) => {
 
-    const litreConverter = repository.find(new UnitIdentifier(domains.Volume, Metric, SystemInternational, Litre));
+    const litreConverter = repository.find(new UnitIdentifier(domains.Volume, SystemInternational, Metric, Litre));
 
     const goScalar = new Fraction(2401, 133100);
     repository.add(
         new UnitConverter(
             domains.Volume,
-            Utensils,
             Japan,
+            Utensils,
             "go",
             "go",
             litreConverter,
@@ -26,8 +26,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Volume,
-            Utensils,
             Japan,
+            Utensils,
             "cup",
             "cup",
             litreConverter,

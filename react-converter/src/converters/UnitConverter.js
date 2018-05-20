@@ -1,9 +1,9 @@
 export class UnitIdentifier {
 
-    constructor(domain, system, authority, name) {
+    constructor(domain, authority, system, name) {
         this._domain = domain;
-        this._system = system;
         this._authority = authority;
+        this._system = system;
         this._name = name;
     }
 
@@ -11,12 +11,12 @@ export class UnitIdentifier {
         return this._domain;
     }
 
-    get system() {
-        return this._system;
-    }
-
     get authority() {
         return this._authority;
+    }
+
+    get system() {
+        return this._system;
     }
 
     get name() {
@@ -26,8 +26,8 @@ export class UnitIdentifier {
 
 export class Unit extends UnitIdentifier {
 
-    constructor(domain, system, authority, name, symbol) {
-        super(domain, system, authority, name);
+    constructor(domain, authority, system, name, symbol) {
+        super(domain, authority, system, name);
         this._symbol = symbol;
     }
 
@@ -38,8 +38,8 @@ export class Unit extends UnitIdentifier {
 
 export default class UnitConverter extends Unit {
 
-    constructor(domain, system, authority, name, symbol, targetConverter, toTarget, fromTarget) {
-        super(domain, system, authority, name, symbol);
+    constructor(domain, authority, system, name, symbol, targetConverter, toTarget, fromTarget) {
+        super(domain, authority, system, name, symbol);
         this._targetConverter = targetConverter;
         this._toTarget = toTarget;
         this._fromTarget = fromTarget;

@@ -2,19 +2,19 @@ import UnitConverter, {UnitIdentifier} from '../../UnitConverter';
 import {Fraction, add, sub, mul, div, lt} from '../../../numbers';
 import * as domains from '../domains';
 import {UnitedKingdom, SystemInternational} from '../authorities';
-import {Metric} from '../metric/constants';
+import {Metric, Kelvin} from '../metric/constants';
 import {Imperial} from '../imperial/constants';
 
 export default (repository) => {
 
-    const kelvinConverter = repository.find(new UnitIdentifier(domains.Temperature, 'metric', 'si', 'Kelvin'));
+    const kelvinConverter = repository.find(new UnitIdentifier(domains.Temperature, SystemInternational, Metric, Kelvin));
 
     const celsiusOffset = new Fraction(27315, 100);
     const celsiusConverter = repository.add(
         new UnitConverter(
             domains.Temperature,
-            Metric,
             SystemInternational,
+            Metric,
             "Celsius",
             '\u00b0C',
             kelvinConverter,
@@ -26,8 +26,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Temperature,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "Fahrenheit",
             '\u00b0F',
             celsiusConverter,
@@ -39,8 +39,8 @@ export default (repository) => {
     repository.add(
         new UnitConverter(
             domains.Temperature,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "Gas Mark",
             "GM",
             celsiusConverter,

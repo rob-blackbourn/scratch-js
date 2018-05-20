@@ -8,7 +8,7 @@ import {ChickenEgg} from './constants';
 
 export default repository => {
 
-    const grammeConverter = repository.find(new UnitIdentifier(domains.Mass, Metric, SystemInternational, Gramme));
+    const grammeConverter = repository.find(new UnitIdentifier(domains.Mass, SystemInternational, Metric, Gramme));
 
     const kingSizeScalar = 74;
     const jumboScalar = 70;
@@ -19,8 +19,8 @@ export default repository => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            ChickenEgg,
             Australia,
+            ChickenEgg,
             "king size",
             "king size",
             grammeConverter,
@@ -30,8 +30,8 @@ export default repository => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            ChickenEgg,
             Australia,
+            ChickenEgg,
             "jumbo",
             "jumbo",
             grammeConverter,
@@ -41,8 +41,8 @@ export default repository => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            ChickenEgg,
             Australia,
+            ChickenEgg,
             "very large",
             "XL",
             grammeConverter,
@@ -52,8 +52,8 @@ export default repository => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            ChickenEgg,
             Australia,
+            ChickenEgg,
             "large",
             "L",
             grammeConverter,
@@ -63,12 +63,12 @@ export default repository => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            ChickenEgg,
             Australia,
+            ChickenEgg,
             "medium",
             "M",
             grammeConverter,
             value => mul(value, mediumScalar),
-            value => div(value, mediumScalar)));
+            value => div(value, mediumScalar)))
 
-};
+}

@@ -8,13 +8,13 @@ import {Imperial, ImperialPound} from './constants';
 
 export default (repository, system, authority) => {
 
-    const grammeConverter = repository.find(new UnitIdentifier(domains.Mass, Metric, SystemInternational, Gramme));
+    const grammeConverter = repository.find(new UnitIdentifier(domains.Mass, SystemInternational, Metric, Gramme));
     const grammeScalar = new Fraction(45359237, 100000);
     const poundConverter = repository.add(
         new UnitConverter(
             domains.Mass,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             ImperialPound,
             "lb",
             grammeConverter,
@@ -25,8 +25,8 @@ export default (repository, system, authority) => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "grain",
             "gr",
             poundConverter,
@@ -37,8 +37,8 @@ export default (repository, system, authority) => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "drachm",
             "dr",
             poundConverter,
@@ -49,8 +49,8 @@ export default (repository, system, authority) => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "ounce",
             "oz",
             poundConverter,
@@ -61,8 +61,8 @@ export default (repository, system, authority) => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "stone",
             "st",
             poundConverter,
@@ -73,8 +73,8 @@ export default (repository, system, authority) => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "quarter",
             "qtr",
             poundConverter,
@@ -85,8 +85,8 @@ export default (repository, system, authority) => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "hundredweight",
             "cwt",
             poundConverter,
@@ -97,8 +97,8 @@ export default (repository, system, authority) => {
     repository.add(
         new UnitConverter(
             domains.Mass,
-            Imperial,
             UnitedKingdom,
+            Imperial,
             "ton",
             "tn",
             poundConverter,
