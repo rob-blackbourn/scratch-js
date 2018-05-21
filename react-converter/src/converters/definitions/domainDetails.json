@@ -1,0 +1,57 @@
+{
+    "length": {
+        "en": {
+            "name": "length"
+        },
+        "fr": {
+            "name": "longueur"
+        },
+        "es": {
+            "name": "longitud"
+        }
+    },
+    "mass": {
+        "en": {
+            "name": "weight"
+        },
+        "fr": {
+            "name": "poids"
+        },
+        "es": {
+            "name": "peso"
+        }
+    },
+    "volume": {
+        "en": {
+            "name": "volume"
+        },
+        "fr": {
+            "name": "volume"
+        },
+        "es": {
+            "name": "volumen"
+        }
+    },
+    "time": {
+        "en": {
+            "name": "time"
+        },
+        "fr": {
+            "name": "temps"
+        },
+        "es": {
+            "name": "hora"
+        }
+    },
+    "temperature": {
+        "en": {
+            "name": "temperature"
+        },
+        "fr": {
+            "name": "température"
+        },
+        "es": {
+            "name": "temperatura"
+        }
+    }
+}

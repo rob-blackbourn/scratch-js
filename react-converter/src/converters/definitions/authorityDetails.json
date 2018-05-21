@@ -1,0 +1,92 @@
+{
+    "australia": {
+        "en": {
+            "name": "Australia",
+            "commonName": "Australian"
+        },
+        "fr": {
+            "name": "Australie",
+            "commonName": "Australien"
+        }
+    },
+    "canada": {
+        "en": {
+            "name": "Canada",
+            "commonName": "Canadian"
+        },
+        "fr": {
+            "name": "Canada",
+            "commonName": "Canadien"
+        }
+    },
+    "europe": {
+        "en": {
+            "name": "European Union",
+            "commonName": "European"
+        },
+        "fr": {
+            "name": "Union Européenne",
+            "commonName": "Européen"
+        }
+    },
+    "fda": {
+        "en": {
+            "name": "Federal Drug Administration",
+            "commonName": "FDA"
+        },
+        "fr": {
+            "name": "Administration fédérale des médicaments",
+            "commonName": "FDA"
+        }
+    },
+    "japan": {
+        "en": {
+            "name": "Japan",
+            "commonName": "Japanese"
+        },
+        "fr": {
+            "name": "Japon",
+            "commonName": "Japonais"
+        }
+    },
+    "nz": {
+        "en": {
+            "name": "New Zealand",
+            "commonName": "NZ"
+        },
+        "fr": {
+            "name": "Nouvelle-Zélande",
+            "commonName": "NZ"
+        }
+    },
+    "si": {
+        "en": {
+            "name": "System International",
+            "commonName": "SI"
+        },
+        "fr": {
+            "name": "Système International",
+            "commonName": "SI"
+        }
+    },
+    "uk": {
+        "en": {
+            "name": "United Kingdom",
+            "commonName": "UK"
+        },
+        "fr": {
+            "name": "Grande Bretagne",
+            "commonName": "UK"
+        }
+    },
+    "us": {
+        "en": {
+            "name": "United States",
+            "commonName": "US"
+        },
+        "fr": {
+            "name": "États Unis",
+            "commonName": "US"
+        }
+    }
+}
