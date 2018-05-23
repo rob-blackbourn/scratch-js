@@ -12,6 +12,12 @@ class DomainRepository {
         this._domainConverters.push(domainConverter);
         return domainConverter;
     }
+    
+    addRange(converters) {
+        for (let converter of converters) {
+            this.add(converter);
+        }
+    }
 
     find(sourceDomain, targetDomain) {
         for (var index = 0; index < this._domainConverters.length; ++index) {
@@ -28,11 +34,16 @@ export default class Repository {
 
     constructor(defaultClassification, defaultAuthority) {
 
-        this._defaultClassification = defaultClassification;
-        this._defaultAuthority = defaultAuthority;
+        this._defaultClassification = defaultClassification
+        this._defaultAuthority = defaultAuthority
 
-        this._converters = new Map();
-        this._domainConverters = new DomainRepository();
+        this._converters = new Map()
+        this._domainConverters = new DomainRepository()
+
+        this._domains = new Map()
+        this._authorities = new Map()
+        this._systems = new Map()
+        this._units = new Map()
     }
 
     get defaultClassification() {
@@ -51,31 +62,124 @@ export default class Repository {
         return this._domainConverters;
     }
 
-    add(converter) {
-        let convertersInDomain = this._converters.get(converter.domain);
+    addRange(converters) {
+        for (let converter of converters) {
+            try {
+                this.add(converter);
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
+
+    getDomains() {
+        return this._domains.values()
+    }
+
+    getAuthorities(domain) {
+        let convertersInDomain = this._converters.get(domain.key);
         if (!convertersInDomain) {
-            this._converters.set(converter.domain, convertersInDomain = new Map());
+            return []
         }
-        let convertersInAuthority = convertersInDomain.get(converter.authority);
+        const authorities = []
+        for (let key of convertersInDomain.keys()) {
+            const authority = this._authorities.get(key)
+            authorities.push(authority)
+        }
+        return authorities
+    }
+
+    getSystems(domain, authority) {
+        let convertersInDomain = this._converters.get(domain.key);
+        if (!convertersInDomain) {
+            return []
+        }
+        let convertersInAuthority = convertersInDomain.get(authority.key)
         if (!convertersInAuthority) {
-            convertersInDomain.set(converter.authority, convertersInAuthority = new Map());
+            return []
         }
-        let convertersInSystem = convertersInAuthority.get(converter.system);
+        const systems = []
+        for (let key of convertersInAuthority.keys()) {
+            const system = this._systems.get(key)
+            systems.push(system)
+        }
+        return systems
+    }
+
+    getUnits(domain, authority, system) {
+        let convertersInDomain = this._converters.get(domain.key);
+        if (!convertersInDomain) {
+            return []
+        }
+        let convertersInAuthority = convertersInDomain.get(authority.key)
+        if (!convertersInAuthority) {
+            return []
+        }
+        let convertersInSystem = convertersInAuthority.get(system.key)
         if (!convertersInSystem) {
-            convertersInAuthority.set(converter.system, convertersInSystem = new Map());
+            return []
         }
-        convertersInSystem.set(converter.name, converter);
+        const units = []
+        for (let key of convertersInSystem.keys()) {
+            const unit = this._units.get(key)
+            units.push(unit)
+        }
+        return units
+        
+    }
+
+    add(converter) {
+
+        if (!this._domains.has(converter.domain.key)) {
+            this._domains.set(converter.domain.key, converter.domain)
+        }
+        if (!this._authorities.has(converter.authority.key)) {
+            this._authorities.set(converter.authority.key, converter.authority)
+        }
+        if (!this._systems.has(converter.system.key)) {
+            this._systems.set(converter.system.key, converter.system)
+        }
+        if (!this._units.has(converter.unit.key)) {
+            this._units.set(converter.unit.key, converter.unit)
+        }
+
+        let convertersInDomain = this._converters.get(converter.domain.key);
+        if (!convertersInDomain) {
+            this._converters.set(converter.domain.key, convertersInDomain = new Map());
+        }
+        let convertersInAuthority = convertersInDomain.get(converter.authority.key);
+        if (!convertersInAuthority) {
+            convertersInDomain.set(converter.authority.key, convertersInAuthority = new Map());
+        }
+        let convertersInSystem = convertersInAuthority.get(converter.system.key);
+        if (!convertersInSystem) {
+            convertersInAuthority.set(converter.system.key, convertersInSystem = new Map());
+        }
+        convertersInSystem.set(converter.unit.key, converter);
         return converter;
     }
 
     find(unitIdentifier) {
-        let convertersInDomain = this._converters.get(unitIdentifier.domain);
+        try {
+            const domainKey = unitIdentifier.domain.key
+            const authorityKey = unitIdentifier.authority.key
+            const systemKey = unitIdentifier.system.key
+            const unitKey = unitIdentifier.unit.key
+            const converter = this.findByKey(domainKey, authorityKey, systemKey, unitKey)
+            return converter
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    findByKey(domainKey, authorityKey, systemKey, unitKey) {
+        let convertersInDomain = this._converters.get(domainKey)
         if (convertersInDomain) {
-            let convertersInAuthority = convertersInDomain.get(unitIdentifier.authority);
+            let convertersInAuthority = convertersInDomain.get(authorityKey)
             if (convertersInAuthority) {
-                let convertersInSystem = convertersInAuthority.get(unitIdentifier.system);
+                let convertersInSystem = convertersInAuthority.get(systemKey)
                 if (convertersInSystem) {
-                    return convertersInSystem.get(unitIdentifier.name);
+                    return convertersInSystem.get(unitKey)
                 }
             }
         }
@@ -95,8 +199,8 @@ export default class Repository {
     }
 
     findAndConvert(fromUnitIdentifier, value, toUnitIdentifier) {
-        const sourceConverter = this.find(fromUnitIdentifier);
-        const targetConverter = this.find(toUnitIdentifier);
-        return this.convert(sourceConverter, value, targetConverter);
+        const sourceConverter = this.find(fromUnitIdentifier)
+        const targetConverter = this.find(toUnitIdentifier)
+        return this.convert(sourceConverter, value, targetConverter)
     }
 }

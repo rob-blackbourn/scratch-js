@@ -1,16 +1,25 @@
-import createMetricUnits from './metric';
-import createImperialUnits from './imperial';
-import createCustomaryUnits from './customary';
-import createTemperature from './temperature';
-import createUtensilUnits from './utensils';
-import createFoodUnits from './food';
+import { collectUnitConverters as collectSiConverters, collectDomainConverters } from './si'
+import { collectUnitConverters as collectAustralianConverters } from './australia'
+import { collectUnitConverters as collectCanadianConverters } from './canada'
+import { collectUnitConverters as collectEuropeanConverters } from './europe'
+import { collectUnitConverters as collectFdaConverters } from './fda'
+import { collectUnitConverters as collectJapaneseConverters } from './japan'
+import { collectUnitConverters as collectNewZealandConverters } from './nz'
+import { collectUnitConverters as collectUkConverters } from './uk'
+import { collectUnitConverters as collectUsConverters } from './us'
 
-export default repository => {
-    createMetricUnits(repository);
-    createImperialUnits(repository);
-    createCustomaryUnits(repository);
-    createTemperature(repository);
-    createUtensilUnits(repository);
-    createFoodUnits(repository);
-};
+export function collectUnitConverters() {
+    return [
+        ...collectSiConverters(),
+        ...collectAustralianConverters(),
+        ...collectCanadianConverters(),
+        ...collectEuropeanConverters(),
+        ...collectFdaConverters(),
+        ...collectJapaneseConverters(),
+        ...collectNewZealandConverters(),
+        ...collectUkConverters(),
+        ...collectUsConverters()
+    ]
+}
 
+export { collectDomainConverters }

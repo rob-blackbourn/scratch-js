@@ -24,16 +24,15 @@ export class AuthorityDetails {
 export class Authority extends LocaleDetails {
     constructor(key, details) {
         super(details)
-        this._key = key
-    }
-
-    static defaultLocale = navigator.language
-
-    get key() {
-        return this._key
+        this.key = key
     }
 
     equals(other) {
-        return this === other || (other instanceof Domain && this.key === other.key)
+        return this === other || (other instanceof Authority && this.key === other.key)
+    }
+
+    toString() {
+        const localeDetail = this.localeDetail()
+        return `key=${this.key}, ${localeDetail.toString()}`
     }
 }

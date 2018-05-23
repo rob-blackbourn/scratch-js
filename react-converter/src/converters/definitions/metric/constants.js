@@ -1,1 +1,0 @@
-export const Metric="metric", Meter="meter", Gramme="gramme", Litre="litre", Second = "second", Kelvin="Kelvin";

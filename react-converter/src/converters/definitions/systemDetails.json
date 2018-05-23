@@ -1,0 +1,32 @@
+{
+    "metric": {
+        "en": {
+            "name": "Metric"
+        }
+    },
+    "imperial": {
+        "en": {
+            "name": "Imperial"
+        }
+    },
+    "customary": {
+        "en": {
+            "name": "Customary"
+        }
+    },
+    "utensils": {
+        "en": {
+            "name": "utensils"
+        }
+    },
+    "chicken-eggs": {
+        "en": {
+            "name": "Chicken Eggs"
+        }
+    },
+    "butter": {
+        "en": {
+            "name": "Butter"
+        }
+    }
+}

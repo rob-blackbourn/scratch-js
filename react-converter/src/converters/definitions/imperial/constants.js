@@ -1,1 +1,0 @@
-export const Imperial="imperial", ImperialPint = "pint", ImperialFeet="feet", ImperialPound = "pound";

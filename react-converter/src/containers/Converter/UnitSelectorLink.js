@@ -20,8 +20,8 @@ const mapStateToPropsFactory = isSource => state => {
         system: target.unitIdentifier.system,
         name: target.unitIdentifier.name,
         domains: target.domains,
-        systems: target.systems,
         authorities: target.authorities,
+        systems: target.systems,
         names: target.names,
         value: target.value,
         style: target.style
@@ -30,11 +30,11 @@ const mapStateToPropsFactory = isSource => state => {
 
 const mapDispatchToPropsFactory = isSource => dispatch => (
     {
-        onDomainChanged: domain => dispatch(setDomain(domain, isSource)),
-        onAuthorityChanged: authority => dispatch(setAuthority(authority, isSource)),
-        onSystemChanged: system => dispatch(setSystem(system, isSource)),
-        onNameChanged: name => dispatch(setName(name, isSource)),
-        onValueChanged: value => dispatch(setValue(value, isSource)),
+        onDomainChanged: domain => dispatch(setDomain(domain ? domain : null, isSource)),
+        onAuthorityChanged: authority => dispatch(setAuthority(authority ? authority : null, isSource)),
+        onSystemChanged: system => dispatch(setSystem(system ? system : null, isSource)),
+        onNameChanged: name => dispatch(setName(name ? name : null, isSource)),
+        onValueChanged: value => dispatch(setValue(value ? value : null, isSource)),
         onStyleChanged: (isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision) => dispatch(setStyle(isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision, isSource))
     }
 )

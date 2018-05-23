@@ -1,45 +1,29 @@
 export class UnitIdentifier {
-
-    constructor(domain, authority, system, name) {
-        this._domain = domain;
-        this._authority = authority;
-        this._system = system;
-        this._name = name;
+    constructor(domain, authority, system, unit) {
+        this.domain = domain
+        this.authority = authority
+        this.system = system
+        this.unit = unit
     }
 
-    get domain() {
-        return this._domain;
+    equals(other) {
+        return this === other || (
+            this instanceof UnitIdentifier && 
+            this.domain.equals(other.domain) && 
+            this.authority.equals(other.authority) && 
+            this.system.equals(other.system) && 
+            this.unit.equals(other.unit))
     }
 
-    get authority() {
-        return this._authority;
-    }
-
-    get system() {
-        return this._system;
-    }
-
-    get name() {
-        return this._name;
+    toString() {
+        return `domain=${this.domain}, system=${this.system}, authority=${this.authority}, unit=${this.unit}`;
     }
 }
 
-export class Unit extends UnitIdentifier {
+export default class UnitConverter extends UnitIdentifier {
 
-    constructor(domain, authority, system, name, symbol) {
-        super(domain, authority, system, name);
-        this._symbol = symbol;
-    }
-
-    get symbol() {
-        return this._symbol;
-    }
-}
-
-export default class UnitConverter extends Unit {
-
-    constructor(domain, authority, system, name, symbol, targetConverter, toTarget, fromTarget) {
-        super(domain, authority, system, name, symbol);
+    constructor(domain, authority, system, unit, targetConverter, toTarget, fromTarget) {
+        super(domain, authority, system, unit);
         this._targetConverter = targetConverter;
         this._toTarget = toTarget;
         this._fromTarget = fromTarget;
@@ -55,10 +39,6 @@ export default class UnitConverter extends Unit {
 
     get fromTarget() {
         return this._fromTarget;
-    }
-
-    toString() {
-        return "domain=" + this._domain + ",system=" + this._system + ",authority=" + this._authority + ",symbol=" + this._symbol + ",name=" + this._name;
     }
 
     convert(value, to) {
@@ -96,7 +76,7 @@ export default class UnitConverter extends Unit {
 
         var toConverters = [];
         while (toConverter) {
-            var index = fromConverters.indexOf(toConverter);
+            var index = fromConverters.findIndex(x => x.equals(toConverter))
             if (index !== -1) {
                 return { from: fromConverters.slice(0, index), to: toConverters };
             }

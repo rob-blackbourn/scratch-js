@@ -1,10 +1,13 @@
 import UnitConverter, {UnitIdentifier} from './UnitConverter';
 import Repository from './Repository';
-import createUnits from './definitions';
+import { collectUnitConverters, collectDomainConverters } from './definitions';
 
 export default () => {
     const repository = new Repository();
-    createUnits(repository);
+    const unitConverters = collectUnitConverters()
+    const domainConverters = collectDomainConverters()
+    repository.addRange(unitConverters)
+    repository.domainConverters.addRange(domainConverters)
     return repository;
 }
 

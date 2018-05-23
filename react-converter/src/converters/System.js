@@ -1,7 +1,7 @@
 import LocaleDetails from './LocaleDetails'
 
-export class DomainDetails {
-
+export class SystemDetails {
+    
     constructor (name) {
         this.name = name
     }
@@ -14,26 +14,24 @@ export class DomainDetails {
         const details = {}
         for (let key in json) {
             const value = json[key]
-            details[key] = new DomainDetails(value["name"])
+            details[key] = new SystemDetails(value["name"])
         }
         return details
     }
 }
 
-export class Domain extends LocaleDetails {
+export class System extends LocaleDetails {
     constructor(key, details) {
         super(details)
         this.key = key
     }
 
     equals(other) {
-        return this === other || (other instanceof Domain && this.key === other.key)
+        return this === other || (other instanceof System && this.key === other.key)
     }
 
     toString() {
         const localeDetail = this.localeDetail()
-        return `key=${this.key}, ${localeDetail.toString()}`
+        return `key=${this.key}, name=${localeDetail.name}`
     }
-
-    static Empty = new Domain('', {})
 }

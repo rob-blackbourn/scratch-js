@@ -1,1 +1,0 @@
-export const Customary="customary", CustomaryFeet="feet", CustomaryPound="pound", CustomaryPint="pint";

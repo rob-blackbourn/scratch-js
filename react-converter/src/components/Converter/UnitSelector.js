@@ -12,6 +12,11 @@ import DisplayMethod from './DisplayMethod'
 
 import uuid from '../../utils/uuid'
 
+import { Domain } from '../../converters/Domain'
+import { Authority } from '../../converters/Authority'
+import { System } from '../../converters/System'
+import { Unit } from '../../converters/Unit'
+
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -57,8 +62,8 @@ const UnitSelector = ({
                         id: domainId,
                     }}>
 
-                    {domains.map(value => (
-                        <MenuItem value={value} key={value}>{value}</MenuItem>
+                    {domains.map(x => (
+                        <MenuItem value={x} key={x}>{x.key}</MenuItem>
                     ))}
 
                 </Select>
@@ -76,8 +81,8 @@ const UnitSelector = ({
                         id: authorityId,
                     }}>
 
-                    {authorities.map(value => (
-                        <MenuItem value={value} key={value}>{value}</MenuItem>
+                    {authorities.map(x => (
+                        <MenuItem value={x} key={x}>{x.key}</MenuItem>
                     ))}
 
                 </Select>
@@ -95,8 +100,8 @@ const UnitSelector = ({
                         id: systemId,
                     }}>
 
-                    {systems.map(value => (
-                        <MenuItem value={value} key={value}>{value}</MenuItem>
+                    {systems.map(x => (
+                        <MenuItem value={x} key={x}>{x.key}</MenuItem>
                     ))}
 
                 </Select>
@@ -114,8 +119,8 @@ const UnitSelector = ({
                         id: nameId,
                     }}>
 
-                    {names.map(value => (
-                        <MenuItem value={value} key={value}>{value}</MenuItem>
+                    {names.map(x => (
+                        <MenuItem value={x} key={x}>{x.key}</MenuItem>
                     ))}
 
                 </Select>
@@ -151,17 +156,17 @@ const UnitSelector = ({
 
 UnitSelector.propTypes = {
     isSource: PropTypes.bool.isRequired,
-    domain: PropTypes.string,
-    domains: PropTypes.arrayOf(PropTypes.string).isRequired,
+    domain: PropTypes.instanceOf(Domain),
+    domains: PropTypes.arrayOf(PropTypes.instanceOf(Domain)).isRequired,
     onDomainChanged: PropTypes.func.isRequired,
-    system: PropTypes.string,
-    systems: PropTypes.arrayOf(PropTypes.string),
+    system: PropTypes.instanceOf(System),
+    systems: PropTypes.arrayOf(PropTypes.instanceOf(System)),
     onSystemChanged: PropTypes.func.isRequired,
-    authority: PropTypes.string,
-    authorities: PropTypes.arrayOf(PropTypes.string),
+    authority: PropTypes.instanceOf(Authority),
+    authorities: PropTypes.arrayOf(PropTypes.instanceOf(Authority)),
     onAuthorityChanged: PropTypes.func.isRequired,
-    name: PropTypes.string,
-    names: PropTypes.arrayOf(PropTypes.string),
+    name: PropTypes.instanceOf(Unit),
+    names: PropTypes.arrayOf(PropTypes.instanceOf(Unit)),
     onNameChanged: PropTypes.func.isRequired,
     value: PropTypes.string,
     onValueChanged: PropTypes.func.isRequired,
