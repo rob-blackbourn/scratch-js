@@ -180,13 +180,11 @@ export default repository => {
                             state.source.unitIdentifier.authority,
                             state.source.unitIdentifier.system,
                             unit)
-                        console.log('unitIdentifier', unitIdentifier)
                         const sourceValue = tryConvert(
                             unitIdentifier,
                             state.destination.value,
                             state.source.unitIdentifier,
                             state.source.style)
-                        console.log('sourceValue', sourceValue)
     
                         return {
                             ...state,

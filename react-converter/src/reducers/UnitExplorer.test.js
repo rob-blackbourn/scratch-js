@@ -50,7 +50,7 @@ describe('unit explorer reducer', () => {
         let state = unitExplorer(undefined, {
             type: actionTypes.SET_DOMAIN,
             content: {
-                domain: domains.Length,
+                domain: domains.Length.key,
                 isSource: true
             }
         })
@@ -67,7 +67,7 @@ describe('unit explorer reducer', () => {
         state = unitExplorer(state, {
             type: actionTypes.SET_AUTHORITY,
             content: {
-                authority: authorities.SystemInternational,
+                authority: authorities.SystemInternational.key,
                 isSource: true
             }
         })
@@ -85,7 +85,7 @@ describe('unit explorer reducer', () => {
         state = unitExplorer(state, {
             type: actionTypes.SET_SYSTEM,
             content: {
-                system: systems.Metric,
+                system: systems.Metric.key,
                 isSource: true
             }
         })
@@ -102,9 +102,9 @@ describe('unit explorer reducer', () => {
         expect(state.source.units.length).toBeGreaterThan(0)
         expect(state.destination.value).toBe("")
         state = unitExplorer(state, {
-            type: actionTypes.SET_UNITS,
+            type: actionTypes.SET_UNIT,
             content: {
-                unit: units.Meter,
+                unit: units.Meter.key,
                 isSource: true
             }
         })
@@ -148,35 +148,35 @@ describe('unit explorer reducer', () => {
         let state = unitExplorer(undefined, {
             type: actionTypes.SET_DOMAIN,
             content: {
-                domain: domains.Length,
+                domain: domains.Length.key,
                 isSource: true
             }
         })
         state = unitExplorer(state, {
             type: actionTypes.SET_AUTHORITY,
             content: {
-                authority: authorities.SystemInternational,
+                authority: authorities.SystemInternational.key,
                 isSOurce: true
             }
         })
         state = unitExplorer(state, {
             type: actionTypes.SET_SYSTEM,
             content: {
-                system: systems.Metric,
+                system: systems.Metric.key,
                 isSource: true
             }
         })
         state = unitExplorer(state, {
             type: actionTypes.SET_UNIT,
             content: {
-                unit: units.Meter,
+                unit: units.Meter.key,
                 isSource: true
             }
         })
         state = unitExplorer(state, {
             type: actionTypes.SET_DOMAIN,
             content: {
-                domain: domains.Mass,
+                domain: domains.Mass.key,
                 isSource: true
             }
         })
@@ -195,63 +195,63 @@ describe('unit explorer reducer', () => {
         let state = unitExplorer(undefined, {
             type: actionTypes.SET_DOMAIN,
             content: {
-                domain: domains.Length,
+                domain: domains.Length.key,
                 isSource: true
             }
         })
         state = unitExplorer(state, {
             type: actionTypes.SET_AUTHORITY,
             content: {
-                authority: authorities.SystemInternational,
+                authority: authorities.SystemInternational.key,
                 isSource: true
             }
         })
         state = unitExplorer(state, {
             type: actionTypes.SET_SYSTEM,
             content: {
-                system: systems.Metric,
+                system: systems.Metric.key,
                 isSource: true
             }
         })
         state = unitExplorer(state, {
-            type: actionTypes.SET_UNITS,
+            type: actionTypes.SET_UNIT,
             content: {
-                unit: units.Meter,
+                unit: units.Meter.key,
                 isSource: true
             }
         })
         state = unitExplorer(state, {
             type: actionTypes.SET_VALUE,
             content: {
-                value: 1,
+                value: "1",
                 isSource: true
             }
         })
         state = unitExplorer(state, {
             type: actionTypes.SET_DOMAIN,
             content: {
-                domain: domains.Length,
+                domain: domains.Length.key,
                 isSource: false
             }
         })
         state = unitExplorer(state, {
             type: actionTypes.SET_AUTHORITY,
             content: {
-                authority: authorities.UnitedKingdom,
+                authority: authorities.UnitedKingdom.key,
                 isSource: false
             }
         })
         state = unitExplorer(state, {
             type: actionTypes.SET_SYSTEM,
             content: {
-                system: systems.Imperial,
+                system: systems.Imperial.key,
                 isSource: false
             }
         })
         state = unitExplorer(state, {
             type: actionTypes.SET_UNIT,
             content: {
-                units: units.Foot,
+                unit: units.Foot.key,
                 isSource: false
             }
         })
