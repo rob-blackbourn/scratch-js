@@ -14,7 +14,6 @@ const mapStateToPropsFactory = isSource => state => {
     const target = isSource ? state.unitExplorer.source : state.unitExplorer.destination
 
     return {
-        isSource,
         domain: target.unitIdentifier.domain,
         authority: target.unitIdentifier.authority,
         system: target.unitIdentifier.system,

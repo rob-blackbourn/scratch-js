@@ -35,7 +35,6 @@ const styles = theme => ({
   
 const UnitSelector = ({
     classes,
-    isSource,
     domain, domains, onDomainChanged,
     authority, authorities, onAuthorityChanged,
     system, systems, onSystemChanged,
@@ -75,7 +74,7 @@ const UnitSelector = ({
                 <InputLabel htmlFor={authorityId}>Authority</InputLabel>
                 <Select
                     value={authority ? authority.key : ''}
-                    onChange={(e) => onAuthorityChanged(e.target.value, isSource)}
+                    onChange={(e) => onAuthorityChanged(e.target.value)}
                     inputProps={{
                         name: 'authority',
                         id: authorityId,
@@ -94,7 +93,7 @@ const UnitSelector = ({
                 <InputLabel htmlFor={systemId}>System</InputLabel>
                 <Select
                     value={system ? system.key : ''}
-                    onChange={(e) => onSystemChanged(e.target.value, isSource)}
+                    onChange={(e) => onSystemChanged(e.target.value)}
                     inputProps={{
                         name: 'system',
                         id: systemId,
@@ -113,7 +112,7 @@ const UnitSelector = ({
                 <InputLabel htmlFor={unitId}>Unit</InputLabel>
                 <Select
                     value={unit ? unit.key : ''}
-                    onChange={(e) => onUnitChanged(e.target.value, isSource)}
+                    onChange={(e) => onUnitChanged(e.target.value)}
                     inputProps={{
                         name: 'name',
                         id: unitId,
@@ -134,7 +133,7 @@ const UnitSelector = ({
                     label="Value"
                     className={classes.textField}
                     value={value || ''}
-                    onChange={(e) => onValueChanged(e.target.value, isSource)}
+                    onChange={(e) => onValueChanged(e.target.value)}
                     margin="normal" />
             </FormControl>
 
@@ -155,7 +154,6 @@ const UnitSelector = ({
 }
 
 UnitSelector.propTypes = {
-    isSource: PropTypes.bool.isRequired,
     domain: PropTypes.instanceOf(Domain),
     domains: PropTypes.arrayOf(PropTypes.instanceOf(Domain)).isRequired,
     onDomainChanged: PropTypes.func.isRequired,
