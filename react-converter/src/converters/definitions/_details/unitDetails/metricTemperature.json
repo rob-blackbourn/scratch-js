@@ -3,189 +3,147 @@
         "en": {
             "singular": "yoctoKelvin",
             "plural": "yoctoKelvins",
-            "symbol": "yK",
-            "isMajor": false,
-            "order": -10
+            "symbol": "yK"
         }
     },
     "zeptokelvin": {
         "en": {
             "singular": "zeptoKelvin",
             "plural": "zeptoKelvins",
-            "symbol": "zK",
-            "isMajor": false,
-            "order": -9
+            "symbol": "zK"
         }
     },
     "attokelvin": {
         "en": {
             "singular": "attoKelvin",
             "plural": "attoKelvins",
-            "symbol": "aK",
-            "isMajor": false,
-            "order": -8
+            "symbol": "aK"
         }
     },
     "femtokelvin": {
         "en": {
             "singular": "femtoKelvin",
             "plural": "femtoKelvins",
-            "symbol": "fK",
-            "isMajor": false,
-            "order": -7
+            "symbol": "fK"
         }
     },
     "picokelvin": {
         "en": {
             "singular": "picoKelvin",
             "plural": "picoKelvins",
-            "symbol": "pK",
-            "isMajor": false,
-            "order": -6
+            "symbol": "pK"
         }
     },
     "nanokelvin": {
         "en": {
             "singular": "nanoKelvin",
             "plural": "nanoKelvins",
-            "symbol": "nK",
-            "isMajor": false,
-            "order": -5
+            "symbol": "nK"
         }
     },
     "microkelvin": {
         "en": {
             "singular": "microKelvin",
             "plural": "microKelvins",
-            "symbol": "\u00b5K",
-            "isMajor": false,
-            "order": -4
+            "symbol": "\u00b5K"
         }
     },
     "millikelvin": {
         "en": {
             "singular": "milliKelvin",
             "plural": "milliKelvins",
-            "symbol": "mK",
-            "isMajor": true,
-            "order": -3
+            "symbol": "mK"
         }
     },
     "centikelvin": {
         "en": {
             "singular": "centiKelvin",
             "plural": "centiKelvins",
-            "symbol": "cm",
-            "isMajor": false,
-            "order": -2
+            "symbol": "cm"
         }
     },
     "decikelvin": {
         "en": {
             "singular": "deciKelvin",
             "plural": "deciKelvins",
-            "symbol": "dK",
-            "isMajor": false,
-            "order": -1
+            "symbol": "dK"
         }
     },
     "kelvin": {
         "en": {
             "singular": "Kelvin",
             "plural": "Kelvin",
-            "symbol": "K",
-            "isMajor": true,
-            "order": 0
+            "symbol": "K"
         }
     },
     "decakelvin": {
         "en": {
             "singular": "decaKelvin",
             "plural": "decaKelvins",
-            "symbol": "daK",
-            "isMajor": false,
-            "order": 1
+            "symbol": "daK"
         }
     },
     "hectokelvin": {
         "en": {
             "singular": "hectoKelvin",
             "plural": "hectoKelvins",
-            "symbol": "hK",
-            "isMajor": false,
-            "order": 2
+            "symbol": "hK"
         }
     },
     "kilokelvin": {
         "en": {
             "singular": "kiloKelvin",
             "plural": "kiloKelvins",
-            "symbol": "kK",
-            "isMajor": true,
-            "order": 3
+            "symbol": "kK"
         }
     },
     "megakelvin": {
         "en": {
             "singular": "megaKelvin",
             "plural": "megaKelvins",
-            "symbol": "MK",
-            "isMajor": false,
-            "order": 4
+            "symbol": "MK"
         }
     },
     "gigakelvin": {
         "en": {
             "singular": "gigaKelvin",
             "plural": "gigaKelvins",
-            "symbol": "GK",
-            "isMajor": false,
-            "order": 5
+            "symbol": "GK"
         }
     },
     "terakelvin": {
         "en": {
             "singular": "teraKelvin",
             "plural": "teraKelvins",
-            "symbol": "TK",
-            "isMajor": false,
-            "order": 6
+            "symbol": "TK"
         }
     },
     "petakelvin": {
         "en": {
             "singular": "petaKelvin",
             "plural": "petaKelvins",
-            "symbol": "PK",
-            "isMajor": false,
-            "order": 7
+            "symbol": "PK"
         }
     },
     "exakelvin": {
         "en": {
             "singular": "exaKelvin",
             "plural": "exaKelvins",
-            "symbol": "EK",
-            "isMajor": false,
-            "order": 8
+            "symbol": "EK"
         }
     },
     "zettakelvin": {
         "en": {
             "singular": "zettaKelvin",
             "plural": "zettaKelvins",
-            "symbol": "ZK",
-            "isMajor": false,
-            "order": 9
+            "symbol": "ZK"
         }
     },
     "yottakelvin": {
         "en": {
             "singular": "yottaKelvin",
             "plural": "yottaKelvins",
-            "symbol": "YK",
-            "isMajor": false,
-            "order": 10
+            "symbol": "YK"
         }
     }
 }

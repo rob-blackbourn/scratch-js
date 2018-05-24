@@ -173,10 +173,15 @@ export default class Repository {
         return this.convert(sourceConverter, value, targetConverter, domainScalar)
     }
 
-    match(text) {
+    match(text, usage) {
         const matches = new Set()
         
         for (let converter of this._converterList) {
+            
+            if (!converter.unit.usages.includes(usage)) {
+                continue
+            }
+
             if (converter.domain.localeDetail().name.includes(text)) {
                 matches.add(converter)
             } else if (converter.authority.localeDetail().name.includes(text)) {

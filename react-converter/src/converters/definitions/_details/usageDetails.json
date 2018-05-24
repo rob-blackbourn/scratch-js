@@ -1,0 +1,12 @@
+{
+    "science": {
+        "en": {
+            "name": "science"
+        }
+    },
+    "cookery": {
+        "en": {
+            "name": "Cookery"
+        }
+    }
+}

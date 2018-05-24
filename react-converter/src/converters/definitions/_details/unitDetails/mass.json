@@ -3,81 +3,63 @@
         "en": {
             "singular": "grain",
             "plural": "grains",
-            "symbol": "gr",
-            "isMajor": false,
-            "order": 0
+            "symbol": "gr"
         }
     },
     "drachm": {
         "en": {
             "singular": "drachm",
             "plural": "drachms",
-            "symbol": "dr",
-            "isMajor": false,
-            "order": 0
+            "symbol": "dr"
         }
     },
     "dram": {
         "en": {
             "singular": "dram",
             "plural": "drams",
-            "symbol": "dr",
-            "isMajor": false,
-            "order": 0
+            "symbol": "dr"
         }
     },
     "ounce": {
         "en": {
             "singular": "ounce",
             "plural": "ounces",
-            "symbol": "oz",
-            "isMajor": false,
-            "order": 0
+            "symbol": "oz"
         }
     },
     "pound": {
         "en": {
             "singular": "pound",
             "plural": "pounds",
-            "symbol": "lb",
-            "isMajor": true,
-            "order": 0
+            "symbol": "lb"
         }
     },
     "stone": {
         "en": {
             "singular": "stone",
             "plural": "stones",
-            "symbol": "st",
-            "isMajor": true,
-            "order": 1
+            "symbol": "st"
         }
     },
     "quarter": {
         "en": {
             "singular": "quarter",
             "plural": "quarters",
-            "symbol": "qtr",
-            "isMajor": true,
-            "order": 2
+            "symbol": "qtr"
         }
     },
     "hundredweight": {
         "en": {
             "singular": "hundredweight",
             "plural": "hundredweight",
-            "symbol": "cwt",
-            "isMajor": true,
-            "order": 3
+            "symbol": "cwt"
         }
     },
     "ton": {
         "en": {
             "singular": "ton",
             "plural": "tons",
-            "symbol": "tn",
-            "isMajor": true,
-            "order": 4
+            "symbol": "tn"
         }
     }
 }

@@ -102,90 +102,70 @@
         "en": {
             "singular": "decagramme",
             "plural": "decagrammes",
-            "symbol": "dag",
-            "isMajor": false,
-            "order": 1
+            "symbol": "dag"
         }
     },
     "hectogramme": {
         "en": {
             "singular": "hectogramme",
             "plural": "hectogrammes",
-            "symbol": "hg",
-            "isMajor": false,
-            "order": 2
+            "symbol": "hg"
         }
     },
     "kilogramme": {
         "en": {
             "singular": "kilogramme",
             "plural": "kilogrammes",
-            "symbol": "kg",
-            "isMajor": true,
-            "order": 3
+            "symbol": "kg"
         }
     },
     "megagramme": {
         "en": {
             "singular": "megagramme",
             "plural": "megagrammes",
-            "symbol": "Mg",
-            "isMajor": false,
-            "order": 4
+            "symbol": "Mg"
         }
     },
     "gigagramme": {
         "en": {
             "singular": "gigagramme",
             "plural": "gigagrammes",
-            "symbol": "Gg",
-            "isMajor": false,
-            "order": 5
+            "symbol": "Gg"
         }
     },
     "teragramme": {
         "en": {
             "singular": "teragramme",
             "plural": "teragrammes",
-            "symbol": "Tg",
-            "isMajor": false,
-            "order": 6
+            "symbol": "Tg"
         }
     },
     "petagramme": {
         "en": {
             "singular": "petagramme",
             "plural": "petagrammes",
-            "symbol": "Pg",
-            "isMajor": false,
-            "order": 7
+            "symbol": "Pg"
         }
     },
     "exagramme": {
         "en": {
             "singular": "exagramme",
             "plural": "exagrammes",
-            "symbol": "Eg",
-            "isMajor": false,
-            "order": 8
+            "symbol": "Eg"
         }
     },
     "zettagramme": {
         "en": {
             "singular": "zettagramme",
             "plural": "zettagrammes",
-            "symbol": "Zg",
-            "isMajor": false,
-            "order": 9
+            "symbol": "Zg"
         }
     },
     "yottagramme": {
         "en": {
             "singular": "yottagramme",
             "plural": "yottagrammes",
-            "symbol": "Yg",
-            "isMajor": false,
-            "order": 10
+            "symbol": "Yg"
         }
     }
 }

@@ -3,189 +3,147 @@
         "en": {
             "singular": "yoctolitre",
             "plural": "yoctolitres",
-            "symbol": "yl",
-            "isMajor": false,
-            "order": -10
+            "symbol": "yl"
         }
     },
     "zeptolitre": {
         "en": {
             "singular": "zeptolitre",
             "plural": "zeptolitres",
-            "symbol": "zl",
-            "isMajor": false,
-            "order": -9
+            "symbol": "zl"
         }
     },
     "attolitre": {
         "en": {
             "singular": "attolitre",
             "plural": "attolitres",
-            "symbol": "al",
-            "isMajor": false,
-            "order": -8
+            "symbol": "al"
         }
     },
     "femtolitre": {
         "en": {
             "singular": "femtolitre",
             "plural": "femtolitres",
-            "symbol": "fl",
-            "isMajor": false,
-            "order": -7
+            "symbol": "fl"
         }
     },
     "picolitre": {
         "en": {
             "singular": "picolitre",
             "plural": "picolitres",
-            "symbol": "pl",
-            "isMajor": false,
-            "order": -6
+            "symbol": "pl"
         }
     },
     "nanolitre": {
         "en": {
             "singular": "nanolitre",
             "plural": "nanolitres",
-            "symbol": "nl",
-            "isMajor": false,
-            "order": -5
+            "symbol": "nl"
         }
     },
     "microlitre": {
         "en": {
             "singular": "microlitre",
             "plural": "microlitres",
-            "symbol": "\u00b5ml",
-            "isMajor": false,
-            "order": -4
+            "symbol": "\u00b5ml"
         }
     },
     "millilitre": {
         "en": {
             "singular": "millilitre",
             "plural": "millilitres",
-            "symbol": "ml",
-            "isMajor": true,
-            "order": -3
+            "symbol": "ml"
         }
     },
     "centilitre": {
         "en": {
             "singular": "centilitre",
             "plural": "centilitres",
-            "symbol": "cl",
-            "isMajor": false,
-            "order": -2
+            "symbol": "cl"
         }
     },
     "decilitre": {
         "en": {
             "singular": "decilitre",
             "plural": "decilitres",
-            "symbol": "dl",
-            "isMajor": false,
-            "order": -1
+            "symbol": "dl"
         }
     },
     "litre": {
         "en": {
             "singular": "litre",
             "plural": "litres",
-            "symbol": "l",
-            "isMajor": true,
-            "order": 0
+            "symbol": "l"
         }
     },
     "decalitre": {
         "en": {
             "singular": "decalitre",
             "plural": "decalitres",
-            "symbol": "dal",
-            "isMajor": false,
-            "order": 1
+            "symbol": "dal"
         }
     },
     "hectolitre": {
         "en": {
             "singular": "hectolitre",
             "plural": "hectolitres",
-            "symbol": "hl",
-            "isMajor": false,
-            "order": 2
+            "symbol": "hl"
         }
     },
     "kilolitre": {
         "en": {
             "singular": "kilolitre",
             "plural": "kilolitres",
-            "symbol": "kl",
-            "isMajor": true,
-            "order": 3
+            "symbol": "kl"
         }
     },
     "megalitre": {
         "en": {
             "singular": "megalitre",
             "plural": "megalitres",
-            "symbol": "Ml",
-            "isMajor": false,
-            "order": 4
+            "symbol": "Ml"
         }
     },
     "gigalitre": {
         "en": {
             "singular": "gigalitre",
             "plural": "gigalitres",
-            "symbol": "Gl",
-            "isMajor": false,
-            "order": 5
+            "symbol": "Gl"
         }
     },
     "teralitre": {
         "en": {
             "singular": "teralitre",
             "plural": "teralitres",
-            "symbol": "Tl",
-            "isMajor": false,
-            "order": 6
+            "symbol": "Tl"
         }
     },
     "petalitre": {
         "en": {
             "singular": "petalitre",
             "plural": "petalitres",
-            "symbol": "Pl",
-            "isMajor": false,
-            "order": 7
+            "symbol": "Pl"
         }
     },
     "exalitre": {
         "en": {
             "singular": "exalitre",
             "plural": "exalitres",
-            "symbol": "El",
-            "isMajor": false,
-            "order": 8
+            "symbol": "El"
         }
     },
     "zettalitre": {
         "en": {
             "singular": "zettalitre",
             "plural": "zettalitres",
-            "symbol": "Zl",
-            "isMajor": false,
-            "order": 9
+            "symbol": "Zl"
         }
     },
     "yottalitre": {
         "en": {
             "singular": "yottalitre",
             "plural": "yottalitres",
-            "symbol": "Yl",
-            "isMajor": false,
-            "order": 10
+            "symbol": "Yl"
         }
     }
 }

@@ -3,9 +3,7 @@
         "en": {
             "singular": "thou",
             "plural": "thous",
-            "symbol": "th",
-            "isMajor": false,
-            "order": -2
+            "symbol": "th"
         }
     },
    
@@ -13,63 +11,49 @@
         "en": {
             "singular": "inch",
             "plural": "inches",
-            "symbol": "in",
-            "isMajor": true,
-            "order": -1
+            "symbol": "in"
         }
     },
     "foot": {
         "en": {
             "singular": "foot",
             "plural": "feet",
-            "symbol": "ft",
-            "isMajor": true,
-            "order": 0
+            "symbol": "ft"
         }
     },
     "yard": {
         "en": {
             "singular": "yard",
             "plural": "yards",
-            "symbol": "yd",
-            "isMajor": true,
-            "order": 1
+            "symbol": "yd"
         }
     },
     "chain": {
         "en": {
             "singular": "chain",
             "plural": "chains",
-            "symbol": "ch",
-            "isMajor": false,
-            "order": 2
+            "symbol": "ch"
         }
     },
     "furlong": {
         "en": {
             "singular": "furlong",
             "plural": "furlongs",
-            "symbol": "fur",
-            "isMajor": false,
-            "order": 3
+            "symbol": "fur"
         }
     },
     "mile": {
         "en": {
             "singular": "mile",
             "plural": "miles",
-            "symbol": "mi",
-            "isMajor": true,
-            "order": 4
+            "symbol": "mi"
         }
     },
     "league": {
         "en": {
             "singular": "league",
             "plural": "leagues",
-            "symbol": "lea",
-            "isMajor": false,
-            "order": 5
+            "symbol": "lea"
         }
     }    
 }

@@ -3,27 +3,21 @@
         "en": {
             "singular": "Celsius",
             "plural": "Celsius",
-            "symbol": "\u00b0C",
-            "isMajor": true,
-            "order": 0
+            "symbol": "\u00b0C"
         }
     },
     "fahrenheit": {
         "en": {
             "singular": "Fahrenheit",
             "plural": "Fahrenheit",
-            "symbol": "\u00b0F",
-            "isMajor": true,
-            "order": 0
+            "symbol": "\u00b0F"
         }
     },
     "gas-mark": {
         "en": {
             "singular": "Gas Mark",
             "plural": "Gas Mark",
-            "symbol": "GM",
-            "isMajor": true,
-            "order": 0
+            "symbol": "GM"
         }
     }
 }

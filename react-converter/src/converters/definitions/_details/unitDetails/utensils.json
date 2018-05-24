@@ -3,54 +3,42 @@
         "en": {
             "singular": "drop",
             "plural": "drops",
-            "symbol": "drop",
-            "isMajor": true,
-            "order": 0
+            "symbol": "drop"
         }
     },
     "teaspoon": {
         "en": {
             "singular": "teaspoon",
             "plural": "teaspoons",
-            "symbol": "tsp",
-            "isMajor": true,
-            "order": 0
+            "symbol": "tsp"
         }
     },
     "dessertspoon": {
         "en": {
             "singular": "dessertspoon",
             "plural": "dessertspoons",
-            "symbol": "dstspn",
-            "isMajor": true,
-            "order": 0
+            "symbol": "dstspn"
         }
     },
     "tablespoon": {
         "en": {
             "singular": "tablespoon",
             "plural": "tablespoons",
-            "symbol": "tbsp",
-            "isMajor": true,
-            "order": 0
+            "symbol": "tbsp"
         }
     },
     "cup": {
         "en": {
             "singular": "cup",
             "plural": "cups",
-            "symbol": "cup",
-            "isMajor": true,
-            "order": 0
+            "symbol": "cup"
         }
     },
     "go": {
         "en": {
             "singular": "go",
             "plural": "gos",
-            "symbol": "go",
-            "isMajor": true,
-            "order": 0
+            "symbol": "go"
         }
     }
 }

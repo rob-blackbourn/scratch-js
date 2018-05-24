@@ -23,9 +23,11 @@ export class UnitDetail {
 }
 
 export class Unit extends LocaleDetails {
-    constructor(key, details) {
+    constructor(key, order, usages, details) {
         super(details)
         this.key = key
+        this.order = order
+        this.usages = usages
     }
 
     equals(other) {
@@ -34,6 +36,6 @@ export class Unit extends LocaleDetails {
 
     toString() {
         const localeDetail = this.localeDetail()
-        return `key=${this.key}, ${localeDetail.toString()}`
+        return `key=${this.key}, ${localeDetail.toString()}, order=${this.order}`
     }
 }

@@ -3,189 +3,147 @@
         "en": {
             "singular": "yoctosecond",
             "plural": "yoctoseconds",
-            "symbol": "ys",
-            "isMajor": false,
-            "order": -10
+            "symbol": "ys"
         }
     },
     "zeptosecond": {
         "en": {
             "singular": "zeptosecond",
             "plural": "zeptoseconds",
-            "symbol": "zs",
-            "isMajor": false,
-            "order": -9
+            "symbol": "zs"
         }
     },
     "attosecond": {
         "en": {
             "singular": "attosecond",
             "plural": "attoseconds",
-            "symbol": "as",
-            "isMajor": false,
-            "order": -8
+            "symbol": "as"
         }
     },
     "femtosecond": {
         "en": {
             "singular": "femtosecond",
             "plural": "femtoseconds",
-            "symbol": "fs",
-            "isMajor": false,
-            "order": -7
+            "symbol": "fs"
         }
     },
     "picosecond": {
         "en": {
             "singular": "picosecond",
             "plural": "picoseconds",
-            "symbol": "ps",
-            "isMajor": false,
-            "order": -6
+            "symbol": "ps"
         }
     },
     "nanosecond": {
         "en": {
             "singular": "nanosecond",
             "plural": "nanoseconds",
-            "symbol": "ns",
-            "isMajor": false,
-            "order": -5
+            "symbol": "ns"
         }
     },
     "microsecond": {
         "en": {
             "singular": "microsecond",
             "plural": "microseconds",
-            "symbol": "\u00b5s",
-            "isMajor": false,
-            "order": -4
+            "symbol": "\u00b5s"
         }
     },
     "millisecond": {
         "en": {
             "singular": "millisecond",
             "plural": "milliseconds",
-            "symbol": "ms",
-            "isMajor": true,
-            "order": -3
+            "symbol": "ms"
         }
     },
     "centisecond": {
         "en": {
             "singular": "centisecond",
             "plural": "centiseconds",
-            "symbol": "cs",
-            "isMajor": false,
-            "order": -2
+            "symbol": "cs"
         }
     },
     "decisecond": {
         "en": {
             "singular": "decisecond",
             "plural": "deciseconds",
-            "symbol": "ds",
-            "isMajor": false,
-            "order": -1
+            "symbol": "ds"
         }
     },
     "second": {
         "en": {
             "singular": "second",
             "plural": "seconds",
-            "symbol": "s",
-            "isMajor": true,
-            "order": 0
+            "symbol": "s"
         }
     },
     "decasecond": {
         "en": {
             "singular": "decasecond",
             "plural": "decaseconds",
-            "symbol": "das",
-            "isMajor": false,
-            "order": 1
+            "symbol": "das"
         }
     },
     "hectosecond": {
         "en": {
             "singular": "hectosecond",
             "plural": "hectoseconds",
-            "symbol": "hs",
-            "isMajor": false,
-            "order": 2
+            "symbol": "hs"
         }
     },
     "kilosecond": {
         "en": {
             "singular": "kilosecond",
             "plural": "kiloseconds",
-            "symbol": "ks",
-            "isMajor": true,
-            "order": 3
+            "symbol": "ks"
         }
     },
     "megasecond": {
         "en": {
             "singular": "megasecond",
             "plural": "megaseconds",
-            "symbol": "Ms",
-            "isMajor": false,
-            "order": 4
+            "symbol": "Ms"
         }
     },
     "gigasecond": {
         "en": {
             "singular": "gigasecond",
             "plural": "gigaseconds",
-            "symbol": "Gs",
-            "isMajor": false,
-            "order": 5
+            "symbol": "Gs"
         }
     },
     "terasecond": {
         "en": {
             "singular": "terasecond",
             "plural": "teraseconds",
-            "symbol": "Ts",
-            "isMajor": false,
-            "order": 6
+            "symbol": "Ts"
         }
     },
     "petasecond": {
         "en": {
             "singular": "petasecond",
             "plural": "petaseconds",
-            "symbol": "Ps",
-            "isMajor": false,
-            "order": 7
+            "symbol": "Ps"
         }
     },
     "exasecond": {
         "en": {
             "singular": "exasecond",
             "plural": "exaseconds",
-            "symbol": "Es",
-            "isMajor": false,
-            "order": 8
+            "symbol": "Es"
         }
     },
     "zettasecond": {
         "en": {
             "singular": "zettasecond",
             "plural": "zettaseconds",
-            "symbol": "Zs",
-            "isMajor": false,
-            "order": 9
+            "symbol": "Zs"
         }
     },
     "yottasecond": {
         "en": {
             "singular": "yottasecond",
             "plural": "yottaseconds",
-            "symbol": "Ys",
-            "isMajor": false,
-            "order": 10
+            "symbol": "Ys"
         }
     }
 }

@@ -5,6 +5,7 @@ import * as domains from './definitions/domains'
 import * as authorities from './definitions/authorities'
 import * as systems from './definitions/systems'
 import * as units from './definitions/units'
+import * as usages from './definitions/usages'
 
 const repository = createRepository()
 
@@ -178,12 +179,15 @@ describe('converters', () => {
 
     describe('should find matches', () => {
 
-        it('should match meters', () => {
-            const matches = repository.match('meters')
+        it('should match centimeters', () => {
+            const matches = repository.match('centimeters', usages.Cookery)
             expect(matches).toBeDefined()
-            // expect(matches.length).toBe(1)
-            // const match = matches.values().next().value
-            // expect (match.domain).toBe(domains.Length)
+            expect(matches.size).toBe(1)
+            const match = matches.values().next().value
+            expect (match.domain).toBe(domains.Length)
+            expect(match.authority).toBe(authorities.SystemInternational)
+            expect(match.system).toBe(systems.Metric)
+            expect(match.unit.key).toBe("centimeter")
         })
     })
 
