@@ -1,4 +1,5 @@
 import DomainRepository from './DomainRepository'
+import { List, Seq } from 'immutable'
 
 export default class Repository {
 
@@ -173,32 +174,44 @@ export default class Repository {
         return this.convert(sourceConverter, value, targetConverter, domainScalar)
     }
 
+
     match(text, usage) {
-        const matches = new Set()
-        
-        for (let converter of this._converterList) {
-            
-            if (!converter.unit.usages.includes(usage)) {
-                continue
+
+        const calculateQuality = (text, matchingText, valueIfExact) => {
+            if (text == matchingText) {
+                return valueIfExact
             }
 
-            if (converter.domain.localeDetail().name.includes(text)) {
-                matches.add(converter)
-            } else if (converter.authority.localeDetail().name.includes(text)) {
-                matches.add(converter)
-            } else if (converter.authority.localeDetail().commonName.includes(text)) {
-                matches.add(converter)
-            } else if (converter.system.localeDetail().name.includes(text)) {
-                matches.add(converter)
-            } else if (converter.unit.localeDetail().singular.includes(text)) {
-                matches.add(converter)
-            } else if (converter.unit.localeDetail().plural.includes(text)) {
-                matches.add(converter)
-            } else if (converter.unit.localeDetail().symbol.includes(text)) {
-                matches.add(converter)
-            }
+            return (matchingText.length - text.length) / matchingText.length
         }
 
-        return matches
+        return Array.from(
+            new Seq(this._converterList).filter(x => x.unit.usages.includes(usage)).map(converter => {
+                let quality = 0
+
+                if (converter.domain.detail.name.includes(text)) {
+                    quality += calculateQuality(text, converter.domain.detail.name, 10)
+                }
+                if (converter.authority.detail.name.includes(text)) {
+                    quality += calculateQuality(text, converter.authority.detail.name, 10)
+                }
+                if (converter.authority.detail.commonName.includes(text)) {
+                    quality += calculateQuality(text, converter.authority.detail.commonName, 10)
+                }
+                if (converter.system.detail.name.includes(text)) {
+                    quality += calculateQuality(text, converter.system.detail.name, 10)
+                }
+                if (converter.unit.detail.singular.includes(text)) {
+                    quality += calculateQuality(text, converter.unit.detail.singular, 100)
+                }
+                if (converter.unit.detail.plural.includes(text)) {
+                    quality += calculateQuality(text, converter.unit.detail.plural, 100)
+                }
+                if (converter.unit.detail.symbol.includes(text)) {
+                    quality += calculateQuality(text, converter.unit.detail.symbol, 100)
+                }
+
+                return {quality, converter}
+            }).filter(x => x.quality !== 0).sortBy(x => 100 - Math.abs(x.converter.unit.order)).sortBy(x => x.quality).map(x => x.converter).reverse())
     }
 }

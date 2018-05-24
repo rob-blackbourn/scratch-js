@@ -179,15 +179,22 @@ describe('converters', () => {
 
     describe('should find matches', () => {
 
-        it('should match centimeters', () => {
+        it('should match centimeters in cookery', () => {
             const matches = repository.match('centimeters', usages.Cookery)
             expect(matches).toBeDefined()
-            expect(matches.size).toBe(1)
-            const match = matches.values().next().value
+            expect(matches.length).toBe(1)
+            const match = matches[0]
             expect (match.domain).toBe(domains.Length)
             expect(match.authority).toBe(authorities.SystemInternational)
             expect(match.system).toBe(systems.Metric)
             expect(match.unit.key).toBe("centimeter")
+        })
+
+        it('should match meters in science', () => {
+            const matches = repository.match('meters', usages.Science)
+            expect(matches).toBeDefined()
+            expect(matches.length).toBeGreaterThanOrEqual(1)
+            expect(matches[0].unit).toBe(units.Meter)
         })
     })
 

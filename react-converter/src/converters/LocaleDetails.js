@@ -8,6 +8,10 @@ export default class LocaleDetails {
 
     static systemLocale = navigator.language
 
+    get detail() {
+        return this.localeDetail(this.systemLocale)
+    }
+
     localeDetail(locale = LocaleDetails.systemLocale) {
 
         if (this.localeMap.has(locale)) {
