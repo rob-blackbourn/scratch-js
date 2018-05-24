@@ -1,6 +1,6 @@
 import LocaleDetails from './LocaleDetails'
 
-export class AuthorityDetails {
+export class AuthorityDetail {
     
     constructor (name, commonName) {
         this.name = name
@@ -15,7 +15,7 @@ export class AuthorityDetails {
         const details = {}
         for (let key in json) {
             const value = json[key]
-            details[key] = new AuthorityDetails(value["name"], value["commonName"])
+            details[key] = new AuthorityDetail(value["name"], value["commonName"])
         }
         return details
     }

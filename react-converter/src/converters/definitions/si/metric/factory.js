@@ -3,7 +3,7 @@ import { mul, div } from '../../../../numbers'
 
 import { MeterConverter, GrammeConverter, LitreConverter, SecondConverter, KelvinConverter } from './baseConverters'
 
-import { Unit, UnitDetails } from '../../../Unit'
+import { Unit, UnitDetail } from '../../../Unit'
 import metricLengthUnitDetails from '../../_details/unitDetails/metricLength.json'
 import metricMassUnitDetails from '../../_details/unitDetails/metricMass.json'
 import metricVolumeUnitDetails from '../../_details/unitDetails/metricVolume.json'
@@ -16,7 +16,7 @@ function createPrefix(name, isMultiplier, scalar) {
 
 function createFromPrefix(targetConverter, prefix, unitDetails) {
     const unitKey = prefix.name + targetConverter.unit.key
-    const unit = new Unit(unitKey, UnitDetails.fromJSON(unitDetails[unitKey]))
+    const unit = new Unit(unitKey, UnitDetail.fromJSON(unitDetails[unitKey]))
     const toConverter = prefix.isMultiplier ? value => mul(value, prefix.scalar) : value => div(value, prefix.scalar)
     const fromConverter = prefix.isMultiplier ? value => div(value, prefix.scalar) : value => mul(value, prefix.scalar)
 

@@ -1,6 +1,6 @@
 import LocaleDetails from './LocaleDetails'
 
-export class DomainDetails {
+export class DomainDetail {
 
     constructor (name) {
         this.name = name
@@ -14,7 +14,7 @@ export class DomainDetails {
         const details = {}
         for (let key in json) {
             const value = json[key]
-            details[key] = new DomainDetails(value["name"])
+            details[key] = new DomainDetail(value["name"])
         }
         return details
     }

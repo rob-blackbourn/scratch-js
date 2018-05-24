@@ -1,6 +1,6 @@
 import LocaleDetails from './LocaleDetails'
 
-export class UnitDetails {
+export class UnitDetail {
     
     constructor (singular, plural, symbol) {
         this.singular = singular
@@ -16,7 +16,7 @@ export class UnitDetails {
         const details = {}
         for (let key in json) {
             const value = json[key]
-            details[key] = new UnitDetails(value["singular"], value["plural"], value["symbol"])
+            details[key] = new UnitDetail(value["singular"], value["plural"], value["symbol"])
         }
         return details
     }

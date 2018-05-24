@@ -1,6 +1,6 @@
 import LocaleDetails from './LocaleDetails'
 
-export class SystemDetails {
+export class SystemDetail {
     
     constructor (name) {
         this.name = name
@@ -14,7 +14,7 @@ export class SystemDetails {
         const details = {}
         for (let key in json) {
             const value = json[key]
-            details[key] = new SystemDetails(value["name"])
+            details[key] = new SystemDetail(value["name"])
         }
         return details
     }

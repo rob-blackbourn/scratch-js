@@ -1,12 +1,12 @@
-import { Authority, AuthorityDetails } from '../Authority'
+import { Authority, AuthorityDetail } from '../Authority'
 import authorityDetails from './_details/authorityDetails.json'
 
-export const Australia = new Authority("australia", AuthorityDetails.fromJSON(authorityDetails['australia']))
-export const Canada = new Authority("canada", AuthorityDetails.fromJSON(authorityDetails['canada']))
-export const EuropeanUnion = new Authority("europe", AuthorityDetails.fromJSON(authorityDetails['europe']))
-export const FederalDrugAdministration = new Authority("fda", AuthorityDetails.fromJSON(authorityDetails['fda']))
-export const Japan = new Authority("japan", AuthorityDetails.fromJSON(authorityDetails['japan']))
-export const NewZealand = new Authority("nz", AuthorityDetails.fromJSON(authorityDetails['nz']))
-export const SystemInternational = new Authority("si", AuthorityDetails.fromJSON(authorityDetails['si']))
-export const UnitedKingdom = new Authority("uk", AuthorityDetails.fromJSON(authorityDetails['uk']))
-export const UnitedStates = new Authority("us", AuthorityDetails.fromJSON(authorityDetails['us']))
+export const Australia = new Authority("australia", AuthorityDetail.fromJSON(authorityDetails['australia']))
+export const Canada = new Authority("canada", AuthorityDetail.fromJSON(authorityDetails['canada']))
+export const EuropeanUnion = new Authority("europe", AuthorityDetail.fromJSON(authorityDetails['europe']))
+export const FederalDrugAdministration = new Authority("fda", AuthorityDetail.fromJSON(authorityDetails['fda']))
+export const Japan = new Authority("japan", AuthorityDetail.fromJSON(authorityDetails['japan']))
+export const NewZealand = new Authority("nz", AuthorityDetail.fromJSON(authorityDetails['nz']))
+export const SystemInternational = new Authority("si", AuthorityDetail.fromJSON(authorityDetails['si']))
+export const UnitedKingdom = new Authority("uk", AuthorityDetail.fromJSON(authorityDetails['uk']))
+export const UnitedStates = new Authority("us", AuthorityDetail.fromJSON(authorityDetails['us']))
