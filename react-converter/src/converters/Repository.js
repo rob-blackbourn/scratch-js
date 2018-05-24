@@ -1,34 +1,4 @@
-class DomainRepository {
-
-    constructor() {
-        this._domainConverters = [];
-    }
-
-    get domainConverters() {
-        return this._domainConverters;
-    }
-
-    add(domainConverter) {
-        this._domainConverters.push(domainConverter);
-        return domainConverter;
-    }
-    
-    addRange(converters) {
-        for (let converter of converters) {
-            this.add(converter);
-        }
-    }
-
-    find(sourceDomain, targetDomain) {
-        for (var index = 0; index < this._domainConverters.length; ++index) {
-            var domainConverter = this._domainConverters[index];
-            if ((sourceDomain === domainConverter.sourceConverter.domain && targetDomain === domainConverter.targetConverter.domain)
-                || (sourceDomain === domainConverter.targetConverter.domain && targetDomain === domainConverter.sourceConverter.domain)) {
-                return domainConverter;
-            }
-        }
-    }
-}
+import DomainRepository from './DomainRepository'
 
 export default class Repository {
 
@@ -183,20 +153,20 @@ export default class Repository {
         return undefined;
     }
 
-    convert(converter, value, targetConverter) {
+    convert(converter, value, targetConverter, domainScalar) {
         if (converter.domain === targetConverter.domain) {
-            return converter.convert(value, targetConverter);
+            return converter.convert(value, targetConverter)
         } else {
-            var domainConverter = this._domainConverters.find(converter.domain, targetConverter.domain);
+            var domainConverter = this._domainConverters.find(converter.domain, targetConverter.domain)
             if (domainConverter) {
-                return domainConverter.convert(value, converter, targetConverter);
+                return domainConverter.convert(value, converter, targetConverter, domainScalar)
             }
         }
     }
 
-    findAndConvert(fromUnitIdentifier, value, toUnitIdentifier) {
+    findAndConvert(fromUnitIdentifier, value, toUnitIdentifier, domainScalar) {
         const sourceConverter = this.find(fromUnitIdentifier)
         const targetConverter = this.find(toUnitIdentifier)
-        return this.convert(sourceConverter, value, targetConverter)
+        return this.convert(sourceConverter, value, targetConverter, domainScalar)
     }
 }

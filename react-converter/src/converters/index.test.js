@@ -1,5 +1,6 @@
 import createRepository, {UnitIdentifier} from './index'
 
+import Fraction from '../numbers/Fraction'
 import * as domains from './definitions/domains'
 import * as authorities from './definitions/authorities'
 import * as systems from './definitions/systems'
@@ -151,6 +152,28 @@ describe('converters', () => {
     
         })
     
+    })
+
+    describe('domain repository', () => {
+
+        it('should convert litres to grammes', () => {
+            const litreConverter = repository.findByKey(
+                domains.Volume.key,
+                authorities.SystemInternational.key,
+                systems.Metric.key,
+                units.Litre.key)
+            const grammeConverter = repository.findByKey(
+                domains.Mass.key,
+                authorities.SystemInternational.key,
+                systems.Metric.key,
+                units.Gramme.key)
+
+            const litres = 1
+            const density = 1000
+            const grammes  = repository.findAndConvert(litreConverter, litres, grammeConverter, new Fraction(1, 1000))
+            expect(grammes.valueOf()).toBe(1000)
+        })
+
     })
 
 })
