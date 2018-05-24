@@ -1,0 +1,191 @@
+{
+    "yoctogramme": {
+        "en": {
+            "singular": "yoctogramme",
+            "plural": "yoctogrammes",
+            "symbol": "yg",
+            "isMajor": false,
+            "order": -10
+        }
+    },
+    "zeptogramme": {
+        "en": {
+            "singular": "zeptogramme",
+            "plural": "zeptogrammes",
+            "symbol": "zg",
+            "isMajor": false,
+            "order": -9
+        }
+    },
+    "attogramme": {
+        "en": {
+            "singular": "attogramme",
+            "plural": "attogrammes",
+            "symbol": "ag",
+            "isMajor": false,
+            "order": -8
+        }
+    },
+    "femtogramme": {
+        "en": {
+            "singular": "femtogramme",
+            "plural": "femtogrammes",
+            "symbol": "fg",
+            "isMajor": false,
+            "order": -7
+        }
+    },
+    "picogramme": {
+        "en": {
+            "singular": "picogramme",
+            "plural": "picogrammes",
+            "symbol": "pg",
+            "isMajor": false,
+            "order": -6
+        }
+    },
+    "nanogramme": {
+        "en": {
+            "singular": "nanogramme",
+            "plural": "nanogrammes",
+            "symbol": "ng",
+            "isMajor": false,
+            "order": -5
+        }
+    },
+    "microgramme": {
+        "en": {
+            "singular": "microgramme",
+            "plural": "microgrammes",
+            "symbol": "\u00b5g",
+            "isMajor": false,
+            "order": -4
+        }
+    },
+    "milligramme": {
+        "en": {
+            "singular": "milligramme",
+            "plural": "milligrammes",
+            "symbol": "mg",
+            "isMajor": true,
+            "order": -3
+        }
+    },
+    "centigramme": {
+        "en": {
+            "singular": "centigramme",
+            "plural": "centigrammes",
+            "symbol": "cg",
+            "isMajor": false,
+            "order": -2
+        }
+    },
+    "decigramme": {
+        "en": {
+            "singular": "decigramme",
+            "plural": "decigrammes",
+            "symbol": "dg",
+            "isMajor": false,
+            "order": -1
+        }
+    },
+    "gramme": {
+        "en": {
+            "singular": "gramme",
+            "plural": "grammes",
+            "symbol": "g",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "decagramme": {
+        "en": {
+            "singular": "decagramme",
+            "plural": "decagrammes",
+            "symbol": "dag",
+            "isMajor": false,
+            "order": 1
+        }
+    },
+    "hectogramme": {
+        "en": {
+            "singular": "hectogramme",
+            "plural": "hectogrammes",
+            "symbol": "hg",
+            "isMajor": false,
+            "order": 2
+        }
+    },
+    "kilogramme": {
+        "en": {
+            "singular": "kilogramme",
+            "plural": "kilogrammes",
+            "symbol": "kg",
+            "isMajor": true,
+            "order": 3
+        }
+    },
+    "megagramme": {
+        "en": {
+            "singular": "megagramme",
+            "plural": "megagrammes",
+            "symbol": "Mg",
+            "isMajor": false,
+            "order": 4
+        }
+    },
+    "gigagramme": {
+        "en": {
+            "singular": "gigagramme",
+            "plural": "gigagrammes",
+            "symbol": "Gg",
+            "isMajor": false,
+            "order": 5
+        }
+    },
+    "teragramme": {
+        "en": {
+            "singular": "teragramme",
+            "plural": "teragrammes",
+            "symbol": "Tg",
+            "isMajor": false,
+            "order": 6
+        }
+    },
+    "petagramme": {
+        "en": {
+            "singular": "petagramme",
+            "plural": "petagrammes",
+            "symbol": "Pg",
+            "isMajor": false,
+            "order": 7
+        }
+    },
+    "exagramme": {
+        "en": {
+            "singular": "exagramme",
+            "plural": "exagrammes",
+            "symbol": "Eg",
+            "isMajor": false,
+            "order": 8
+        }
+    },
+    "zettagramme": {
+        "en": {
+            "singular": "zettagramme",
+            "plural": "zettagrammes",
+            "symbol": "Zg",
+            "isMajor": false,
+            "order": 9
+        }
+    },
+    "yottagramme": {
+        "en": {
+            "singular": "yottagramme",
+            "plural": "yottagrammes",
+            "symbol": "Yg",
+            "isMajor": false,
+            "order": 10
+        }
+    }
+}

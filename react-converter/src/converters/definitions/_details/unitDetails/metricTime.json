@@ -1,0 +1,191 @@
+{
+    "yoctosecond": {
+        "en": {
+            "singular": "yoctosecond",
+            "plural": "yoctoseconds",
+            "symbol": "ys",
+            "isMajor": false,
+            "order": -10
+        }
+    },
+    "zeptosecond": {
+        "en": {
+            "singular": "zeptosecond",
+            "plural": "zeptoseconds",
+            "symbol": "zs",
+            "isMajor": false,
+            "order": -9
+        }
+    },
+    "attosecond": {
+        "en": {
+            "singular": "attosecond",
+            "plural": "attoseconds",
+            "symbol": "as",
+            "isMajor": false,
+            "order": -8
+        }
+    },
+    "femtosecond": {
+        "en": {
+            "singular": "femtosecond",
+            "plural": "femtoseconds",
+            "symbol": "fs",
+            "isMajor": false,
+            "order": -7
+        }
+    },
+    "picosecond": {
+        "en": {
+            "singular": "picosecond",
+            "plural": "picoseconds",
+            "symbol": "ps",
+            "isMajor": false,
+            "order": -6
+        }
+    },
+    "nanosecond": {
+        "en": {
+            "singular": "nanosecond",
+            "plural": "nanoseconds",
+            "symbol": "ns",
+            "isMajor": false,
+            "order": -5
+        }
+    },
+    "microsecond": {
+        "en": {
+            "singular": "microsecond",
+            "plural": "microseconds",
+            "symbol": "\u00b5s",
+            "isMajor": false,
+            "order": -4
+        }
+    },
+    "millisecond": {
+        "en": {
+            "singular": "millisecond",
+            "plural": "milliseconds",
+            "symbol": "ms",
+            "isMajor": true,
+            "order": -3
+        }
+    },
+    "centisecond": {
+        "en": {
+            "singular": "centisecond",
+            "plural": "centiseconds",
+            "symbol": "cs",
+            "isMajor": false,
+            "order": -2
+        }
+    },
+    "decisecond": {
+        "en": {
+            "singular": "decisecond",
+            "plural": "deciseconds",
+            "symbol": "ds",
+            "isMajor": false,
+            "order": -1
+        }
+    },
+    "second": {
+        "en": {
+            "singular": "second",
+            "plural": "seconds",
+            "symbol": "s",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "decasecond": {
+        "en": {
+            "singular": "decasecond",
+            "plural": "decaseconds",
+            "symbol": "das",
+            "isMajor": false,
+            "order": 1
+        }
+    },
+    "hectosecond": {
+        "en": {
+            "singular": "hectosecond",
+            "plural": "hectoseconds",
+            "symbol": "hs",
+            "isMajor": false,
+            "order": 2
+        }
+    },
+    "kilosecond": {
+        "en": {
+            "singular": "kilosecond",
+            "plural": "kiloseconds",
+            "symbol": "ks",
+            "isMajor": true,
+            "order": 3
+        }
+    },
+    "megasecond": {
+        "en": {
+            "singular": "megasecond",
+            "plural": "megaseconds",
+            "symbol": "Ms",
+            "isMajor": false,
+            "order": 4
+        }
+    },
+    "gigasecond": {
+        "en": {
+            "singular": "gigasecond",
+            "plural": "gigaseconds",
+            "symbol": "Gs",
+            "isMajor": false,
+            "order": 5
+        }
+    },
+    "terasecond": {
+        "en": {
+            "singular": "terasecond",
+            "plural": "teraseconds",
+            "symbol": "Ts",
+            "isMajor": false,
+            "order": 6
+        }
+    },
+    "petasecond": {
+        "en": {
+            "singular": "petasecond",
+            "plural": "petaseconds",
+            "symbol": "Ps",
+            "isMajor": false,
+            "order": 7
+        }
+    },
+    "exasecond": {
+        "en": {
+            "singular": "exasecond",
+            "plural": "exaseconds",
+            "symbol": "Es",
+            "isMajor": false,
+            "order": 8
+        }
+    },
+    "zettasecond": {
+        "en": {
+            "singular": "zettasecond",
+            "plural": "zettaseconds",
+            "symbol": "Zs",
+            "isMajor": false,
+            "order": 9
+        }
+    },
+    "yottasecond": {
+        "en": {
+            "singular": "yottasecond",
+            "plural": "yottaseconds",
+            "symbol": "Ys",
+            "isMajor": false,
+            "order": 10
+        }
+    }
+}

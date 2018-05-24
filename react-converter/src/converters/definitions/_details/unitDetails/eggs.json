@@ -1,0 +1,110 @@
+{
+    "king-size": {
+        "en": {
+            "singular": "king size",
+            "plural": "king size",
+            "symbol": "king size",
+            "isMajor": true,
+            "order": 4
+        }
+    },
+    "jumbo": {
+        "en": {
+            "singular": "jumbo",
+            "plural": "jumbo",
+            "symbol": "jumbo",
+            "isMajor": true,
+            "order": 3
+        }
+    },
+    "very-large": {
+        "en": {
+            "singular": "very large",
+            "plural": "very large",
+            "symbol": "XL",
+            "isMajor": true,
+            "order": 2
+        }
+    },
+    "large": {
+        "en": {
+            "singular": "large",
+            "plural": "large",
+            "symbol": "L",
+            "isMajor": true,
+            "order": 1
+        }
+    },
+    "medium": {
+        "en": {
+            "singular": "medium",
+            "plural": "medium",
+            "symbol": "M",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "small": {
+        "en": {
+            "singular": "small",
+            "plural": "small",
+            "symbol": "S",
+            "isMajor": true,
+            "order": -1
+        }
+    },
+    "peewee": {
+        "en": {
+            "singular": "peewee",
+            "plural": "peewee",
+            "symbol": "peewee",
+            "isMajor": true,
+            "order": 2
+        }
+    },
+    "size-8-egg": {
+        "en": {
+            "singular": "jumbo",
+            "plural": "jumbo",
+            "symbol": "size 8",
+            "isMajor": true,
+            "order": 2
+        }
+    },
+    "size-7-egg": {
+        "en": {
+            "singular": "large",
+            "plural": "large",
+            "symbol": "size 7",
+            "isMajor": true,
+            "order": 1
+        }
+    },
+    "size-6-egg": {
+        "en": {
+            "singular": "standard",
+            "plural": "standard",
+            "symbol": "size 6",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "size-5-egg": {
+        "en": {
+            "singular": "medium",
+            "plural": "medium",
+            "symbol": "size 5",
+            "isMajor": true,
+            "order": -1
+        }
+    },
+    "size-4-egg": {
+        "en": {
+            "singular": "pullet",
+            "plural": "pullet",
+            "symbol": "size 4",
+            "isMajor": true,
+            "order": -2
+        }
+    }
+}

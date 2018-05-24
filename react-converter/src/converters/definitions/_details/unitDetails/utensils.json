@@ -1,0 +1,56 @@
+{
+    "drop": {
+        "en": {
+            "singular": "drop",
+            "plural": "drops",
+            "symbol": "drop",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "teaspoon": {
+        "en": {
+            "singular": "teaspoon",
+            "plural": "teaspoons",
+            "symbol": "tsp",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "dessertspoon": {
+        "en": {
+            "singular": "dessertspoon",
+            "plural": "dessertspoons",
+            "symbol": "dstspn",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "tablespoon": {
+        "en": {
+            "singular": "tablespoon",
+            "plural": "tablespoons",
+            "symbol": "tbsp",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "cup": {
+        "en": {
+            "singular": "cup",
+            "plural": "cups",
+            "symbol": "cup",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "go": {
+        "en": {
+            "singular": "go",
+            "plural": "gos",
+            "symbol": "go",
+            "isMajor": true,
+            "order": 0
+        }
+    }
+}

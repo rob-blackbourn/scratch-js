@@ -176,4 +176,15 @@ describe('converters', () => {
 
     })
 
+    describe('should find matches', () => {
+
+        it('should match meters', () => {
+            const matches = repository.match('meters')
+            expect(matches).toBeDefined()
+            // expect(matches.length).toBe(1)
+            // const match = matches.values().next().value
+            // expect (match.domain).toBe(domains.Length)
+        })
+    })
+
 })

@@ -4,13 +4,17 @@ import { mul, div } from '../../../../numbers'
 import { MeterConverter, GrammeConverter, LitreConverter, SecondConverter, KelvinConverter } from './baseConverters'
 
 import { Unit, UnitDetails } from '../../../Unit'
-import unitDetails from './unitDetails.json'
+import metricLengthUnitDetails from '../../_details/unitDetails/metricLength.json'
+import metricMassUnitDetails from '../../_details/unitDetails/metricMass.json'
+import metricVolumeUnitDetails from '../../_details/unitDetails/metricVolume.json'
+import metricTimeUnitDetails from '../../_details/unitDetails/metricTime.json'
+import metricTemperatureUnitDetails from '../../_details/unitDetails/metricTemperature.json'
 
 function createPrefix(name, isMultiplier, scalar) {
     return { name: name, isMultiplier: isMultiplier, scalar: scalar }
 }
 
-function createFromPrefix(targetConverter, prefix) {
+function createFromPrefix(targetConverter, prefix, unitDetails) {
     const unitKey = prefix.name + targetConverter.unit.key
     const unit = new Unit(unitKey, UnitDetails.fromJSON(unitDetails[unitKey]))
     const toConverter = prefix.isMultiplier ? value => mul(value, prefix.scalar) : value => div(value, prefix.scalar)
@@ -29,8 +33,7 @@ function createFromPrefix(targetConverter, prefix) {
     return converter
 }
 
-function createSiConverters(targetConverter) {
-
+function createSiConverters(targetConverter, unitDetails) {
 
     const prefixes = [
         createPrefix('yocto', false, Math.pow(10, 24)),
@@ -56,17 +59,17 @@ function createSiConverters(targetConverter) {
         createPrefix('yotta', true, Math.pow(10, 24))
     ]
 
-    const converters = prefixes.map(prefix => createFromPrefix(targetConverter, prefix))
+    const converters = prefixes.map(prefix => createFromPrefix(targetConverter, prefix, unitDetails))
 
     return converters
 }
 
 export function collectUnitConverters() {
     return [
-        MeterConverter, ...createSiConverters(MeterConverter),
-        GrammeConverter, ...createSiConverters(GrammeConverter),
-        SecondConverter, ...createSiConverters(SecondConverter),
-        LitreConverter, ...createSiConverters(LitreConverter),
-        KelvinConverter, ...createSiConverters(KelvinConverter)
+        MeterConverter, ...createSiConverters(MeterConverter, metricLengthUnitDetails),
+        GrammeConverter, ...createSiConverters(GrammeConverter, metricMassUnitDetails),
+        SecondConverter, ...createSiConverters(SecondConverter, metricTimeUnitDetails),
+        LitreConverter, ...createSiConverters(LitreConverter, metricVolumeUnitDetails),
+        KelvinConverter, ...createSiConverters(KelvinConverter, metricTemperatureUnitDetails)
     ]
 }

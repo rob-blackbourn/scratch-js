@@ -1,5 +1,5 @@
 import {Domain, DomainDetails} from '../Domain'
-import domainDetails from './domainDetails.json'
+import domainDetails from './_details/domainDetails.json'
     
 export const Length = new Domain("length", DomainDetails.fromJSON(domainDetails['length']))
 export const Mass = new Domain("mass", DomainDetails.fromJSON(domainDetails['mass']))

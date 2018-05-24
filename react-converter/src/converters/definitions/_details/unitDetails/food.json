@@ -1,0 +1,11 @@
+{
+    "stick": {
+        "en": {
+            "singular": "stick",
+            "plural": "sticks",
+            "symbol": "stick",
+            "isMajor": true,
+            "order": 0
+        }
+    }
+}

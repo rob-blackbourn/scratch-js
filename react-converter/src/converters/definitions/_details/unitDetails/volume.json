@@ -1,0 +1,83 @@
+{
+    "minim": {
+        "en": {
+            "singular": "minim",
+            "plural": "minims",
+            "symbol": "min",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "fluid-scruple": {
+        "en": {
+            "singular": "fluid scruple",
+            "plural": "fluid scruples",
+            "symbol": "fl scruple",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "fluid-drachm": {
+        "en": {
+            "singular": "fluid drachm",
+            "plural": "fluid drachms",
+            "symbol": "fl drachm",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "fluid-dram": {
+        "en": {
+            "singular": "fluid dram",
+            "plural": "fluid drams",
+            "symbol": "fl dram",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "fluid-ounce": {
+        "en": {
+            "singular": "fluid ounce",
+            "plural": "fluid ounces",
+            "symbol": "fl oz",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "gill": {
+        "en": {
+            "singular": "gill",
+            "plural": "gills",
+            "symbol": "gl",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "pint": {
+        "en": {
+            "singular": "pint",
+            "plural": "pints",
+            "symbol": "pt",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "quart": {
+        "en": {
+            "singular": "quart",
+            "plural": "quarts",
+            "symbol": "qt",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "gallon": {
+        "en": {
+            "singular": "gallon",
+            "plural": "gallons",
+            "symbol": "gal",
+            "isMajor": true,
+            "order": 0
+        }
+    }
+}

@@ -1,5 +1,5 @@
 import {System, SystemDetails} from '../System'
-import systemDetails from './systemDetails.json'
+import systemDetails from './_details/systemDetails.json'
     
 export const Metric = new System("metric", SystemDetails.fromJSON(systemDetails['metric']))
 export const Imperial = new System("imperial", SystemDetails.fromJSON(systemDetails['imperial']))

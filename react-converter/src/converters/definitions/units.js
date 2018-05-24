@@ -1,5 +1,5 @@
 import { Unit, UnitDetails } from '../Unit'
-import unitDetails from './unitDetails.json'
+import unitDetails from './_details/unitDetails'
     
 export const Meter = new Unit("meter", UnitDetails.fromJSON(unitDetails['meter']))
 export const Gramme = new Unit("gramme", UnitDetails.fromJSON(unitDetails['gramme']))

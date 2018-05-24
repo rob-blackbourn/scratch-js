@@ -7,7 +7,8 @@ export default class Repository {
         this._defaultClassification = defaultClassification
         this._defaultAuthority = defaultAuthority
 
-        this._converters = new Map()
+        this._converterTree = new Map()
+        this._converterList = []
         this._domainConverters = new DomainRepository()
 
         this.domains = new Map()
@@ -25,7 +26,7 @@ export default class Repository {
     }
 
     get converters() {
-        return this._converters;
+        return this._converterTree;
     }
 
     get domainConverters() {
@@ -47,7 +48,7 @@ export default class Repository {
     }
 
     getAuthorities(domain) {
-        let convertersInDomain = this._converters.get(domain.key);
+        let convertersInDomain = this._converterTree.get(domain.key);
         if (!convertersInDomain) {
             return []
         }
@@ -60,7 +61,7 @@ export default class Repository {
     }
 
     getSystems(domain, authority) {
-        let convertersInDomain = this._converters.get(domain.key);
+        let convertersInDomain = this._converterTree.get(domain.key);
         if (!convertersInDomain) {
             return []
         }
@@ -77,7 +78,7 @@ export default class Repository {
     }
 
     getUnits(domain, authority, system) {
-        let convertersInDomain = this._converters.get(domain.key);
+        let convertersInDomain = this._converterTree.get(domain.key);
         if (!convertersInDomain) {
             return []
         }
@@ -100,6 +101,8 @@ export default class Repository {
 
     add(converter) {
 
+        this._converterList.push(converter)
+
         if (!this.domains.has(converter.domain.key)) {
             this.domains.set(converter.domain.key, converter.domain)
         }
@@ -113,9 +116,9 @@ export default class Repository {
             this.units.set(converter.unit.key, converter.unit)
         }
 
-        let convertersInDomain = this._converters.get(converter.domain.key);
+        let convertersInDomain = this._converterTree.get(converter.domain.key);
         if (!convertersInDomain) {
-            this._converters.set(converter.domain.key, convertersInDomain = new Map());
+            this._converterTree.set(converter.domain.key, convertersInDomain = new Map());
         }
         let convertersInAuthority = convertersInDomain.get(converter.authority.key);
         if (!convertersInAuthority) {
@@ -139,7 +142,7 @@ export default class Repository {
     }
 
     findByKey(domainKey, authorityKey, systemKey, unitKey) {
-        let convertersInDomain = this._converters.get(domainKey)
+        let convertersInDomain = this._converterTree.get(domainKey)
         if (convertersInDomain) {
             let convertersInAuthority = convertersInDomain.get(authorityKey)
             if (convertersInAuthority) {
@@ -168,5 +171,29 @@ export default class Repository {
         const sourceConverter = this.find(fromUnitIdentifier)
         const targetConverter = this.find(toUnitIdentifier)
         return this.convert(sourceConverter, value, targetConverter, domainScalar)
+    }
+
+    match(text) {
+        const matches = new Set()
+        
+        for (let converter of this._converterList) {
+            if (converter.domain.localeDetail().name.includes(text)) {
+                matches.add(converter)
+            } else if (converter.authority.localeDetail().name.includes(text)) {
+                matches.add(converter)
+            } else if (converter.authority.localeDetail().commonName.includes(text)) {
+                matches.add(converter)
+            } else if (converter.system.localeDetail().name.includes(text)) {
+                matches.add(converter)
+            } else if (converter.unit.localeDetail().singular.includes(text)) {
+                matches.add(converter)
+            } else if (converter.unit.localeDetail().plural.includes(text)) {
+                matches.add(converter)
+            } else if (converter.unit.localeDetail().symbol.includes(text)) {
+                matches.add(converter)
+            }
+        }
+
+        return matches
     }
 }

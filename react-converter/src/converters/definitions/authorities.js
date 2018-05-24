@@ -1,5 +1,5 @@
 import { Authority, AuthorityDetails } from '../Authority'
-import authorityDetails from './authorityDetails.json'
+import authorityDetails from './_details/authorityDetails.json'
 
 export const Australia = new Authority("australia", AuthorityDetails.fromJSON(authorityDetails['australia']))
 export const Canada = new Authority("canada", AuthorityDetails.fromJSON(authorityDetails['canada']))

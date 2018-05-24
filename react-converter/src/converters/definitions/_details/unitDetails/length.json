@@ -1,0 +1,75 @@
+{
+    "thou": {
+        "en": {
+            "singular": "thou",
+            "plural": "thous",
+            "symbol": "th",
+            "isMajor": false,
+            "order": -2
+        }
+    },
+   
+    "inch": {
+        "en": {
+            "singular": "inch",
+            "plural": "inches",
+            "symbol": "in",
+            "isMajor": true,
+            "order": -1
+        }
+    },
+    "foot": {
+        "en": {
+            "singular": "foot",
+            "plural": "feet",
+            "symbol": "ft",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "yard": {
+        "en": {
+            "singular": "yard",
+            "plural": "yards",
+            "symbol": "yd",
+            "isMajor": true,
+            "order": 1
+        }
+    },
+    "chain": {
+        "en": {
+            "singular": "chain",
+            "plural": "chains",
+            "symbol": "ch",
+            "isMajor": false,
+            "order": 2
+        }
+    },
+    "furlong": {
+        "en": {
+            "singular": "furlong",
+            "plural": "furlongs",
+            "symbol": "fur",
+            "isMajor": false,
+            "order": 3
+        }
+    },
+    "mile": {
+        "en": {
+            "singular": "mile",
+            "plural": "miles",
+            "symbol": "mi",
+            "isMajor": true,
+            "order": 4
+        }
+    },
+    "league": {
+        "en": {
+            "singular": "league",
+            "plural": "leagues",
+            "symbol": "lea",
+            "isMajor": false,
+            "order": 5
+        }
+    }    
+}

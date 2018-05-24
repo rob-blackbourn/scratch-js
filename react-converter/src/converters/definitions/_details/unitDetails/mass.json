@@ -1,0 +1,83 @@
+{
+    "grain": {
+        "en": {
+            "singular": "grain",
+            "plural": "grains",
+            "symbol": "gr",
+            "isMajor": false,
+            "order": 0
+        }
+    },
+    "drachm": {
+        "en": {
+            "singular": "drachm",
+            "plural": "drachms",
+            "symbol": "dr",
+            "isMajor": false,
+            "order": 0
+        }
+    },
+    "dram": {
+        "en": {
+            "singular": "dram",
+            "plural": "drams",
+            "symbol": "dr",
+            "isMajor": false,
+            "order": 0
+        }
+    },
+    "ounce": {
+        "en": {
+            "singular": "ounce",
+            "plural": "ounces",
+            "symbol": "oz",
+            "isMajor": false,
+            "order": 0
+        }
+    },
+    "pound": {
+        "en": {
+            "singular": "pound",
+            "plural": "pounds",
+            "symbol": "lb",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "stone": {
+        "en": {
+            "singular": "stone",
+            "plural": "stones",
+            "symbol": "st",
+            "isMajor": true,
+            "order": 1
+        }
+    },
+    "quarter": {
+        "en": {
+            "singular": "quarter",
+            "plural": "quarters",
+            "symbol": "qtr",
+            "isMajor": true,
+            "order": 2
+        }
+    },
+    "hundredweight": {
+        "en": {
+            "singular": "hundredweight",
+            "plural": "hundredweight",
+            "symbol": "cwt",
+            "isMajor": true,
+            "order": 3
+        }
+    },
+    "ton": {
+        "en": {
+            "singular": "ton",
+            "plural": "tons",
+            "symbol": "tn",
+            "isMajor": true,
+            "order": 4
+        }
+    }
+}

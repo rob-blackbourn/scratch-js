@@ -1,0 +1,191 @@
+{
+    "yoctometer": {
+        "en": {
+            "singular": "yoctometer",
+            "plural": "yoctometers",
+            "symbol": "ym",
+            "isMajor": false,
+            "order": -10
+        }
+    },
+    "zeptometer": {
+        "en": {
+            "singular": "zeptometer",
+            "plural": "zeptometers",
+            "symbol": "zm",
+            "isMajor": false,
+            "order": -9
+        }
+    },
+    "attometer": {
+        "en": {
+            "singular": "attometer",
+            "plural": "attometers",
+            "symbol": "am",
+            "isMajor": false,
+            "order": -8
+        }
+    },
+    "femtometer": {
+        "en": {
+            "singular": "femtometer",
+            "plural": "femtometers",
+            "symbol": "fm",
+            "isMajor": false,
+            "order": -7
+        }
+    },
+    "picometer": {
+        "en": {
+            "singular": "picometer",
+            "plural": "picometers",
+            "symbol": "pm",
+            "isMajor": false,
+            "order": -6
+        }
+    },
+    "nanometer": {
+        "en": {
+            "singular": "nanometer",
+            "plural": "nanometers",
+            "symbol": "nm",
+            "isMajor": false,
+            "order": -5
+        }
+    },
+    "micrometer": {
+        "en": {
+            "singular": "micrometer",
+            "plural": "micrometers",
+            "symbol": "\u00b5m",
+            "isMajor": false,
+            "order": -4
+        }
+    },
+    "millimeter": {
+        "en": {
+            "singular": "millimeter",
+            "plural": "millimeters",
+            "symbol": "mm",
+            "isMajor": true,
+            "order": -3
+        }
+    },
+    "centimeter": {
+        "en": {
+            "singular": "centimeter",
+            "plural": "centimeters",
+            "symbol": "cm",
+            "isMajor": true,
+            "order": -2
+        }
+    },
+    "decimeter": {
+        "en": {
+            "singular": "decimeter",
+            "plural": "decimeters",
+            "symbol": "dm",
+            "isMajor": false,
+            "order": -1
+        }
+    },
+    "meter": {
+        "en": {
+            "singular": "meter",
+            "plural": "meters",
+            "symbol": "m",
+            "isMajor": true,
+            "order": 0
+        }
+    },
+    "decameter": {
+        "en": {
+            "singular": "decameter",
+            "plural": "decameters",
+            "symbol": "dam",
+            "isMajor": false,
+            "order": 1
+        }
+    },
+    "hectometer": {
+        "en": {
+            "singular": "hectometer",
+            "plural": "hectometers",
+            "symbol": "hm",
+            "isMajor": false,
+            "order": 2
+        }
+    },
+    "kilometer": {
+        "en": {
+            "singular": "kilometer",
+            "plural": "kilometers",
+            "symbol": "km",
+            "isMajor": true,
+            "order": 3
+        }
+    },
+    "megameter": {
+        "en": {
+            "singular": "megameter",
+            "plural": "megameters",
+            "symbol": "Mm",
+            "isMajor": false,
+            "order": 4
+        }
+    },
+    "gigameter": {
+        "en": {
+            "singular": "gigameter",
+            "plural": "gigameters",
+            "symbol": "Gm",
+            "isMajor": false,
+            "order": 5
+        }
+    },
+    "terameter": {
+        "en": {
+            "singular": "terameter",
+            "plural": "terameters",
+            "symbol": "Tm",
+            "isMajor": false,
+            "order": 6
+        }
+    },
+    "petameter": {
+        "en": {
+            "singular": "petameter",
+            "plural": "petameters",
+            "symbol": "Pm",
+            "isMajor": false,
+            "order": 7
+        }
+    },
+    "exameter": {
+        "en": {
+            "singular": "exameter",
+            "plural": "exameters",
+            "symbol": "Em",
+            "isMajor": false,
+            "order": 8
+        }
+    },
+    "zettameter": {
+        "en": {
+            "singular": "zettameter",
+            "plural": "zettameters",
+            "symbol": "Zm",
+            "isMajor": false,
+            "order": 9
+        }
+    },
+    "yottameter": {
+        "en": {
+            "singular": "yottameter",
+            "plural": "yottameters",
+            "symbol": "Ym",
+            "isMajor": false,
+            "order": 10
+        }
+    }
+}
