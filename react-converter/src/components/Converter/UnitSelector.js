@@ -39,7 +39,7 @@ const UnitSelector = ({
     domain, domains, onDomainChanged,
     authority, authorities, onAuthorityChanged,
     system, systems, onSystemChanged,
-    name, names, onNameChanged,
+    unit, units, onUnitChanged,
     value, onValueChanged,
     style, onStyleChanged
 }) => {
@@ -47,7 +47,7 @@ const UnitSelector = ({
     const domainId = uuid()
     const authorityId = uuid()
     const systemId = uuid()
-    const nameId = uuid()
+    const unitId = uuid()
     const valueId = uuid()
 
     return (
@@ -55,15 +55,15 @@ const UnitSelector = ({
             <FormControl className={classes.formControl}>
                 <InputLabel htmlFor={domainId}>Domain</InputLabel>
                 <Select
-                    value={domain || ''}
-                    onChange={(args) => onDomainChanged(args.target.value, isSource)}
+                    value={domain ? domain.key : ''}
+                    onChange={(args) => onDomainChanged(args.target.value)}
                     inputProps={{
                         name: 'domain',
                         id: domainId,
                     }}>
 
                     {domains.map(x => (
-                        <MenuItem value={x} key={x}>{x.key}</MenuItem>
+                        <MenuItem value={x.key} key={x.key}>{x.localeDetail().name}</MenuItem>
                     ))}
 
                 </Select>
@@ -74,7 +74,7 @@ const UnitSelector = ({
             <FormControl className={classes.formControl}>
                 <InputLabel htmlFor={authorityId}>Authority</InputLabel>
                 <Select
-                    value={authority || ''}
+                    value={authority ? authority.key : ''}
                     onChange={(e) => onAuthorityChanged(e.target.value, isSource)}
                     inputProps={{
                         name: 'authority',
@@ -82,7 +82,7 @@ const UnitSelector = ({
                     }}>
 
                     {authorities.map(x => (
-                        <MenuItem value={x} key={x}>{x.key}</MenuItem>
+                        <MenuItem value={x.key} key={x.key}>{x.localeDetail().name}</MenuItem>
                     ))}
 
                 </Select>
@@ -93,7 +93,7 @@ const UnitSelector = ({
             <FormControl className={classes.formControl}>
                 <InputLabel htmlFor={systemId}>System</InputLabel>
                 <Select
-                    value={system || ''}
+                    value={system ? system.key : ''}
                     onChange={(e) => onSystemChanged(e.target.value, isSource)}
                     inputProps={{
                         name: 'system',
@@ -101,7 +101,7 @@ const UnitSelector = ({
                     }}>
 
                     {systems.map(x => (
-                        <MenuItem value={x} key={x}>{x.key}</MenuItem>
+                        <MenuItem value={x.key} key={x.key}>{x.localeDetail().name}</MenuItem>
                     ))}
 
                 </Select>
@@ -110,17 +110,17 @@ const UnitSelector = ({
             <br />
 
             <FormControl className={classes.formControl}>
-                <InputLabel htmlFor={nameId}>Name</InputLabel>
+                <InputLabel htmlFor={unitId}>Unit</InputLabel>
                 <Select
-                    value={name || ''}
-                    onChange={(e) => onNameChanged(e.target.value, isSource)}
+                    value={unit ? unit.key : ''}
+                    onChange={(e) => onUnitChanged(e.target.value, isSource)}
                     inputProps={{
                         name: 'name',
-                        id: nameId,
+                        id: unitId,
                     }}>
 
-                    {names.map(x => (
-                        <MenuItem value={x} key={x}>{x.key}</MenuItem>
+                    {units.map(x => (
+                        <MenuItem value={x.key} key={x.key}>{x.localeDetail().plural}</MenuItem>
                     ))}
 
                 </Select>
@@ -133,7 +133,7 @@ const UnitSelector = ({
                     id={valueId}
                     label="Value"
                     className={classes.textField}
-                    value={value}
+                    value={value || ''}
                     onChange={(e) => onValueChanged(e.target.value, isSource)}
                     margin="normal" />
             </FormControl>
@@ -159,15 +159,15 @@ UnitSelector.propTypes = {
     domain: PropTypes.instanceOf(Domain),
     domains: PropTypes.arrayOf(PropTypes.instanceOf(Domain)).isRequired,
     onDomainChanged: PropTypes.func.isRequired,
-    system: PropTypes.instanceOf(System),
-    systems: PropTypes.arrayOf(PropTypes.instanceOf(System)),
-    onSystemChanged: PropTypes.func.isRequired,
     authority: PropTypes.instanceOf(Authority),
     authorities: PropTypes.arrayOf(PropTypes.instanceOf(Authority)),
     onAuthorityChanged: PropTypes.func.isRequired,
-    name: PropTypes.instanceOf(Unit),
-    names: PropTypes.arrayOf(PropTypes.instanceOf(Unit)),
-    onNameChanged: PropTypes.func.isRequired,
+    system: PropTypes.instanceOf(System),
+    systems: PropTypes.arrayOf(PropTypes.instanceOf(System)),
+    onSystemChanged: PropTypes.func.isRequired,
+    unit: PropTypes.instanceOf(Unit),
+    units: PropTypes.arrayOf(PropTypes.instanceOf(Unit)),
+    onUnitChanged: PropTypes.func.isRequired,
     value: PropTypes.string,
     onValueChanged: PropTypes.func.isRequired,
     style: PropTypes.shape({

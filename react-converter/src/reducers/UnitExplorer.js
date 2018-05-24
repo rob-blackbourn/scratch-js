@@ -13,7 +13,7 @@ export default repository => {
             domains: Array.from(repository.getDomains()),
             authorities: [],
             systems: [],
-            names: [],
+            units: [],
             value: '',
             style: {
                 isDecimal: false,
@@ -30,7 +30,7 @@ export default repository => {
             domains: Array.from(repository.getDomains()),
             authorities: [],
             systems: [],
-            names: [],
+            units: [],
             value: '',
             style: {
                 isDecimal: false,
@@ -48,13 +48,17 @@ export default repository => {
         if (typeof value === "string") {
             return parseNumber(value)
         } else {
-            return value
+            return Number.NaN
         }
     }
 
     function tryConvert(fromUnit, value, toUnit, style) {
         try {
             value = tryParse(value)
+            if (Number.isNaN(value)) {
+                return ''
+            }
+
             let result = repository.findAndConvert(fromUnit, value, toUnit)
 
             if (style.isDecimal) {
@@ -85,21 +89,24 @@ export default repository => {
                     const key = action.content.isSource ? "source" : "destination"
                     const obj = state[key]
 
-                    const unitIdentifier = new UnitIdentifier(action.content.domain, null, null, null)
-                    const authorities = Array.from(repository.getAuthorities(action.content.domain))
+                    const domain = repository.domains.get(action.content.domain)
+                    const unitIdentifier = new UnitIdentifier(domain, null, null, null)
+                    const authorities = Array.from(repository.getAuthorities(domain))
                     const systems = []
-                    const names = []
+                    const units = []
 
-                    return {
+                    const newState = {
                         ...state,
                         [key]: {
                             ...obj,
                             unitIdentifier,
                             authorities,
                             systems,
-                            names
+                            units
                         }
                     }
+
+                    return newState
                 }
                 catch (_) {
                     return state
@@ -109,16 +116,17 @@ export default repository => {
                     const key = action.content.isSource ? "source" : "destination"
                     const obj = state[key]
 
+                    const authority = repository.authorities.get(action.content.authority)
                     const unitIdentifier = new UnitIdentifier(
                         obj.unitIdentifier.domain,
-                        action.content.authority,
+                        authority,
                         null,
                         null)
                     const systems = Array.from(
                         repository.getSystems(
                             obj.unitIdentifier.domain,
-                            action.content.authority))
-                    const names = []
+                            authority))
+                    const units = []
 
                     return {
                         ...state,
@@ -126,7 +134,7 @@ export default repository => {
                             ...obj,
                             unitIdentifier,
                             systems,
-                            names
+                            units
                         }
                     }
                 }
@@ -138,42 +146,47 @@ export default repository => {
                     const key = action.content.isSource ? "source" : "destination"
                     const obj = state[key]
 
+                    const system = repository.systems.get(action.content.system)
                     const unitIdentifier = new UnitIdentifier(
                         obj.unitIdentifier.domain,
                         obj.unitIdentifier.authority,
-                        action.content.system,
+                        system,
                         null)
-                    const names = Array.from(
+                    const units = Array.from(
                         repository.getUnits(
                             obj.unitIdentifier.domain,
                             obj.unitIdentifier.authority,
-                            action.content.system))
+                            system))
                     
                     return {
                         ...state,
                         [key]: {
                             ...obj,
                             unitIdentifier,
-                            names
+                            units
                         }
                     }
                 }
                 catch (_) {
                     return state
                 }
-            case actionTypes.SET_NAME:
+            case actionTypes.SET_UNIT:
                 try {
+                    const unit = repository.units.get(action.content.unit)
+
                     if (action.content.isSource) {
                         const unitIdentifier = new UnitIdentifier(
                             state.source.unitIdentifier.domain,
                             state.source.unitIdentifier.authority,
                             state.source.unitIdentifier.system,
-                            action.content.name)
+                            unit)
+                        console.log('unitIdentifier', unitIdentifier)
                         const sourceValue = tryConvert(
                             unitIdentifier,
                             state.destination.value,
                             state.source.unitIdentifier,
                             state.source.style)
+                        console.log('sourceValue', sourceValue)
     
                         return {
                             ...state,
@@ -183,13 +196,12 @@ export default repository => {
                                 value: sourceValue
                             }
                         }
-                        }
-                    else {
+                    } else {
                         const unitIdentifier = new UnitIdentifier(
                             state.destination.unitIdentifier.domain,
                             state.destination.unitIdentifier.authority,
                             state.destination.unitIdentifier.system,
-                            action.content.name)
+                            unit)
                         const destinationValue = tryConvert(
                             state.source.unitIdentifier,
                             state.source.value,
@@ -283,5 +295,5 @@ export default repository => {
                 return state
         }
 
-    };
+    }
 }

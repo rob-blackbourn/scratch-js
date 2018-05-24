@@ -26,8 +26,8 @@ describe('unit explorer reducer', () => {
         expect(state.source.systems.length).toBe(0)
         expect(state.source.authorities).toBeInstanceOf(Array)
         expect(state.source.authorities.length).toBe(0)
-        expect(state.source.names).toBeInstanceOf(Array)
-        expect(state.source.names.length).toBe(0)
+        expect(state.source.units).toBeInstanceOf(Array)
+        expect(state.source.units.length).toBe(0)
         expect(state.source.value).toBe("")
         expect(state.destination).toBeDefined();
         expect(state.destination.unitIdentifier).toBeInstanceOf(UnitIdentifier)
@@ -41,8 +41,8 @@ describe('unit explorer reducer', () => {
         expect(state.destination.systems.length).toBe(0)
         expect(state.destination.authorities).toBeInstanceOf(Array)
         expect(state.destination.authorities.length).toBe(0)
-        expect(state.destination.names).toBeInstanceOf(Array)
-        expect(state.destination.names.length).toBe(0)
+        expect(state.destination.units).toBeInstanceOf(Array)
+        expect(state.destination.units.length).toBe(0)
         expect(state.destination.value).toBe("")
     });
 
@@ -61,8 +61,8 @@ describe('unit explorer reducer', () => {
         expect(state.source.authorities.length).toBeGreaterThan(0)
         expect(state.source.systems).toBeInstanceOf(Array)
         expect(state.source.systems.length).toBe(0)
-        expect(state.source.names).toBeInstanceOf(Array)
-        expect(state.source.names.length).toBe(0)
+        expect(state.source.units).toBeInstanceOf(Array)
+        expect(state.source.units.length).toBe(0)
         expect(state.destination.value).toBe("")
         state = unitExplorer(state, {
             type: actionTypes.SET_AUTHORITY,
@@ -79,8 +79,8 @@ describe('unit explorer reducer', () => {
         expect(state.source.authorities.length).toBeGreaterThan(0)
         expect(state.source.systems).toBeInstanceOf(Array)
         expect(state.source.systems.length).toBeGreaterThan(0)
-        expect(state.source.names).toBeInstanceOf(Array)
-        expect(state.source.names.length).toBe(0)
+        expect(state.source.units).toBeInstanceOf(Array)
+        expect(state.source.units.length).toBe(0)
         expect(state.destination.value).toBe("")
         state = unitExplorer(state, {
             type: actionTypes.SET_SYSTEM,
@@ -98,13 +98,13 @@ describe('unit explorer reducer', () => {
         expect(state.source.authorities.length).toBeGreaterThan(0)
         expect(state.source.systems).toBeInstanceOf(Array)
         expect(state.source.systems.length).toBeGreaterThan(0)
-        expect(state.source.names).toBeInstanceOf(Array)
-        expect(state.source.names.length).toBeGreaterThan(0)
+        expect(state.source.units).toBeInstanceOf(Array)
+        expect(state.source.units.length).toBeGreaterThan(0)
         expect(state.destination.value).toBe("")
         state = unitExplorer(state, {
-            type: actionTypes.SET_NAME,
+            type: actionTypes.SET_UNITS,
             content: {
-                name: units.Meter,
+                unit: units.Meter,
                 isSource: true
             }
         })
@@ -118,8 +118,8 @@ describe('unit explorer reducer', () => {
         expect(state.source.authorities.length).toBeGreaterThan(0)
         expect(state.source.systems).toBeInstanceOf(Array)
         expect(state.source.systems.length).toBeGreaterThan(0)
-        expect(state.source.names).toBeInstanceOf(Array)
-        expect(state.source.names.length).toBeGreaterThan(0)
+        expect(state.source.units).toBeInstanceOf(Array)
+        expect(state.source.units.length).toBeGreaterThan(0)
         expect(state.destination.value).toBe("")
         state = unitExplorer(state, {
             type: actionTypes.SET_VALUE,
@@ -138,8 +138,8 @@ describe('unit explorer reducer', () => {
         expect(state.source.authorities.length).toBeGreaterThan(0)
         expect(state.source.systems).toBeInstanceOf(Array)
         expect(state.source.systems.length).toBeGreaterThan(0)
-        expect(state.source.names).toBeInstanceOf(Array)
-        expect(state.source.names.length).toBeGreaterThan(0)
+        expect(state.source.units).toBeInstanceOf(Array)
+        expect(state.source.units.length).toBeGreaterThan(0)
         expect(state.source.value).toBe(1)
 
     });
@@ -167,9 +167,9 @@ describe('unit explorer reducer', () => {
             }
         })
         state = unitExplorer(state, {
-            type: actionTypes.SET_NAME,
+            type: actionTypes.SET_UNIT,
             content: {
-                name: units.Meter,
+                unit: units.Meter,
                 isSource: true
             }
         })
@@ -187,8 +187,8 @@ describe('unit explorer reducer', () => {
         expect(state.source.authorities.length).toBeGreaterThan(0)
         expect(state.source.systems).toBeInstanceOf(Array)
         expect(state.source.systems.length).toBe(0)
-        expect(state.source.names).toBeInstanceOf(Array)
-        expect(state.source.names.length).toBe(0)
+        expect(state.source.units).toBeInstanceOf(Array)
+        expect(state.source.units.length).toBe(0)
     })
 
     it('should convert meters to feet', () => {
@@ -214,9 +214,9 @@ describe('unit explorer reducer', () => {
             }
         })
         state = unitExplorer(state, {
-            type: actionTypes.SET_NAME,
+            type: actionTypes.SET_UNITS,
             content: {
-                name: units.Meter,
+                unit: units.Meter,
                 isSource: true
             }
         })
@@ -249,9 +249,9 @@ describe('unit explorer reducer', () => {
             }
         })
         state = unitExplorer(state, {
-            type: actionTypes.SET_NAME,
+            type: actionTypes.SET_UNIT,
             content: {
-                name: units.Foot,
+                units: units.Foot,
                 isSource: false
             }
         })

@@ -56,8 +56,8 @@ const chainScalar = 66
 export const ChainConverter =
     new UnitConverter(
         Length,
-        Customary,
         UnitedStates,
+        Customary,
         Chain,
         FeetConverter,
         feet => mul(feet, chainScalar),

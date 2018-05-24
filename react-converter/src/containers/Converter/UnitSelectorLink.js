@@ -3,7 +3,7 @@ import {
     setDomain,
     setAuthority, 
     setSystem, 
-    setName,
+    setUnit,
     setValue,
     setStyle
 } from '../../actions'
@@ -18,11 +18,11 @@ const mapStateToPropsFactory = isSource => state => {
         domain: target.unitIdentifier.domain,
         authority: target.unitIdentifier.authority,
         system: target.unitIdentifier.system,
-        name: target.unitIdentifier.name,
+        unit: target.unitIdentifier.unit,
         domains: target.domains,
         authorities: target.authorities,
         systems: target.systems,
-        names: target.names,
+        units: target.units,
         value: target.value,
         style: target.style
     }
@@ -33,7 +33,7 @@ const mapDispatchToPropsFactory = isSource => dispatch => (
         onDomainChanged: domain => dispatch(setDomain(domain ? domain : null, isSource)),
         onAuthorityChanged: authority => dispatch(setAuthority(authority ? authority : null, isSource)),
         onSystemChanged: system => dispatch(setSystem(system ? system : null, isSource)),
-        onNameChanged: name => dispatch(setName(name ? name : null, isSource)),
+        onUnitChanged: unit => dispatch(setUnit(unit ? unit : null, isSource)),
         onValueChanged: value => dispatch(setValue(value ? value : null, isSource)),
         onStyleChanged: (isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision) => dispatch(setStyle(isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision, isSource))
     }

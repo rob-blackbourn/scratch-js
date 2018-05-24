@@ -24,10 +24,10 @@ export const setSystem = (system, isSource) => ({
     }
 })
 
-export const setName = (name, isSource) => ({
-    type: actionTypes.SET_NAME, content:
+export const setUnit = (unit, isSource) => ({
+    type: actionTypes.SET_UNIT, content:
     {
-        name,
+        unit,
         isSource
     }
 })
