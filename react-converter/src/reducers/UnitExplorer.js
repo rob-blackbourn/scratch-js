@@ -1,5 +1,6 @@
 import * as actionTypes from '../actions/actionTypes'
 import { UnitIdentifier } from '../converters/UnitConverter'
+import * as usages from '../converters/definitions/usages'
 import { parseNumber } from '../numbers/parsers'
 import Fraction from '../numbers/Fraction'
 
@@ -15,6 +16,9 @@ export default repository => {
             systems: [],
             units: [],
             value: '',
+            text: '',
+            usage: '',
+            suggestions: [],
             style: {
                 isDecimal: false,
                 decimalPrecision: 2,
@@ -32,6 +36,9 @@ export default repository => {
             systems: [],
             units: [],
             value: '',
+            text: '',
+            usage: '',
+            suggestions: [],
             style: {
                 isDecimal: false,
                 decimalPrecision: 2,
@@ -289,9 +296,81 @@ export default repository => {
                 catch (_) {
                     return state
                 }
-            default:
-                return state
-        }
+            case actionTypes.GET_SUGGESTIONS:
+                try {
+                    const key = action.content.isSource ? "source" : "destination"
+                    const obj = state[key]
 
+                    const text = action.content.text
+                    const usage = usages[action.content.usage]
+                    const suggestions = repository.match(text, usage)
+
+                    return {
+                        ...state,
+                        [key]: {
+                            ...obj,
+                            text,
+                            usage,
+                            suggestions
+                        }
+                    }
+                } catch(_) {
+                    return state
+                }
+            case actionTypes.SET_CONVERTER:
+                try {
+                    const domain = repository.domains.get(action.content.domain)
+                    const authorities = Array.from(repository.getAuthorities(domain))
+                    const authority = repository.authorities.get(action.content.authority)
+                    const systems = Array.from(repository.getSystems(domain, authority))
+                    const system = repository.systems.get(action.content.system)
+                    const units = Array.from(repository.getUnits(domain, authority, system))
+                    const unit = repository.units.get(action.content.unit)
+                    const unitIdentifier = new UnitIdentifier(domain, authority, system, unit)
+
+                    if (action.content.isSource) {
+                        const sourceValue = tryConvert(
+                            unitIdentifier,
+                            state.destination.value,
+                            state.source.unitIdentifier,
+                            state.source.style)
+
+                        return {
+                            ...state,
+                            source: {
+                                ...state.source,
+                                unitIdentifier,
+                                authorities,
+                                systems,
+                                units,
+                                value: sourceValue
+                            }
+                        }
+                    } else {
+                        const destinationValue = tryConvert(
+                            state.source.unitIdentifier,
+                            state.source.value,
+                            unitIdentifier,
+                            state.destination.style)
+
+                        return {
+                            ...state,
+                            destination: {
+                                ...state.destination,
+                                unitIdentifier,
+                                authorities,
+                                systems,
+                                units,
+                                value: destinationValue
+                            }
+                        }
+                    }
+                }   
+                catch (_) {
+                    return state
+                }
+            default:
+                    return state
+        }
     }
 }

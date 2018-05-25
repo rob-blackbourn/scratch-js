@@ -3,6 +3,7 @@ import * as domains from '../converters/definitions/domains'
 import * as authorities from '../converters/definitions/authorities'
 import * as systems from '../converters/definitions/systems'
 import * as units from '../converters/definitions/units'
+import * as usages from '../converters/definitions/usages'
 import createUnitExplorer from './UnitExplorer'
 import * as actionTypes from '../actions/actionTypes'
 
@@ -256,5 +257,59 @@ describe('unit explorer reducer', () => {
             }
         })
         expect(state.destination.value).toBe("3 1/4")
+    })
+
+    describe('matches', () => {
+
+        it('should set suggestion', () => {
+            let state = unitExplorer(undefined, {
+                type: actionTypes.GET_SUGGESTIONS,
+                content: {
+                    text: 'cup',
+                    usage: "Cookery",
+                    isSource: true
+                }
+            })
+            expect(state.source.suggestions.length).toBeGreaterThan(0)
+        })
+
+        it('should set converter', () => {
+            let state = unitExplorer(undefined, {
+                type: actionTypes.SET_CONVERTER,
+                content: {
+                    domain: domains.Volume.key,
+                    authority: authorities.UnitedStates.key,
+                    system: systems.Utensils.key,
+                    unit: units.Cup.key,
+                    isSource: true
+                }
+            })
+            expect(state.source.unitIdentifier.domain).toBe(domains.Volume)
+            expect(state.source.unitIdentifier.authority).toBe(authorities.UnitedStates)
+            expect(state.source.unitIdentifier.system).toBe(systems.Utensils)
+            expect(state.source.unitIdentifier.unit).toBe(units.Cup)
+            state = unitExplorer(state, {
+                type: actionTypes.SET_CONVERTER,
+                content: {
+                    domain: domains.Volume.key,
+                    authority: authorities.UnitedStates.key,
+                    system: systems.Customary.key,
+                    unit: units.FluidOunce.key,
+                    isSource: false
+                }
+            })
+            expect(state.destination.unitIdentifier.domain).toBe(domains.Volume)
+            expect(state.destination.unitIdentifier.authority).toBe(authorities.UnitedStates)
+            expect(state.destination.unitIdentifier.system).toBe(systems.Customary)
+            expect(state.destination.unitIdentifier.unit).toBe(units.FluidOunce)
+            state = unitExplorer(state, {
+                type: actionTypes.SET_VALUE,
+                content: {
+                    value: "1",
+                    isSource: true
+                }
+            })
+            expect(state.destination.value).toBe("8")
+        })
     })
 })
