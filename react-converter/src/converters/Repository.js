@@ -175,43 +175,63 @@ export default class Repository {
     }
 
 
-    match(text, usage) {
+    match(text, usage, maxItems=100) {
 
-        const calculateQuality = (text, matchingText, valueIfExact) => {
-            if (text == matchingText) {
+        const calculateQuality = (lowercaseText, matchingText, valueIfExact) => {
+            if (lowercaseText == matchingText) {
                 return valueIfExact
             }
 
-            return (matchingText.length - text.length) / matchingText.length
+            return (matchingText.length - lowercaseText.length) / matchingText.length
         }
+
+        if (!text) {
+            return []
+        }
+
+        const lowercaseWords = text.toLocaleLowerCase().split(/\s+/)
 
         return Array.from(
             new Seq(this._converterList).filter(x => x.unit.usages.includes(usage)).map(converter => {
                 let quality = 0
 
-                if (converter.domain.detail.name.includes(text)) {
-                    quality += calculateQuality(text, converter.domain.detail.name, 10)
-                }
-                if (converter.authority.detail.name.includes(text)) {
-                    quality += calculateQuality(text, converter.authority.detail.name, 10)
-                }
-                if (converter.authority.detail.commonName.includes(text)) {
-                    quality += calculateQuality(text, converter.authority.detail.commonName, 10)
-                }
-                if (converter.system.detail.name.includes(text)) {
-                    quality += calculateQuality(text, converter.system.detail.name, 10)
-                }
-                if (converter.unit.detail.singular.includes(text)) {
-                    quality += calculateQuality(text, converter.unit.detail.singular, 100)
-                }
-                if (converter.unit.detail.plural.includes(text)) {
-                    quality += calculateQuality(text, converter.unit.detail.plural, 100)
-                }
-                if (converter.unit.detail.symbol.includes(text)) {
-                    quality += calculateQuality(text, converter.unit.detail.symbol, 100)
+                const domainName = converter.domain.detail.name.toLocaleLowerCase()
+                const authorityName = converter.authority.detail.name.toLocaleLowerCase()
+                const authorityCommonName = converter.authority.detail.commonName.toLocaleLowerCase()
+                const systemName = converter.system.detail.name.toLocaleLowerCase()
+                const unitSingular = converter.unit.detail.singular.toLocaleLowerCase()
+                const unitPlural = converter.unit.detail.plural.toLocaleLowerCase()
+                const unitSymbol = converter.unit.detail.symbol.toLocaleLowerCase()
+
+                for (let lowercaseText of lowercaseWords) {
+                    if (domainName.includes(lowercaseText)) {
+                        quality += calculateQuality(lowercaseText, domainName, 10)
+                    }
+                    if (authorityName.includes(lowercaseText)) {
+                        quality += calculateQuality(lowercaseText, authorityName, 10)
+                    }
+                    if (authorityCommonName.includes(lowercaseText)) {
+                        quality += calculateQuality(lowercaseText, authorityCommonName, 10)
+                    }
+                    if (systemName.includes(lowercaseText)) {
+                        quality += calculateQuality(lowercaseText, systemName, 10)
+                    }
+                    if (unitSingular.includes(lowercaseText)) {
+                        quality += calculateQuality(lowercaseText, unitSingular, 100)
+                    }
+                    if (unitPlural.includes(lowercaseText)) {
+                        quality += calculateQuality(lowercaseText, unitPlural, 100)
+                    }
+                    if (unitSymbol.includes(lowercaseText)) {
+                        quality += calculateQuality(lowercaseText, unitSymbol, 100)
+                    }
                 }
 
                 return {quality, converter}
-            }).filter(x => x.quality !== 0).sortBy(x => 100 - Math.abs(x.converter.unit.order)).sortBy(x => x.quality).map(x => x.converter).reverse())
+            })
+            .filter(x => x.quality !== 0)
+            .sort((a, b) => a.quality == b.quality ? 0 : a.quality > b.quality ? -1 : 1)
+            .take(maxItems)
+            .map(x => x.converter))
     }
 }

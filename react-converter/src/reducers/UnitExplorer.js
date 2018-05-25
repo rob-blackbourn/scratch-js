@@ -18,6 +18,7 @@ export default repository => {
             value: '',
             text: '',
             usage: '',
+            maxItems: 5,
             suggestions: [],
             style: {
                 isDecimal: false,
@@ -38,6 +39,7 @@ export default repository => {
             value: '',
             text: '',
             usage: '',
+            maxItems: 5,
             suggestions: [],
             style: {
                 isDecimal: false,
@@ -303,14 +305,16 @@ export default repository => {
 
                     const text = action.content.text
                     const usage = usages[action.content.usage]
-                    const suggestions = repository.match(text, usage)
+                    const maxItems = action.content.maxItems
+                    const suggestions = text ? repository.match(text, usage, maxItems) : []
 
                     return {
                         ...state,
                         [key]: {
                             ...obj,
                             text,
-                            usage,
+                            usage: action.content.usage,
+                            maxItems,
                             suggestions
                         }
                     }

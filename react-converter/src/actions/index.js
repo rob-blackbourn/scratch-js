@@ -40,11 +40,12 @@ export const setValue = (value, isSource) => ({
     }
 })
 
-export const getSuggestions = (text, usage, isSource) => ({
+export const getSuggestions = (text, usage, maxItems, isSource) => ({
     type: actionTypes.GET_SUGGESTIONS,
     content: {
         text,
         usage,
+        maxItems,
         isSource
     }
 })
