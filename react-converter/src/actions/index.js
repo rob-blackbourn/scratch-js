@@ -50,13 +50,10 @@ export const getSuggestions = (text, usage, maxItems, isSource) => ({
     }
 })
 
-export const setConverter = (domain, authority, system, unit, isSource) => ({
+export const setConverter = (converter, isSource) => ({
     type: actionTypes.SET_CONVERTER,
     content: {
-        domain,
-        authority,
-        system,
-        unit,
+        converter,
         isSource
     }
 })

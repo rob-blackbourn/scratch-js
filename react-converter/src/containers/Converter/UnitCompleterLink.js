@@ -20,7 +20,7 @@ const mapStateToPropsFactory = isSource => state => {
 const mapDispatchToPropsFactory = isSource => dispatch => (
     {
         onSuggestionChanged: (text, usage, maxItems) => dispatch(getSuggestions(text, usage, maxItems, isSource)),
-        onConverterChanged: converter => dispatch(setConverter(converter.domain.key, converter.authority.key, converter.system.key, converter.unit.key, isSource)),
+        onConverterChanged: converter => dispatch(setConverter(converter, isSource)),
     }
 )
 

@@ -6,6 +6,9 @@ import * as units from '../converters/definitions/units'
 import * as usages from '../converters/definitions/usages'
 import createUnitExplorer from './UnitExplorer'
 import * as actionTypes from '../actions/actionTypes'
+import { MeterConverter } from '../converters/definitions/si/metric';
+import { CupConverter as UsCupConverter } from '../converters/definitions/us/utensils';
+import { FluidOunceConverter as UsFluidOunceConverter } from '../converters/definitions/us/customary/volume';
 
 const repository = createRepository()
 const unitExplorer = createUnitExplorer(repository);
@@ -16,11 +19,10 @@ describe('unit explorer reducer', () => {
         const state = unitExplorer(undefined, {})
         expect(state).toBeDefined();
         expect(state.source).toBeDefined();
-        expect(state.source.unitIdentifier).toBeInstanceOf(UnitIdentifier)
-        expect(state.source.unitIdentifier.domain).toBeNull()
-        expect(state.source.unitIdentifier.authority).toBeNull()
-        expect(state.source.unitIdentifier.system).toBeNull()
-        expect(state.source.unitIdentifier.unit).toBeNull()
+        expect(state.source.domain).toBeNull()
+        expect(state.source.authority).toBeNull()
+        expect(state.source.system).toBeNull()
+        expect(state.source.unitConverter).toBeNull()
         expect(state.source.domains).toBeInstanceOf(Array)
         expect(state.source.domains.length).toBeGreaterThan(0)
         expect(state.source.systems).toBeInstanceOf(Array)
@@ -31,11 +33,10 @@ describe('unit explorer reducer', () => {
         expect(state.source.units.length).toBe(0)
         expect(state.source.value).toBe("")
         expect(state.destination).toBeDefined();
-        expect(state.destination.unitIdentifier).toBeInstanceOf(UnitIdentifier)
-        expect(state.destination.unitIdentifier.domain).toBeNull()
-        expect(state.destination.unitIdentifier.authority).toBeNull()
-        expect(state.destination.unitIdentifier.system).toBeNull()
-        expect(state.destination.unitIdentifier.unit).toBeNull()
+        expect(state.destination.domain).toBeNull()
+        expect(state.destination.authority).toBeNull()
+        expect(state.destination.system).toBeNull()
+        expect(state.destination.unitConverter).toBeNull()
         expect(state.destination.domains).toBeInstanceOf(Array)
         expect(state.destination.domains.length).toBeGreaterThan(0)
         expect(state.destination.systems).toBeInstanceOf(Array)
@@ -55,7 +56,7 @@ describe('unit explorer reducer', () => {
                 isSource: true
             }
         })
-        expect(state.source.unitIdentifier.domain).toBe(domains.Length)
+        expect(state.source.domain).toBe(domains.Length)
         expect(state.source.domains).toBeInstanceOf(Array)
         expect(state.source.domains.length).toBeGreaterThan(0)
         expect(state.source.authorities).toBeInstanceOf(Array)
@@ -72,8 +73,8 @@ describe('unit explorer reducer', () => {
                 isSource: true
             }
         })
-        expect(state.source.unitIdentifier.domain).toBe(domains.Length)
-        expect(state.source.unitIdentifier.authority).toBe(authorities.SystemInternational)
+        expect(state.source.domain).toBe(domains.Length)
+        expect(state.source.authority).toBe(authorities.SystemInternational)
         expect(state.source.domains).toBeInstanceOf(Array)
         expect(state.source.domains.length).toBeGreaterThan(0)
         expect(state.source.authorities).toBeInstanceOf(Array)
@@ -90,9 +91,9 @@ describe('unit explorer reducer', () => {
                 isSource: true
             }
         })
-        expect(state.source.unitIdentifier.domain).toBe(domains.Length)
-        expect(state.source.unitIdentifier.authority).toBe(authorities.SystemInternational)
-        expect(state.source.unitIdentifier.system).toBe(systems.Metric)
+        expect(state.source.domain).toBe(domains.Length)
+        expect(state.source.authority).toBe(authorities.SystemInternational)
+        expect(state.source.system).toBe(systems.Metric)
         expect(state.source.domains).toBeInstanceOf(Array)
         expect(state.source.domains.length).toBeGreaterThan(0)
         expect(state.source.authorities).toBeInstanceOf(Array)
@@ -109,10 +110,10 @@ describe('unit explorer reducer', () => {
                 isSource: true
             }
         })
-        expect(state.source.unitIdentifier.domain).toBe(domains.Length)
-        expect(state.source.unitIdentifier.authority).toBe(authorities.SystemInternational)
-        expect(state.source.unitIdentifier.system).toBe(systems.Metric)
-        expect(state.source.unitIdentifier.unit).toBe(units.Meter)
+        expect(state.source.domain).toBe(domains.Length)
+        expect(state.source.authority).toBe(authorities.SystemInternational)
+        expect(state.source.system).toBe(systems.Metric)
+        expect(state.source.unitConverter).toBe(MeterConverter)
         expect(state.source.domains).toBeInstanceOf(Array)
         expect(state.source.domains.length).toBeGreaterThan(0)
         expect(state.source.authorities).toBeInstanceOf(Array)
@@ -129,10 +130,10 @@ describe('unit explorer reducer', () => {
                 isSource: true
             }
         })
-        expect(state.source.unitIdentifier.domain).toBe(domains.Length)
-        expect(state.source.unitIdentifier.authority).toBe(authorities.SystemInternational)
-        expect(state.source.unitIdentifier.system).toBe(systems.Metric)
-        expect(state.source.unitIdentifier.unit).toBe(units.Meter)
+        expect(state.source.domain).toBe(domains.Length)
+        expect(state.source.authority).toBe(authorities.SystemInternational)
+        expect(state.source.system).toBe(systems.Metric)
+        expect(state.source.unitConverter).toBe(MeterConverter)
         expect(state.source.domains).toBeInstanceOf(Array)
         expect(state.source.domains.length).toBeGreaterThan(0)
         expect(state.source.authorities).toBeInstanceOf(Array)
@@ -181,7 +182,7 @@ describe('unit explorer reducer', () => {
                 isSource: true
             }
         })
-        expect(state.source.unitIdentifier.domain).toBe(domains.Mass)
+        expect(state.source.domain).toBe(domains.Mass)
         expect(state.source.domains).toBeInstanceOf(Array)
         expect(state.source.domains.length).toBeGreaterThan(0)
         expect(state.source.authorities).toBeInstanceOf(Array)
@@ -277,31 +278,25 @@ describe('unit explorer reducer', () => {
             let state = unitExplorer(undefined, {
                 type: actionTypes.SET_CONVERTER,
                 content: {
-                    domain: domains.Volume.key,
-                    authority: authorities.UnitedStates.key,
-                    system: systems.Utensils.key,
-                    unit: units.Cup.key,
+                    converter: UsCupConverter,
                     isSource: true
                 }
             })
-            expect(state.source.unitIdentifier.domain).toBe(domains.Volume)
-            expect(state.source.unitIdentifier.authority).toBe(authorities.UnitedStates)
-            expect(state.source.unitIdentifier.system).toBe(systems.Utensils)
-            expect(state.source.unitIdentifier.unit).toBe(units.Cup)
+            expect(state.source.domain).toBe(domains.Volume)
+            expect(state.source.authority).toBe(authorities.UnitedStates)
+            expect(state.source.system).toBe(systems.Utensils)
+            expect(state.source.unitConverter).toBe(UsCupConverter)
             state = unitExplorer(state, {
                 type: actionTypes.SET_CONVERTER,
                 content: {
-                    domain: domains.Volume.key,
-                    authority: authorities.UnitedStates.key,
-                    system: systems.Customary.key,
-                    unit: units.FluidOunce.key,
+                    converter: UsFluidOunceConverter,
                     isSource: false
                 }
             })
-            expect(state.destination.unitIdentifier.domain).toBe(domains.Volume)
-            expect(state.destination.unitIdentifier.authority).toBe(authorities.UnitedStates)
-            expect(state.destination.unitIdentifier.system).toBe(systems.Customary)
-            expect(state.destination.unitIdentifier.unit).toBe(units.FluidOunce)
+            expect(state.destination.domain).toBe(domains.Volume)
+            expect(state.destination.authority).toBe(authorities.UnitedStates)
+            expect(state.destination.system).toBe(systems.Customary)
+            expect(state.destination.unitConverter).toBe(UsFluidOunceConverter)
             state = unitExplorer(state, {
                 type: actionTypes.SET_VALUE,
                 content: {

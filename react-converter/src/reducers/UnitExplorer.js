@@ -10,7 +10,10 @@ export default repository => {
 
     const initialState = {
         source: {
-            unitIdentifier: new UnitIdentifier(null, null, null, null),
+            domain: null,
+            authority: null,
+            system: null,
+            unitConverter: null,
             domains: Array.from(repository.getDomains()),
             authorities: [],
             systems: [],
@@ -31,7 +34,10 @@ export default repository => {
             }
         },
         destination: {
-            unitIdentifier: new UnitIdentifier(null, null, null, null),
+            domain: null,
+            authority: null,
+            system: null,
+            unitConverter: null,
             domains: Array.from(repository.getDomains()),
             authorities: [],
             systems: [],
@@ -61,14 +67,18 @@ export default repository => {
         }
     }
 
-    function tryConvert(fromUnit, value, toUnit, style) {
+    function tryConvert(fromUnitConverter, value, toUnitConverter, style) {
+        if (!(fromUnitConverter && value && toUnitConverter)) {
+            return ''
+        }
+
         try {
             value = tryParse(value)
             if (Number.isNaN(value)) {
                 return ''
             }
 
-            let result = repository.findAndConvert(fromUnit, value, toUnit)
+            let result = repository.convert(fromUnitConverter, value, toUnitConverter)
 
             if (style.isDecimal) {
                 return result.valueOf().toFixed(style.decimalPrecision)
@@ -91,15 +101,18 @@ export default repository => {
 
     return (state=initialState, action) => {
 
-        switch (action.type || null) {
+        try {
+            switch (action.type || null) {
 
-            case actionTypes.SET_DOMAIN:
-                try {
+                case actionTypes.SET_DOMAIN: {
                     const key = action.content.isSource ? "source" : "destination"
                     const obj = state[key]
 
                     const domain = repository.domains.get(action.content.domain)
-                    const unitIdentifier = new UnitIdentifier(domain, null, null, null)
+                    const authority = null
+                    const system = null
+                    const unitConverter = null
+
                     const authorities = Array.from(repository.getAuthorities(domain))
                     const systems = []
                     const units = []
@@ -108,7 +121,10 @@ export default repository => {
                         ...state,
                         [key]: {
                             ...obj,
-                            unitIdentifier,
+                            domain,
+                            authority,
+                            system,
+                            unitConverter,
                             authorities,
                             systems,
                             units
@@ -117,126 +133,105 @@ export default repository => {
 
                     return newState
                 }
-                catch (_) {
-                    return state
-                }
-            case actionTypes.SET_AUTHORITY:
-                try {
+                case actionTypes.SET_AUTHORITY: {
                     const key = action.content.isSource ? "source" : "destination"
                     const obj = state[key]
 
                     const authority = repository.authorities.get(action.content.authority)
-                    const unitIdentifier = new UnitIdentifier(
-                        obj.unitIdentifier.domain,
-                        authority,
-                        null,
-                        null)
-                    const systems = Array.from(
-                        repository.getSystems(
-                            obj.unitIdentifier.domain,
-                            authority))
+                    const system = null
+                    const unitConverter = null
+                    const systems = Array.from(repository.getSystems(obj.domain, authority))
                     const units = []
 
                     return {
                         ...state,
                         [key]: {
                             ...obj,
-                            unitIdentifier,
+                            authority,
+                            system,
+                            unitConverter,
                             systems,
                             units
                         }
                     }
                 }
-                catch (_) {
-                    return state
-                }
-            case actionTypes.SET_SYSTEM:
-                try {
+                case actionTypes.SET_SYSTEM: {
                     const key = action.content.isSource ? "source" : "destination"
                     const obj = state[key]
 
                     const system = repository.systems.get(action.content.system)
-                    const unitIdentifier = new UnitIdentifier(
-                        obj.unitIdentifier.domain,
-                        obj.unitIdentifier.authority,
-                        system,
-                        null)
-                    const units = Array.from(
-                        repository.getUnits(
-                            obj.unitIdentifier.domain,
-                            obj.unitIdentifier.authority,
-                            system))
+                    const unitConverter = null
+                    const units = Array.from(repository.getUnits(obj.domain, obj.authority, system))
                     
                     return {
                         ...state,
                         [key]: {
                             ...obj,
-                            unitIdentifier,
+                            system,
+                            unitConverter,
                             units
                         }
                     }
                 }
-                catch (_) {
-                    return state
-                }
-            case actionTypes.SET_UNIT:
-                try {
-                    const unit = repository.units.get(action.content.unit)
+                case actionTypes.SET_UNIT: {
 
                     if (action.content.isSource) {
-                        const unitIdentifier = new UnitIdentifier(
-                            state.source.unitIdentifier.domain,
-                            state.source.unitIdentifier.authority,
-                            state.source.unitIdentifier.system,
-                            unit)
+
+                        const unitConverter = repository.findByKey(
+                            state.source.domain.key,
+                            state.source.authority.key,
+                            state.source.system.key,
+                            action.content.unit)
+
                         const sourceValue = tryConvert(
-                            unitIdentifier,
+                            state.destination.unitConverter,
                             state.destination.value,
-                            state.source.unitIdentifier,
+                            unitConverter,
                             state.source.style)
     
                         return {
                             ...state,
                             source: {
                                 ...state.source,
-                                unitIdentifier,
+                                unitConverter,
                                 value: sourceValue
                             }
                         }
                     } else {
-                        const unitIdentifier = new UnitIdentifier(
-                            state.destination.unitIdentifier.domain,
-                            state.destination.unitIdentifier.authority,
-                            state.destination.unitIdentifier.system,
-                            unit)
+
+                        const unitConverter = repository.findByKey(
+                            state.destination.domain.key,
+                            state.destination.authority.key,
+                            state.destination.system.key,
+                            action.content.unit)
+
                         const destinationValue = tryConvert(
-                            state.source.unitIdentifier,
+                            state.source.unitConverter,
                             state.source.value,
-                            unitIdentifier,
+                            unitConverter,
                             state.destination.style)
     
                         return {
                             ...state,
                             destination: {
                                 ...state.destination,
-                                unitIdentifier,
+                                unitConverter,
                                 value: destinationValue
                             }
                         }
                     }
                 }   
-                catch (_) {
-                    return state
-                }
-            case actionTypes.SET_VALUE:
-                try {
+                case actionTypes.SET_VALUE: {
                     if (action.content.isSource) {
+
                         const sourceValue = action.content.value
-                        const destinationValue = tryConvert(
-                            state.source.unitIdentifier,
-                            sourceValue,
-                            state.destination.unitIdentifier,
-                            state.destination.style)
+
+                        const destinationValue = 
+                            tryConvert(
+                                state.source.unitConverter,
+                                sourceValue,
+                                state.destination.unitConverter,
+                                state.destination.style) || state.destination.value
     
                         return {
                             ...state,
@@ -253,10 +248,10 @@ export default repository => {
                     else {
                         const destinationValue = action.content.value
                         const sourceValue = tryConvert(
-                            state.destination.unitIdentifier,
+                            state.destination.unitConverter,
                             destinationValue,
-                            state.source.unitIdentifier,
-                            state.source.style)
+                            state.source.unitConverter,
+                            state.source.style) || state.source.value
     
                         return {
                             ...state,
@@ -271,11 +266,7 @@ export default repository => {
                         }
                     }
                 }
-                catch (_) {
-                    return state
-                }
-            case actionTypes.SET_STYLE:
-                try {
+                case actionTypes.SET_STYLE: {
                     const key = action.content.isSource ? "source" : "destination"
                     const altKey = action.content.isSource ? "destination" : "source"
                     const obj = state[key]
@@ -283,7 +274,7 @@ export default repository => {
                     const { isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision } = action.content
                     const style = { isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision }
 
-                    const value = tryConvert(altObj.unitIdentifier, altObj.value, obj.unitIdentifier, style)
+                    const value = tryConvert(altObj.unitConverter, altObj.value, obj.unitConverter, style) || altObj.value
 
                     return {
                         ...state,
@@ -293,13 +284,8 @@ export default repository => {
                             value
                         }
                     }
-                    
                 }
-                catch (_) {
-                    return state
-                }
-            case actionTypes.GET_SUGGESTIONS:
-                try {
+                case actionTypes.GET_SUGGESTIONS: {
                     const key = action.content.isSource ? "source" : "destination"
                     const obj = state[key]
 
@@ -318,32 +304,32 @@ export default repository => {
                             suggestions
                         }
                     }
-                } catch(_) {
-                    return state
                 }
-            case actionTypes.SET_CONVERTER:
-                try {
-                    const domain = repository.domains.get(action.content.domain)
+                case actionTypes.SET_CONVERTER: {
+                    const unitConverter = action.content.converter
+                    const domain = unitConverter.domain
                     const authorities = Array.from(repository.getAuthorities(domain))
-                    const authority = repository.authorities.get(action.content.authority)
+                    const authority = unitConverter.authority
                     const systems = Array.from(repository.getSystems(domain, authority))
-                    const system = repository.systems.get(action.content.system)
+                    const system = unitConverter.system
                     const units = Array.from(repository.getUnits(domain, authority, system))
-                    const unit = repository.units.get(action.content.unit)
-                    const unitIdentifier = new UnitIdentifier(domain, authority, system, unit)
 
                     if (action.content.isSource) {
-                        const sourceValue = tryConvert(
-                            unitIdentifier,
-                            state.destination.value,
-                            state.source.unitIdentifier,
-                            state.source.style)
+                        const sourceValue =
+                            tryConvert(
+                                state.destination.unitConverter,
+                                state.destination.value,
+                                unitConverter,
+                                state.source.style) || state.source.value
 
                         return {
                             ...state,
                             source: {
                                 ...state.source,
-                                unitIdentifier,
+                                domain,
+                                authority,
+                                system,
+                                unitConverter,
                                 authorities,
                                 systems,
                                 units,
@@ -351,17 +337,21 @@ export default repository => {
                             }
                         }
                     } else {
-                        const destinationValue = tryConvert(
-                            state.source.unitIdentifier,
-                            state.source.value,
-                            unitIdentifier,
-                            state.destination.style)
+                        const destinationValue =
+                            tryConvert(
+                                state.source.unitConverter,
+                                state.source.value,
+                                unitConverter,
+                                state.destination.style) || state.destination.value
 
                         return {
                             ...state,
                             destination: {
                                 ...state.destination,
-                                unitIdentifier,
+                                domain,
+                                authority,
+                                system,
+                                unitConverter,
                                 authorities,
                                 systems,
                                 units,
@@ -370,11 +360,12 @@ export default repository => {
                         }
                     }
                 }   
-                catch (_) {
+                default:
                     return state
-                }
-            default:
-                    return state
+            }
+        } catch (error) {
+            console.log('Failed to reduce - returning current state', error)
+            return state
         }
     }
 }

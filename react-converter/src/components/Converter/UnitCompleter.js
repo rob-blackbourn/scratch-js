@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField'
 import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
 
-import UnitConverter, { UnitIdentifier } from '../../converters/UnitConverter'
+import UnitConverter from '../../converters/UnitConverter'
 
 const styles = theme => ({
     root: {
@@ -77,7 +77,7 @@ renderSuggestion.propTypes = {
     index: PropTypes.number,
     itemProps: PropTypes.object,
     selectedItem: PropTypes.string,
-    suggestion: PropTypes.instanceOf(UnitIdentifier).isRequired,
+    suggestion: PropTypes.instanceOf(UnitConverter).isRequired,
 }
 
 const UnitCompleter = ({
