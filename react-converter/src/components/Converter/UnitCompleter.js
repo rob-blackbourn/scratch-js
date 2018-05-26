@@ -103,7 +103,7 @@ const UnitCompleter = ({
                             fullWidth: true,
                             classes,
                             InputProps: getInputProps({
-                                placeholder: 'Search a country (start with a)',
+                                placeholder: 'Search for a unit',
                                 id: 'integration-downshift-simple',
                             }),
                         })}
