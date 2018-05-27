@@ -3,15 +3,23 @@ import PropTypes from 'prop-types'
 
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 
-import DisplayMethod from './DisplayMethod'
+import DisplaySettings from './DisplaySettings'
 
 const styles = theme => ({
+    root: {
+        margin: 0,
+        padding: 0,
+    },
+    valueRow: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+    },
     textField: {
+        marginTop: theme.spacing.unit,
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
         width: 200,
@@ -28,7 +36,7 @@ const styles = theme => ({
 
 const ValueDisplay = ({classes, value, onValueChanged, style, onStyleChanged, isSettingsOpen, toggleSettings}) => {
     return (
-        <Fragment>
+        <div className={classes.root}>
 
             <TextField
                 label="Value"
@@ -48,7 +56,7 @@ const ValueDisplay = ({classes, value, onValueChanged, style, onStyleChanged, is
                 <Fragment>
                     <br />
 
-                    <DisplayMethod 
+                    <DisplaySettings
                         className={classes.displaySettings}
                         isDecimal={style.isDecimal} 
                         decimalPrecision={style.decimalPrecision}
@@ -61,13 +69,12 @@ const ValueDisplay = ({classes, value, onValueChanged, style, onStyleChanged, is
                 </Fragment>
             ) : null}
 
-        </Fragment>
+        </div>
     )
 }
 
 ValueDisplay.propTypes = {
     value: PropTypes.string,
-    onValueChanged: PropTypes.func.isRequired,
     onValueChanged: PropTypes.func.isRequired,
     style: PropTypes.shape({
         isDecimal: PropTypes.bool.isRequired,
@@ -78,9 +85,9 @@ ValueDisplay.propTypes = {
         rationalisePrecision: PropTypes.number.isRequired,
         fromFloatPrecision: PropTypes.number.isRequired
     }).isRequired,
+    onStyleChanged: PropTypes.func.isRequired,
     isSettingsOpen: PropTypes.bool.isRequired,
     toggleSettings: PropTypes.func.isRequired,
-    onStyleChanged: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(ValueDisplay)

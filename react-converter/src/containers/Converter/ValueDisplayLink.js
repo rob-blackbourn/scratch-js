@@ -1,9 +1,5 @@
 import { connect } from 'react-redux'
 import { 
-    setDomain,
-    setAuthority, 
-    setSystem, 
-    setUnit,
     setValue,
     setStyle,
     toggleSettings

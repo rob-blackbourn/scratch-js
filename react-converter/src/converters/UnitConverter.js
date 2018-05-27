@@ -76,7 +76,7 @@ export default class UnitConverter extends UnitIdentifier {
 
         var toConverters = [];
         while (toConverter) {
-            var index = fromConverters.findIndex(x => x.equals(toConverter))
+            var index = fromConverters.indexOf(toConverter)
             if (index !== -1) {
                 return { from: fromConverters.slice(0, index), to: toConverters };
             }

@@ -1,5 +1,4 @@
 import * as actionTypes from '../actions/actionTypes'
-import { UnitIdentifier } from '../converters/UnitConverter'
 import * as usages from '../converters/definitions/usages'
 import { parseNumber } from '../numbers/parsers'
 import Fraction from '../numbers/Fraction'

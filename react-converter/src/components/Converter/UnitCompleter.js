@@ -12,8 +12,7 @@ import UnitConverter from '../../converters/UnitConverter'
 
 const styles = theme => ({
     selector: {
-        //display: 'flex',
-        //flexWrap: 'wrap',
+        paddingTop: 2 * theme.spacing.unit,
         margin: theme.spacing.unit,
         minWidth: 200,
     },
@@ -25,6 +24,16 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
         width: 200,
+    },
+    inputRoot: {
+        flexWrap: 'wrap',
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
+    },
+    iconSmall: {
+        margin: theme.spacing.units,
+        fontSize: 20
     }
 })
 

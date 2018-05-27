@@ -1,5 +1,5 @@
 import DomainRepository from './DomainRepository'
-import { List, Seq } from 'immutable'
+import { Seq } from 'immutable'
 
 export default class Repository {
 
@@ -178,7 +178,7 @@ export default class Repository {
     match(text, usage, maxItems=100) {
 
         const calculateQuality = (lowercaseText, matchingText, valueIfExact) => {
-            if (lowercaseText == matchingText) {
+            if (lowercaseText === matchingText) {
                 return valueIfExact
             }
 
@@ -230,7 +230,7 @@ export default class Repository {
                 return {quality, converter}
             })
             .filter(x => x.quality !== 0)
-            .sort((a, b) => a.quality == b.quality ? 0 : a.quality > b.quality ? -1 : 1)
+            .sort((a, b) => a.quality === b.quality ? 0 : a.quality > b.quality ? -1 : 1)
             .take(maxItems)
             .map(x => x.converter))
     }

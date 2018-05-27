@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 
 import UnitCompleterLinkFactory from './UnitCompleterLink'
@@ -14,19 +13,14 @@ const DestinationValueDisplay = ValueDisplayLinkFactory(false)
 
 const styles = theme => ({
     root: {
-      flexGrow: 1,
-    },
-    paper: {
+        flexGrow: 1,
         padding: theme.spacing.unit * 2,
         textAlign: 'left'
-    },
-    control: {
-      padding: theme.spacing.unit * 2,
     },
   });
 
 const Converter = ({ classes }) => (
-    <Paper  className={classes.paper}>
+    <Paper  className={classes.root}>
         <SourceUnitSelector usage="Cookery" />
         <br />
         <SourceValueDisplay />
