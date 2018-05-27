@@ -58,6 +58,13 @@ export const setConverter = (converter, isSource) => ({
     }
 })
 
+export const toggleSettings = (isSource) => ({
+    type: actionTypes.TOGGLE_SETTINGS,
+    content: {
+        isSource
+    }
+})
+
 export const setStyle = (isDecimal, decimalPrecision, isFractionRounded, fractionDenominators, isFractionRationalised, rationalisePrecision, fromFloatPrecision, isSource) => ({
     type: actionTypes.SET_STYLE,
     content: {

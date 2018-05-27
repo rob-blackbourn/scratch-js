@@ -23,6 +23,7 @@ export default repository => {
             usage: '',
             maxItems: 5,
             suggestions: [],
+            isSettingsOpen: false,
             style: {
                 isDecimal: false,
                 decimalPrecision: 2,
@@ -47,6 +48,7 @@ export default repository => {
             usage: '',
             maxItems: 5,
             suggestions: [],
+            isSettingsOpen: false,
             style: {
                 isDecimal: false,
                 decimalPrecision: 2,
@@ -359,7 +361,20 @@ export default repository => {
                             }
                         }
                     }
-                }   
+                }
+                case actionTypes.TOGGLE_SETTINGS: {
+                    const key = action.content.isSource ? "source" : "destination"
+                    const obj = state[key]
+
+                    return {
+                        ...state,
+                        [key]: {
+                            ...obj,
+                            isSettingsOpen: !obj.isSettingsOpen
+                        }
+                    }
+                    
+                }
                 default:
                     return state
             }

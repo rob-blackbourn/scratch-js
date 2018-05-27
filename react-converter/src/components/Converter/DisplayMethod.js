@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import { withStyles } from '@material-ui/core/styles'
+import FormGroup from '@material-ui/core/FormGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Switch from '@material-ui/core/Switch'
 import Checkbox from '@material-ui/core/Checkbox'
@@ -162,7 +163,7 @@ class DisplayMethod extends Component {
         const { anchorEl } = this.state
     
         return (
-            <Fragment>
+            <FormGroup>
                 <FormControlLabel
                     className={classes.formControl}
                     label='Show as a decimal'
@@ -327,7 +328,7 @@ class DisplayMethod extends Component {
     
                 <br />
     
-                <Tooltip title="The prevision used when reducing the demonitor of a fraction">
+                <Tooltip title="The precision used when reducing the demonitor of a fraction">
                     <TextField
                         label="Rationalise precision" 
                         value={this.props.rationalisePrecision}
@@ -338,7 +339,7 @@ class DisplayMethod extends Component {
                 </Tooltip>
     
                         
-            </Fragment>
+            </FormGroup>
         )        
     }
 }

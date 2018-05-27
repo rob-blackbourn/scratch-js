@@ -11,9 +11,11 @@ import MenuItem from '@material-ui/core/MenuItem'
 import UnitConverter from '../../converters/UnitConverter'
 
 const styles = theme => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
+    selector: {
+        //display: 'flex',
+        //flexWrap: 'wrap',
+        margin: theme.spacing.unit,
+        minWidth: 200,
     },
     formControl: {
         margin: theme.spacing.unit,
@@ -89,41 +91,40 @@ const UnitCompleter = ({
 }) => {
 
     return (
-        <div className={classes.root}>
-            <Downshift
-                itemToString={unitConverterToString}
-                onInputValueChange={inputValue => onSuggestionChanged(inputValue, "Cookery", 5)}
-                onChange={onConverterChanged}
-            >
-                {({ getInputProps, getItemProps, isOpen, inputValue, selectedItem, highlightedIndex }) => (
-                    <div className={classes.container}>
-                        {renderInput({
-                            usage: "Cookery",
-                            onSuggestionChanged,
-                            fullWidth: true,
-                            classes,
-                            InputProps: getInputProps({
-                                placeholder: 'Search for a unit',
-                                id: 'integration-downshift-simple',
-                            }),
-                        })}
-                        {isOpen ? (
-                            <Paper className={classes.paper} square>
-                                {suggestions.map((suggestion, index) =>
-                                    renderSuggestion({
-                                        suggestion,
-                                        index,
-                                        itemProps: getItemProps({ item: suggestion }),
-                                        highlightedIndex,
-                                        selectedItem,
-                                    }),
-                                )}
-                            </Paper>
-                        ) : null}
-                    </div>
-                )}
-            </Downshift>
-        </div>
+        <Downshift
+            className={classes.selector}
+            itemToString={unitConverterToString}
+            onInputValueChange={inputValue => onSuggestionChanged(inputValue, "Cookery", 5)}
+            onChange={onConverterChanged}
+        >
+            {({ getInputProps, getItemProps, isOpen, inputValue, selectedItem, highlightedIndex }) => (
+                <div className={classes.container}>
+                    {renderInput({
+                        usage: "Cookery",
+                        onSuggestionChanged,
+                        fullWidth: true,
+                        classes,
+                        InputProps: getInputProps({
+                            placeholder: 'Search for a unit',
+                            id: 'integration-downshift-simple',
+                        }),
+                    })}
+                    {isOpen ? (
+                        <Paper className={classes.paper} square>
+                            {suggestions.map((suggestion, index) =>
+                                renderSuggestion({
+                                    suggestion,
+                                    index,
+                                    itemProps: getItemProps({ item: suggestion }),
+                                    highlightedIndex,
+                                    selectedItem,
+                                }),
+                            )}
+                        </Paper>
+                    ) : null}
+                </div>
+            )}
+        </Downshift>
     )
 }
 

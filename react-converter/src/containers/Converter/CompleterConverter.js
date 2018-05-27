@@ -5,9 +5,12 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 
 import UnitCompleterLinkFactory from './UnitCompleterLink'
+import ValueDisplayLinkFactory from './ValueDisplayLink'
 
 const SourceUnitSelector = UnitCompleterLinkFactory(true)
 const DestinationUnitSelector = UnitCompleterLinkFactory(false)
+const SourceValueDisplay = ValueDisplayLinkFactory(true)
+const DestinationValueDisplay = ValueDisplayLinkFactory(false)
 
 const styles = theme => ({
     root: {
@@ -23,18 +26,15 @@ const styles = theme => ({
   });
 
 const Converter = ({ classes }) => (
-    <Grid container className={classes.root}>
-        <Grid item sm>
-            <Paper  className={classes.paper}>
-                <SourceUnitSelector usage="Cookery" />
-            </Paper>
-        </Grid>
-        <Grid item sm>
-            <Paper  className={classes.paper}>
-                <DestinationUnitSelector usage="Cookery" />
-            </Paper>
-        </Grid>
-    </Grid>
+    <Paper  className={classes.paper}>
+        <SourceUnitSelector usage="Cookery" />
+        <br />
+        <SourceValueDisplay />
+        <br />
+        <DestinationUnitSelector usage="Cookery" />
+        <br />
+        <DestinationValueDisplay />
+    </Paper>
 )
 
 export default connect()(withStyles(styles)(Converter))

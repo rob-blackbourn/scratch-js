@@ -27,11 +27,11 @@ const Converter = ({ classes }) => (
         <Grid item sm>
             <Paper  className={classes.paper}>
                 <SourceUnitSelector />
+                <DestinationUnitSelector />
             </Paper>
         </Grid>
         <Grid item sm>
             <Paper  className={classes.paper}>
-                <DestinationUnitSelector />
             </Paper>
         </Grid>
     </Grid>

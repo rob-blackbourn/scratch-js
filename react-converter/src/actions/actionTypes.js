@@ -6,3 +6,4 @@ export const SET_VALUE = 'SET_VALUE'
 export const SET_STYLE = 'SET_STYLE'
 export const GET_SUGGESTIONS = 'GET_SUGGESTIONS'
 export const SET_CONVERTER = "SET_CONVERTER"
+export const TOGGLE_SETTINGS = "TOGGLE_SETTINGS"
