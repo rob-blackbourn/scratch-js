@@ -137,3 +137,43 @@ fs.createReadStream(
 }, (err, data) => {
     console.log(data)
 }))
+
+fs.createReadStream(
+    __dirname + '/sr28asc/DATSRCLN.txt',
+    { encoding: 'latin1' }
+).pipe(parse({
+    ...parseOptions,
+    columns: ['NDB_No', 'Nutr_No', 'DataSrc_ID']
+}, (err, data) => {
+    console.log(data)
+}))
+
+fs.createReadStream(
+    __dirname + '/sr28asc/LANGDESC.txt',
+    { encoding: 'latin1' }
+).pipe(parse({
+    ...parseOptions,
+    columns: ['Factor_Code', 'Description']
+}, (err, data) => {
+    console.log(data)
+}))
+
+fs.createReadStream(
+    __dirname + '/sr28asc/LANGUAL.txt',
+    { encoding: 'latin1' }
+).pipe(parse({
+    ...parseOptions,
+    columns: ['NDB_No', 'Factor_Code']
+}, (err, data) => {
+    console.log(data)
+}))
+
+fs.createReadStream(
+    __dirname + '/sr28asc/FOOTNOTE.txt',
+    { encoding: 'latin1' }
+).pipe(parse({
+    ...parseOptions,
+    columns: ['NDB_No', 'Footnt_No', 'Footnt_Typ', 'Nutr_No', 'Footnt_Txt']
+}, (err, data) => {
+    console.log(data)
+}))
