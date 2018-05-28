@@ -1,0 +1,52 @@
+{
+    "wheat-flour-white": {
+        "en-GB": {
+            "singular": "plain white flour",
+            "plural": "plain white flour"
+        },
+        "en-US": {
+            "singular": "white all-purpose flour",
+            "plural": "white all-purpose flour"
+        }
+    },
+    "wheat-flour-white-self-raising": {
+        "en-GB": {
+            "singular": "white self-raising flour",
+            "plural": "white self-raising flour"
+        },
+        "en-US": {
+            "singular": "white self-rising flour",
+            "plural": "white self-rising flour"
+        }
+    },
+    "sugar-white-icing": {
+        "en-GB": {
+            "singular": "icing sugar",
+            "plural": "icing sugar"
+        },
+        "en-US": {
+            "singular": "confectioners sugar",
+            "plural": "confectioners sugar"
+        }
+    },
+    "sugar-white-castor": {
+        "en-GB": {
+            "singular": "castor sugar",
+            "plural": "castor sugar"
+        },
+        "en-US": {
+            "singular": "superfine sugar",
+            "plural": "superfine sugar"
+        }
+    },
+    "sugar-white-granulated": {
+        "en-GB": {
+            "singular": "granulated sugar",
+            "plural": "granulated sugar"
+        },
+        "en-US": {
+            "singular": "sugar",
+            "plural": "sugar"
+        }
+    }
+}

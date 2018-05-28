@@ -1,0 +1,62 @@
+{
+    "none": {
+        "en": {
+            "name": "none"
+        }
+    },
+    "sliced-thinly": {
+        "en": {
+            "name": "thinly sliced"
+        }
+    },
+    "sliced": {
+        "en": {
+            "name": "sliced"
+        }
+    },
+    "sliced-thickly": {
+        "en": {
+            "name": "thickly sliced"
+        }
+    },
+    "diced-finely": {
+        "en": {
+            "name": "finely diced"
+        }
+    },
+    "diced": {
+        "en": {
+            "name": "diced"
+        }
+    },
+    "diced-roughly": {
+        "en": {
+            "name": "roughly diced"
+        }
+    },
+    "ground-finely": {
+        "en": {
+            "name": "finely ground"
+        }
+    },
+    "ground": {
+        "en": {
+            "name": "ground"
+        }
+    },
+    "ground-roughly": {
+        "en": {
+            "name": "roughly ground"
+        }
+    },
+    "halved": {
+        "en": {
+            "name": "halved"
+        }
+    },
+    "quartered": {
+        "en": {
+            "name": "quartered"
+        }
+    }
+}

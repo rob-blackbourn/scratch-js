@@ -1,3 +1,14 @@
+export class Detail {
+    static fromJSON(json, factory) {
+        const details = {}
+        for (let key in json) {
+            const value = json[key]
+            details[key] = factory(value)
+        }
+        return details
+    }
+}
+
 export default class LocaleDetails {
 
     constructor(details, defaultLocale="en") {
