@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
 
 import UnitConverter from '../../converters/UnitConverter'
+import { Usage } from '../../converters/Usage'
 
 const styles = theme => ({
     selector: {
@@ -44,7 +45,7 @@ function unitConverterToString(unitConverter) {
 }
   
 function renderInput(inputProps) {
-    const { InputProps, classes, usage, onSuggestionChanged, ref, ...other } = inputProps
+    const { InputProps, classes, ref, ...other } = inputProps
   
     return (
         <TextField
@@ -58,11 +59,6 @@ function renderInput(inputProps) {
             {...other}
         />
     )
-}
-
-renderInput.propTypes = {
-    usage: PropTypes.string.isRequired,
-    onSuggestionChanged: PropTypes.func.isRequired
 }
 
 function renderSuggestion({ suggestion, index, itemProps, highlightedIndex, selectedItem }) {
@@ -103,14 +99,12 @@ const UnitCompleter = ({
         <Downshift
             className={classes.selector}
             itemToString={unitConverterToString}
-            onInputValueChange={inputValue => onSuggestionChanged(inputValue, "Cookery", 5)}
+            onInputValueChange={inputValue => onSuggestionChanged(inputValue, usage, 5)}
             onChange={onConverterChanged}
         >
             {({ getInputProps, getItemProps, isOpen, inputValue, selectedItem, highlightedIndex }) => (
                 <div className={classes.container}>
                     {renderInput({
-                        usage: "Cookery",
-                        onSuggestionChanged,
                         fullWidth: true,
                         classes,
                         InputProps: getInputProps({
@@ -140,7 +134,7 @@ const UnitCompleter = ({
 UnitCompleter.propTypes = {
     classes: PropTypes.object.isRequired,
     text: PropTypes.string.isRequired,
-    usage: PropTypes.string,
+    usage: PropTypes.instanceOf(Usage),
     suggestions: PropTypes.arrayOf(PropTypes.instanceOf(UnitConverter)),
     onSuggestionChanged: PropTypes.func.isRequired,
     onConverterChanged: PropTypes.func.isRequired

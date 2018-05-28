@@ -19,7 +19,7 @@ export default repository => {
             units: [],
             value: '',
             text: '',
-            usage: '',
+            usage: usages.Cookery,
             maxItems: 5,
             suggestions: [],
             isSettingsOpen: false,
@@ -44,7 +44,7 @@ export default repository => {
             units: [],
             value: '',
             text: '',
-            usage: '',
+            usage: usages.Cookery,
             maxItems: 5,
             suggestions: [],
             isSettingsOpen: false,
@@ -291,7 +291,7 @@ export default repository => {
                     const obj = state[key]
 
                     const text = action.content.text
-                    const usage = usages[action.content.usage]
+                    const usage = action.content.usage
                     const maxItems = action.content.maxItems
                     const suggestions = text ? repository.match(text, usage, maxItems) : []
 
