@@ -15,7 +15,11 @@ fs.createReadStream(
     ...parseOptions,
     columns: ['FdGrp_Cd', 'FdGrp_Desc']
 }, (err, data) => {
-    console.log(data)
+    if (err) {
+        console.log("FG_GROUP", err)
+    } else {
+        console.log(data)
+    }
 }))
 
 fs.createReadStream(
@@ -39,7 +43,11 @@ fs.createReadStream(
         }
     }
 }, (err, data) => {
-    console.log(data)
+    if (err) {
+        console.log("FOOD_DES", err)
+    } else {
+        console.log(data)
+    }
 }))
 
 fs.createReadStream(
@@ -60,7 +68,11 @@ fs.createReadStream(
         }
     }
 }, (err, data) => {
-    console.log(data)
+    if (err) {
+        console.log("WEIGHT", err)
+    } else {
+        console.log(data)
+    }
 }))
 
 fs.createReadStream(
@@ -79,7 +91,11 @@ fs.createReadStream(
         }
     }
 }, (err, data) => {
-    console.log(data)
+    if (err) {
+        console.log("NUTR_DEF", err)
+    } else {
+        console.log(data)
+    }
 }))
 
 fs.createReadStream(
@@ -89,7 +105,11 @@ fs.createReadStream(
     ...parseOptions,
     columns: ['Src_Cd', 'SrcCd_Desc']
 }, (err, data) => {
-    console.log(data)
+    if (err) {
+        console.log("SRC_CD", err)
+    } else {
+        console.log(data)
+    }
 }))
 
 fs.createReadStream(
@@ -99,7 +119,11 @@ fs.createReadStream(
     ...parseOptions,
     columns: ['Deriv_Cd', 'Deriv_Desc']
 }, (err, data) => {
-    console.log(data)
+    if (err) {
+        console.log("DERIV_CD", err)
+    } else {
+        console.log(data)
+    }
 }))
 
 fs.createReadStream(
@@ -125,7 +149,11 @@ fs.createReadStream(
         }
     }
 }, (err, data) => {
-    console.log(data)
+    if (err) {
+        console.log("NUT_DATA", err)
+    } else {
+        console.log(data)
+    }
 }))
 
 fs.createReadStream(
@@ -135,7 +163,11 @@ fs.createReadStream(
     ...parseOptions,
     columns: ['DataSrc_ID', 'Authors', 'Title', 'Year', 'Journal', 'Vol_City', 'Issue_State', 'Start_Page', 'End_Page']
 }, (err, data) => {
-    console.log(data)
+    if (err) {
+        console.log("DATA_SRC", err)
+    } else {
+        console.log(data)
+    }
 }))
 
 fs.createReadStream(
@@ -145,7 +177,11 @@ fs.createReadStream(
     ...parseOptions,
     columns: ['NDB_No', 'Nutr_No', 'DataSrc_ID']
 }, (err, data) => {
-    console.log(data)
+    if (err) {
+        console.log("DATASRCLN", err)
+    } else {
+        console.log(data)
+    }
 }))
 
 fs.createReadStream(
@@ -155,7 +191,11 @@ fs.createReadStream(
     ...parseOptions,
     columns: ['Factor_Code', 'Description']
 }, (err, data) => {
-    console.log(data)
+    if (err) {
+        console.log("LANGDESC", err)
+    } else {
+        console.log(data)
+    }
 }))
 
 fs.createReadStream(
@@ -165,7 +205,11 @@ fs.createReadStream(
     ...parseOptions,
     columns: ['NDB_No', 'Factor_Code']
 }, (err, data) => {
-    console.log(data)
+    if (err) {
+        console.log("LANGUAL", err)
+    } else {
+        console.log(data)
+    }
 }))
 
 fs.createReadStream(
@@ -175,5 +219,9 @@ fs.createReadStream(
     ...parseOptions,
     columns: ['NDB_No', 'Footnt_No', 'Footnt_Typ', 'Nutr_No', 'Footnt_Txt']
 }, (err, data) => {
-    console.log(data)
+    if (err) {
+        console.log("FOOTNOTE", err)
+    } else {
+        console.log(data)
+    }
 }))
