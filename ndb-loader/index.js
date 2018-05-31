@@ -1,227 +1,175 @@
-const fs = require('fs');
-const parse = require('csv-parse');
+const MongoClient = require('mongodb').MongoClient
+const {
+    foodGroupFileName, foodGroupParseOptions,
+    foodDescriptionFileName, foodDescriptionParseOptions,
+    weightFileName, weightParseOptions,
+    nutrientDefinitionFileName, nutrientDefinitionParseOptions,
+    nutrientDataFileName, nutrientDataParseOptions,
+    sourceCodeFileName, sourceCodeParseOptions,
+    derivationCodeFileName, derivationCodeParseOptions,
+    footnoteFileName, footnoteParseOptions,
+    dataSourceFileName, dataSourceParseOptions
+} = require('./parseOptions')
+const { arrayToObject, arrayToObjectList } = require('./utils')
 
-const parseOptions = {
-    delimiter: '^',
-    quote: '~',
-    escape: '~',
-    skip_empty_lines: true
+const { parseCsvFile, parseCsvFileAsync } = require('./parseUtils')
+
+async function loadDataAsync(folder) {
+
+    const foodGroupPathName = folder + '/' + foodGroupFileName
+    const foodDescriptionPathName = folder + '/' + foodDescriptionFileName
+    const weightPathName = folder + '/' + weightFileName
+    const nutrientDefinitionPathName = folder + '/' + nutrientDefinitionFileName
+    const nutrientDataPathName = folder + '/' + nutrientDataFileName
+    const sourceCodePathName = folder + '/' + sourceCodeFileName
+    const derivationCodePathName = folder + '/' + derivationCodeFileName
+    const footnotePathName = folder + '/' + footnoteFileName
+    const dataSourcePathName = folder + '/' + dataSourceFileName
+        
+    const weights = arrayToObjectList(
+        await parseCsvFileAsync(weightPathName, weightParseOptions), 
+        x => x.NDB_No,
+        x => (
+            {
+                _id: x.Seq,
+                amount: x.Amount,
+                description: x.Msre_Desc,
+                grammeWeight: x.Gm_Wgt,
+                numberOfDataPoints: x.Num_Data_Pts,
+                standardDeviation: x.Std_Dev
+            }
+        )
+    )
+    const footnotes = arrayToObjectList(
+        await parseCsvFileAsync(footnotePathName, footnoteParseOptions),
+        x => x.NDB_No,
+        x => ({
+            Nutr_No: x.Nutr_No,
+            sequence: x.Seq,
+            type: x.Footnt_Typ,
+            text: x.Footnt_Txt
+        })
+    )
+    const sourceCodes = arrayToObject(
+        await parseCsvFileAsync(sourceCodePathName, sourceCodeParseOptions),
+        x => x.Src_Cd,
+        x => x.SrcCd_Desc
+    )
+    const derivationCodes = arrayToObject(
+        await parseCsvFileAsync(derivationCodePathName, derivationCodeParseOptions),
+        x => x.Deriv_Cd,
+        x => x.Deriv_Desc
+    )
+    const dataSources = arrayToObject(
+        await parseCsvFileAsync(dataSourcePathName, dataSourceParseOptions),
+        x => x.DataSrc_ID,
+        x => ({
+            authors: x.Authors,
+            title: x.Title,
+            year: x.Year,
+            journal: x.Journal,
+            volumeOrCity: x.Vol_City,
+            issueOrState: x.Issue_State,
+            startPage: x.Start_Page,
+            endPage: x.End_Page})
+    )
+    const nutrientDefinitions = arrayToObject(
+        await parseCsvFileAsync(nutrientDefinitionPathName, nutrientDefinitionParseOptions),
+        x => x.Nutr_No,
+        x => ({
+            units: x.Units,
+            tagname: x.Tagname,
+            description: x.NutrDesc,
+            precision: x.Num_Dec,
+            sortOrder: x.SR_Order
+        })
+    )
+    const nutrientData = arrayToObjectList(
+        await parseCsvFileAsync(nutrientDataPathName, nutrientDataParseOptions),
+        x => x.NDB_No,
+        x => ({
+            _id: x.Nutr_No,
+            description: nutrientDefinitions[x.Nutr_No].description,
+            precision: nutrientDefinitions[x.Nutr_No].precision,
+            units: nutrientDefinitions[x.Nutr_No].units,
+            value: x.Nutr_Val,
+            numberOfDataPoints: x.Num_Data_Pts,
+            standardError: x.Std_Error,
+            source: sourceCodes[x.Src_Cd] || null,
+            derivation: derivationCodes[x.Deriv_Cd] || null,
+            referenceNutritionId: x.Ref_NDB_No,
+            hasAdditive: x.Add_Nutr_Mark,
+            numberOfStudies: x.Num_Studies,
+            minValue: x.Min,
+            maxValue: x.Max,
+            degreesOfFreedom: x.DF,
+            lowerErrorBound: x.Low_EB,
+            upperErrorBound: x.Up_EB,
+            statisticalComment: x.Stat_cmt,
+            lastUpdate: x.AddMod_Date,
+            confidenceCode: x.CC,
+            footnotes: (footnotes[x.NDB_No] || [])
+                .filter(y => y.Nutr_No === x.Nutr_No)
+                .map(y => ({ sequence: y.sequence, type: y.type, text: y.text }))
+        })
+    )
+
+    const foodGroups = arrayToObject(
+        await parseCsvFileAsync(foodGroupPathName, foodGroupParseOptions), 
+        x => x.NDB_No,
+        x => x.FdGrp_Desc
+    )
+
+    const foodDescriptions = arrayToObject(
+        await parseCsvFileAsync(foodDescriptionPathName, foodDescriptionParseOptions),
+        x => x.NDB_No,
+        x => ({
+            group: foodGroups[x.FdGrp_Cd],
+            longDescription: x.Long_Desc,
+            shortDescription: x.Shrt_Desc,
+            commonName: x.ComName,
+            manufaturerName: x.ManufacName,
+            hasSurvey: x.Survey,
+            refuseDescription: x.Ref_desc,
+            refuse: x.Refuse,
+            scientificName: x.SciName,
+            nitrogenFactor: x.N_Factor,
+            proteinFactor: x.Pro_Factor,
+            fatFactor: x.Fat_Factor,
+            carbohydrateFactor: x.CHO_Factor,
+            weights: weights[x.NDB_No] || [],
+            nutrients: nutrientData[x.NDB_No] || [],
+            footnotes: (footnotes[x.NDB_No] || [])
+                .filter(y => !y.Nutr_No)
+                .map(y => ({ sequence: y.sequence, type: y.type, text: y.text }))
+        })
+    )
+
+    return foodDescriptions
 }
 
-fs.createReadStream(
-    __dirname + '/sr28asc/FD_GROUP.txt',
-    { encoding: 'latin1' }
-).pipe(parse({
-    ...parseOptions,
-    columns: ['FdGrp_Cd', 'FdGrp_Desc']
-}, (err, data) => {
-    if (err) {
-        console.log("FG_GROUP", err)
-    } else {
-        console.log(data)
-    }
-}))
+async function saveDataAsync(foods, url) {
+    const unboundDb = await MongoClient.connect(url)
+    const db = unboundDb.db("example2")
+    const foodGroupCollection = await db.createCollection('food', {})
+    const result = await foodGroupCollection.insertMany(foods)
+    return result
+}
 
-fs.createReadStream(
-    __dirname + '/sr28asc/FOOD_DES.txt',
-    { encoding: 'latin1' }
-).pipe(parse({
-    ...parseOptions,
-    columns: ['NDB_No', 'FdGrp_Cd', 'Long_Desc', 'Shrt_Desc', 'ComName', 'ManufacName', 'Survey', 'Ref_desc', 'Refuse', 'SciName', 'N_Factor', 'Pro_Factor', 'Fat_Factor', 'CHO_Factor'],
-    cast: (value, context) => {
-        switch (context.column) {
-            case 'Survey':
-                return value == 'Y'
-            case 'Refuse':
-            case 'N_Factor':
-            case 'Pro_Factor': 
-            case 'Fat_Factor':
-            case 'CHO_Factor': 
-                return Number.parseFloat(value) || null
-            default:
-                return value
-        }
-    }
-}, (err, data) => {
-    if (err) {
-        console.log("FOOD_DES", err)
-    } else {
-        console.log(data)
-    }
-}))
+async function mainAsync() {
+    const foods = await loadDataAsync(__dirname + '/sr28asc')
+    const result = await saveDataAsync(Object.values(foods), 'mongodb://localhost:27017/example2')
+    return result
+}
 
-fs.createReadStream(
-    __dirname + '/sr28asc/WEIGHT.txt',
-    { encoding: 'latin1' }
-).pipe(parse({
-    ...parseOptions,
-    columns: ['NDB_No', 'Seq', 'Amount', 'Msre_Desc', 'Gm_Wgt', 'Num_Data_Pts', 'Std_Dev'],
-    cast: (value, context) => {
-        switch (context.column) {
-            case 'Amount':
-            case 'Gm_Wgt':
-            case 'Num_Data_Pts': 
-            case 'Std_Dev':
-                return Number.parseFloat(value) || null
-            default:
-                return value
-        }
-    }
-}, (err, data) => {
-    if (err) {
-        console.log("WEIGHT", err)
-    } else {
-        console.log(data)
-    }
-}))
+function main() {
+    mainAsync()
+        .then(result => {
+            console.log("Done", result)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
 
-fs.createReadStream(
-    __dirname + '/sr28asc/NUTR_DEF.txt',
-    { encoding: 'latin1' }
-).pipe(parse({
-    ...parseOptions,
-    columns: ['Nutr_No', 'Units', 'Tagname', 'NutrDesc', 'Num_Dec', 'SR_Order'],
-    cast: (value, context) => {
-        switch (context.column) {
-            case 'Num_Dec':
-            case 'SR_Order':
-                return Number.parseFloat(value) || null
-            default:
-                return value
-        }
-    }
-}, (err, data) => {
-    if (err) {
-        console.log("NUTR_DEF", err)
-    } else {
-        console.log(data)
-    }
-}))
-
-fs.createReadStream(
-    __dirname + '/sr28asc/SRC_CD.txt',
-    { encoding: 'latin1' }
-).pipe(parse({
-    ...parseOptions,
-    columns: ['Src_Cd', 'SrcCd_Desc']
-}, (err, data) => {
-    if (err) {
-        console.log("SRC_CD", err)
-    } else {
-        console.log(data)
-    }
-}))
-
-fs.createReadStream(
-    __dirname + '/sr28asc/DERIV_CD.txt',
-    { encoding: 'latin1' }
-).pipe(parse({
-    ...parseOptions,
-    columns: ['Deriv_Cd', 'Deriv_Desc']
-}, (err, data) => {
-    if (err) {
-        console.log("DERIV_CD", err)
-    } else {
-        console.log(data)
-    }
-}))
-
-fs.createReadStream(
-    __dirname + '/sr28asc/NUT_DATA.txt',
-    { encoding: 'latin1' }
-).pipe(parse({
-    ...parseOptions,
-    columns: ['NDB_No', 'Nutr_No', 'Nutr_Val', 'Num_Data_Pts', 'Std_Error', 'Src_Cd', 'Deriv_Cd', 'Ref_NDB_No', 'Add_Nutr_Mark', 'Num_Studies', 'Min', 'Max', 'DF', 'Low_EB', 'Up_EB', 'Stat_cmt', 'AddMod_Date', 'CC'],
-    cast: (value, context) => {
-        switch (context.column) {
-            case 'Nutr_Val':
-            case 'Num_Data_Pts':
-            case 'Std_Error': 
-            case 'Num_Studies':
-            case 'Min': 
-            case 'Max': 
-            case 'DF': 
-            case 'Low_EB': 
-            case 'Up_EB': 
-                return Number.parseFloat(value) || null
-            default:
-                return value
-        }
-    }
-}, (err, data) => {
-    if (err) {
-        console.log("NUT_DATA", err)
-    } else {
-        console.log(data)
-    }
-}))
-
-fs.createReadStream(
-    __dirname + '/sr28asc/DATA_SRC.txt',
-    { encoding: 'latin1' }
-).pipe(parse({
-    ...parseOptions,
-    columns: ['DataSrc_ID', 'Authors', 'Title', 'Year', 'Journal', 'Vol_City', 'Issue_State', 'Start_Page', 'End_Page']
-}, (err, data) => {
-    if (err) {
-        console.log("DATA_SRC", err)
-    } else {
-        console.log(data)
-    }
-}))
-
-fs.createReadStream(
-    __dirname + '/sr28asc/DATSRCLN.txt',
-    { encoding: 'latin1' }
-).pipe(parse({
-    ...parseOptions,
-    columns: ['NDB_No', 'Nutr_No', 'DataSrc_ID']
-}, (err, data) => {
-    if (err) {
-        console.log("DATASRCLN", err)
-    } else {
-        console.log(data)
-    }
-}))
-
-fs.createReadStream(
-    __dirname + '/sr28asc/LANGDESC.txt',
-    { encoding: 'latin1' }
-).pipe(parse({
-    ...parseOptions,
-    columns: ['Factor_Code', 'Description']
-}, (err, data) => {
-    if (err) {
-        console.log("LANGDESC", err)
-    } else {
-        console.log(data)
-    }
-}))
-
-fs.createReadStream(
-    __dirname + '/sr28asc/LANGUAL.txt',
-    { encoding: 'latin1' }
-).pipe(parse({
-    ...parseOptions,
-    columns: ['NDB_No', 'Factor_Code']
-}, (err, data) => {
-    if (err) {
-        console.log("LANGUAL", err)
-    } else {
-        console.log(data)
-    }
-}))
-
-fs.createReadStream(
-    __dirname + '/sr28asc/FOOTNOTE.txt',
-    { encoding: 'latin1' }
-).pipe(parse({
-    ...parseOptions,
-    columns: ['NDB_No', 'Footnt_No', 'Footnt_Typ', 'Nutr_No', 'Footnt_Txt']
-}, (err, data) => {
-    if (err) {
-        console.log("FOOTNOTE", err)
-    } else {
-        console.log(data)
-    }
-}))
+main()
