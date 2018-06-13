@@ -1,0 +1,13 @@
+{
+    "presets": [
+        "env"
+    ],
+    "plugins": [
+        ["babel-operator-overload-plugin", {
+            "enabled": true,
+            "foo": 1,
+            "bar": 3
+            }
+        ]
+    ]
+}
