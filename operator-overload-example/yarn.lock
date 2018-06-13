@@ -227,11 +227,11 @@ babel-messages@^6.23.0:
   dependencies:
     babel-runtime "^6.22.0"
 
-"babel-operator-overload-plugin@https://github.com/rob-blackbourn/babel-operator-overload-plugin.git":
+"babel-operator-overload-plugin@https://github.com/rob-blackbourn/babel-operator-overload-plugin.git#1.0.0":
   version "1.0.0"
-  resolved "https://github.com/rob-blackbourn/babel-operator-overload-plugin.git#2f767865fad7ae1bc8c4d1ee68066c30b83cf29f"
+  resolved "https://github.com/rob-blackbourn/babel-operator-overload-plugin.git#517240f5db53b2f42c0c13f1543b01744e943a53"
   dependencies:
-    operator-overload-polyfills "https://github.com/rob-blackbourn/operator-overload-polyfills.git"
+    operator-overload-polyfills "https://github.com/rob-blackbourn/operator-overload-polyfills.git#1.0.0"
 
 babel-plugin-check-es2015-constants@^6.22.0:
   version "6.22.0"
@@ -1086,9 +1086,9 @@ once@^1.3.0:
   dependencies:
     wrappy "1"
 
-"operator-overload-polyfills@https://github.com/rob-blackbourn/operator-overload-polyfills.git":
+"operator-overload-polyfills@https://github.com/rob-blackbourn/operator-overload-polyfills.git#1.0.0":
   version "1.0.0"
-  resolved "https://github.com/rob-blackbourn/operator-overload-polyfills.git#91ee5a50a4c53709272168da8a4525c840bb6169"
+  resolved "https://github.com/rob-blackbourn/operator-overload-polyfills.git#40cc27b7317a3af5f719b30810e597345ae137eb"
 
 os-homedir@^1.0.0:
   version "1.0.2"
