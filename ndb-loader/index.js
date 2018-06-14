@@ -8,11 +8,12 @@ const {
     sourceCodeFileName, sourceCodeParseOptions,
     derivationCodeFileName, derivationCodeParseOptions,
     footnoteFileName, footnoteParseOptions,
-    dataSourceFileName, dataSourceParseOptions
+    dataSourceFileName, dataSourceParseOptions,
+    dataSourceLinkFileName, dataSourceLinkParseOptions
 } = require('./parseOptions')
 const { arrayToObject, arrayToObjectList } = require('./utils')
 
-const { parseCsvFile, parseCsvFileAsync } = require('./parseUtils')
+const { parseCsvFileAsync } = require('./parseUtils')
 
 async function loadDataAsync(folder) {
 
@@ -25,6 +26,7 @@ async function loadDataAsync(folder) {
     const derivationCodePathName = folder + '/' + derivationCodeFileName
     const footnotePathName = folder + '/' + footnoteFileName
     const dataSourcePathName = folder + '/' + dataSourceFileName
+    const dataSourceLinkPathName = folder + '/' + dataSourceLinkFileName
         
     const weights = arrayToObjectList(
         await parseCsvFileAsync(weightPathName, weightParseOptions), 
@@ -64,6 +66,7 @@ async function loadDataAsync(folder) {
         await parseCsvFileAsync(dataSourcePathName, dataSourceParseOptions),
         x => x.DataSrc_ID,
         x => ({
+            _id: x.DataSrc_ID,
             authors: x.Authors,
             title: x.Title,
             year: x.Year,
@@ -72,6 +75,14 @@ async function loadDataAsync(folder) {
             issueOrState: x.Issue_State,
             startPage: x.Start_Page,
             endPage: x.End_Page})
+    )
+    const dataSourceLinks = arrayToObjectList(
+        await parseCsvFileAsync(dataSourceLinkPathName, dataSourceLinkParseOptions),
+        x => x.NDB_No,
+        x => ({
+            Nutr_No: x.Nutr_No,
+            dataSource: dataSources[x.DataSrc_ID]
+        })
     )
     const nutrientDefinitions = arrayToObject(
         await parseCsvFileAsync(nutrientDefinitionPathName, nutrientDefinitionParseOptions),
@@ -110,7 +121,8 @@ async function loadDataAsync(folder) {
             confidenceCode: x.CC,
             footnotes: (footnotes[x.NDB_No] || [])
                 .filter(y => y.Nutr_No === x.Nutr_No)
-                .map(y => ({ sequence: y.sequence, type: y.type, text: y.text }))
+                .map(y => ({ sequence: y.sequence, type: y.type, text: y.text })),
+            dataSources: (dataSourceLinks[x.NDB_No] || []).filter(y => y.Nutr_No === x.Nutr_No).map(y => y.dataSource)
         })
     )
 
@@ -124,6 +136,7 @@ async function loadDataAsync(folder) {
         await parseCsvFileAsync(foodDescriptionPathName, foodDescriptionParseOptions),
         x => x.NDB_No,
         x => ({
+            _id: x.NDB_No,
             group: foodGroups[x.FdGrp_Cd],
             longDescription: x.Long_Desc,
             shortDescription: x.Shrt_Desc,
