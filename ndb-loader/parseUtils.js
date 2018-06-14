@@ -34,7 +34,6 @@ async function parseCsvFileAsync(fileName, options) {
             }
         }))
     })
-    return parsePromise
 }
 
 module.exports = {

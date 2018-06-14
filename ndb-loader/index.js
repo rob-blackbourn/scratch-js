@@ -166,15 +166,19 @@ async function loadDataAsync(folder) {
 }
 
 async function saveDataAsync(foods, url) {
-    const unboundDb = await MongoClient.connect(url)
-    const db = unboundDb.db("example2")
+    const connection = await MongoClient.connect(url)
+    const db = connection.db("example2")
     const foodCollection = await db.createCollection('food', {
         validator: {
             $jsonSchema: foodSchema
         }
     })
 
-    return await foodCollection.insertMany(foods)
+    const result = await foodCollection.insertMany(foods)
+
+    await connection.close()
+
+    return result
 }
 
 async function mainAsync() {
@@ -194,4 +198,3 @@ function main() {
 }
 
 main()
- 
