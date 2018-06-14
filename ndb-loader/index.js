@@ -1,4 +1,5 @@
 const MongoClient = require('mongodb').MongoClient
+
 const {
     foodGroupFileName, foodGroupParseOptions,
     foodDescriptionFileName, foodDescriptionParseOptions,
@@ -11,9 +12,12 @@ const {
     dataSourceFileName, dataSourceParseOptions,
     dataSourceLinkFileName, dataSourceLinkParseOptions
 } = require('./parseOptions')
+
 const { arrayToObject, arrayToObjectList } = require('./utils')
 
 const { parseCsvFileAsync } = require('./parseUtils')
+
+const { foodSchema } = require('./schema')
 
 async function loadDataAsync(folder) {
 
@@ -47,7 +51,7 @@ async function loadDataAsync(folder) {
         x => x.NDB_No,
         x => ({
             Nutr_No: x.Nutr_No,
-            sequence: x.Seq,
+            sequence: x.Footnt_No,
             type: x.Footnt_Typ,
             text: x.Footnt_Txt
         })
@@ -117,7 +121,7 @@ async function loadDataAsync(folder) {
             lowerErrorBound: x.Low_EB,
             upperErrorBound: x.Up_EB,
             statisticalComment: x.Stat_cmt,
-            lastUpdate: x.AddMod_Date,
+            lastUpdate: x.AddMod_Date ? x.AddMod_Date.toISOString() : null,
             confidenceCode: x.CC,
             footnotes: (footnotes[x.NDB_No] || [])
                 .filter(y => y.Nutr_No === x.Nutr_No)
@@ -141,7 +145,7 @@ async function loadDataAsync(folder) {
             longDescription: x.Long_Desc,
             shortDescription: x.Shrt_Desc,
             commonName: x.ComName,
-            manufaturerName: x.ManufacName,
+            manufacturerName: x.ManufacName,
             hasSurvey: x.Survey,
             refuseDescription: x.Ref_desc,
             refuse: x.Refuse,
@@ -154,7 +158,7 @@ async function loadDataAsync(folder) {
             nutrients: nutrientData[x.NDB_No] || [],
             footnotes: (footnotes[x.NDB_No] || [])
                 .filter(y => !y.Nutr_No)
-                .map(y => ({ sequence: y.sequence, type: y.type, text: y.text }))
+                .map(y => ({ type: y.type, text: y.text }))
         })
     )
 
@@ -164,9 +168,13 @@ async function loadDataAsync(folder) {
 async function saveDataAsync(foods, url) {
     const unboundDb = await MongoClient.connect(url)
     const db = unboundDb.db("example2")
-    const foodGroupCollection = await db.createCollection('food', {})
-    const result = await foodGroupCollection.insertMany(foods)
-    return result
+    const foodCollection = await db.createCollection('food', {
+        validator: {
+            $jsonSchema: foodSchema
+        }
+    })
+
+    return await foodCollection.insertMany(foods)
 }
 
 async function mainAsync() {

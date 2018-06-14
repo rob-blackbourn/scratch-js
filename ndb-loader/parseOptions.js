@@ -5,6 +5,21 @@ const parseOptions = {
     skip_empty_lines: true
 }
 
+function asStringOrNull(value) {
+    return value ? value : null
+}
+
+function asFloatOrNull(value) {
+    return value ? Number.parseFloat(value) : null
+}
+
+function asBoolOrNull(value) {
+    return value ? value == 'Y' : null
+}
+
+function asDateOrNull(value) {
+    return value ? new Date(Number.parseFloat(value.slice(3, 7)), Number.parseFloat(value.slice(0, 2), 1)) : null
+}
 /*
 ** Food Group
 */
@@ -40,15 +55,15 @@ const foodDescriptionParseOptions = {
     cast: (value, context) => {
         switch (context.column) {
             case 'Survey':
-                return value ? value == 'Y' : null
+                return asBoolOrNull(value)
             case 'Refuse':
             case 'N_Factor':
             case 'Pro_Factor': 
             case 'Fat_Factor':
             case 'CHO_Factor': 
-                return Number.parseFloat(value) || null
+                return asFloatOrNull(value)
             default:
-                return value
+                return asStringOrNull(value)
         }
     }
 }
@@ -73,9 +88,9 @@ const weightParseOptions = {
             case 'Gm_Wgt':
             case 'Num_Data_Pts': 
             case 'Std_Dev':
-                return Number.parseFloat(value) || null
+                return asFloatOrNull(value)
             default:
-                return value
+                return asStringOrNull(value)
         }
     }
 }
@@ -93,11 +108,11 @@ const nutrientDefinitionParseOptions = {
     ],
     cast: (value, context) => {
         switch (context.column) {
-            case 'precision':
-            case 'sortOrder':
-                return Number.parseFloat(value) || null
+            case 'Num_Dec':
+            case 'SR_Order':
+                return asFloatOrNull(value)
             default:
-                return value
+                return asStringOrNull(value)
         }
     }
 }
@@ -105,13 +120,19 @@ const nutrientDefinitionParseOptions = {
 const sourceCodeFileName = "SRC_CD.txt"
 const sourceCodeParseOptions = {
     ...parseOptions,
-    columns: ['Src_Cd', 'SrcCd_Desc']
+    columns: ['Src_Cd', 'SrcCd_Desc'],
+    cast: (value, context) => {
+        return asStringOrNull(value)
+    }
 }
 
 const derivationCodeFileName = "DERIV_CD.txt"
 const derivationCodeParseOptions = {
     ...parseOptions,
-    columns: ['Deriv_Cd', 'Deriv_Desc']
+    columns: ['Deriv_Cd', 'Deriv_Desc'],
+    cast: (value, context) => {
+        return asStringOrNull(value)
+    }
 }
 
 const nutrientDataFileName = "NUT_DATA.txt"
@@ -140,9 +161,9 @@ const nutrientDataParseOptions = {
     cast: (value, context) => {
         switch (context.column) {
             case 'Add_Nutr_Mark':
-                return value ? value === 'Y' : null
+                return asBoolOrNull(value)
             case 'AddMod_Date':
-                return value ? new Date(Number.parseFloat(value.slice(3, 7)), Number.parseFloat(value.slice(0, 2), 1)) : null
+                return asDateOrNull(value)
             case 'Nutr_Val':
             case 'Num_Data_Pts':
             case 'Std_Error': 
@@ -152,9 +173,9 @@ const nutrientDataParseOptions = {
             case 'DF': 
             case 'Low_EB': 
             case 'Up_EB': 
-                return Number.parseFloat(value) || null
+                return asFloatOrNull(value)
             default:
-                return value
+                return asStringOrNull(value)
         }
     }
 }
@@ -162,25 +183,37 @@ const nutrientDataParseOptions = {
 const dataSourceFileName = "DATA_SRC.txt"
 const dataSourceParseOptions = {
     ...parseOptions,
-    columns: ['DataSrc_ID', 'Authors', 'Title', 'Year', 'Journal', 'Vol_City', 'Issue_State', 'Start_Page', 'End_Page']
+    columns: ['DataSrc_ID', 'Authors', 'Title', 'Year', 'Journal', 'Vol_City', 'Issue_State', 'Start_Page', 'End_Page'],
+    cast: (value, context) => {
+        return asStringOrNull(value)
+    }
 }
 
 const dataSourceLinkFileName = "DATSRCLN.txt"
 const dataSourceLinkParseOptions = {
     ...parseOptions,
-    columns: ['NDB_No', 'Nutr_No', 'DataSrc_ID']
+    columns: ['NDB_No', 'Nutr_No', 'DataSrc_ID'],
+    cast: (value, context) => {
+        return asStringOrNull(value)
+    }
 }
 
 const langualFactorDescriptionFileName = "LANGDESC.txt"
 const langualFactorDescriptionParseOptions = {
     ...parseOptions,
-    columns: ['Factor_Code', 'Description']
+    columns: ['Factor_Code', 'Description'],
+    cast: (value, context) => {
+        return asStringOrNull(value)
+    }
 }
 
 const langualFactorFileName = "LANGUAL.txt"
 const langualFactorParseOptions = {
     ...parseOptions,
-    columns: ['NDB_No', 'Factor_Code']
+    columns: ['NDB_No', 'Factor_Code'],
+    cast: (value, context) => {
+        return asStringOrNull(value)
+    }
 }
 
 const footnoteFileName = "FOOTNOTE.txt"
@@ -191,7 +224,10 @@ const footnoteParseOptions = {
         'Footnt_No',
         'Footnt_Typ',
         'Nutr_No',
-        'Footnt_Txt']
+        'Footnt_Txt'],
+    cast: (value, context) => {
+        return asStringOrNull(value)
+    }
 }
 
 module.exports = {
