@@ -1,0 +1,36 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js init
+
+PATH: 
+  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Microsoft MPI\Bin\;C:\Program Files\Docker\Docker\Resources\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\TortoiseGit\bin;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\Program Files\Git\cmd;C:\Program Files\PuTTY\;C:\Program Files (x86)\GitExtensions\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\nodejs\;C:\blp\DAPI;C:\blp\DAPI\DDE;C:\Users\rob.blackbourn\AppData\Local\Microsoft\WindowsApps;C:\Program Files\influxdb\influxdb-1.2.4-1;C:\Program Files\NuGet;C:\Users\rob.blackbourn\AppData\Local\Programs\Fiddler;C:\Users\rob.blackbourn\AppData\Local\atom\bin;C:\Program Files\docfx\docfx-2.24;C:\Program Files\sharpDox\sharpDox.Local;C:\Program Files\Microsoft VS Code\bin;C:\Program Files (x86)\ctags58;C:\Users\rob.blackbourn\AppData\Local\Yarn\bin;D:\Python\Python27-32;D:\Python\Python27-32\Scripts;C:\Program Files\Java\jdk1.8.0_171\bin;C:\Users\rob.blackbourn\AppData\Roaming\npm
+
+Yarn version: 
+  1.6.0
+
+Node version: 
+  10.1.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: canceled
+      at Interface.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:129516:13)
+      at Interface.emit (events.js:182:13)
+      at Interface._ttyWrite (readline.js:778:16)
+      at ReadStream.onkeypress (readline.js:163:10)
+      at ReadStream.emit (events.js:182:13)
+      at emitKeys (internal/readline.js:422:14)
+      at emitKeys.next (<anonymous>)
+      at ReadStream.onData (readline.js:1014:36)
+      at ReadStream.emit (events.js:182:13)
+      at addChunk (_stream_readable.js:277:12)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
