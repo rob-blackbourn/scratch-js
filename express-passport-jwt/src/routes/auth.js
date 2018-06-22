@@ -30,7 +30,6 @@ router.post(
   async (req, res, next) => {
     try {
       const user = await User.findOne({username: req.body.username})
-
       if (!user) {
         return res.status(401).send({success: false, msg: 'Authentication failed. User not found.'})
       }
@@ -41,10 +40,12 @@ router.post(
       }
 
       // if user is found and password is right create a token
-      var token = jwt.sign(user.id, config.secret)
+      const payload = { id: user.id, name: user.username }
+      const options = { expiresIn: '24h', issuer: 'http://jetblack.net' }
+      const token = jwt.sign(payload, config.secret, options)
 
       // return the information including token as JSON
-      res.json({success: true, token: 'bearer ' + token})
+      res.json({ success: true, token })
 
     } catch (error) {
       next(error)
