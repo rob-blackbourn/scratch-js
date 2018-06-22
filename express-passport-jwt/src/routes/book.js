@@ -1,7 +1,7 @@
 import passport from 'passport'
 import express from 'express'
 import Book from '../models/book'
-import { decodeAuthHeaderBearerToken } from '../passport/jwt-strategy'
+// import { decodeAuthHeaderBearerToken } from '../passport/jwt-strategy'
 
 const router = express.Router()
 
@@ -30,7 +30,7 @@ router.get(
   passport.authenticate('jwt', { session: false }),
   async (req, res, next) => {
     try {
-      const payload = decodeAuthHeaderBearerToken(req.headers)
+      // const payload = decodeAuthHeaderBearerToken(req.headers)
       const books = await Book.find()
       return res.json(books)
     } catch (error) {
