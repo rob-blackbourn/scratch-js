@@ -4,13 +4,13 @@ import logger from 'morgan'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import passport from 'passport'
-import passportConfig from './config/passport'
+import jwtStrategy from './config/passport'
 import config from './config/database'
 import auth from './routes/auth'
 import book from './routes/book'
 
 mongoose.connect(config.database)
-passportConfig(passport)
+passport.use(jwtStrategy)
 
 const app = express()
 
