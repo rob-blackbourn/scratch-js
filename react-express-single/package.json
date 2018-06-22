@@ -6,6 +6,7 @@
   "scripts": {
     "build:server": "cd server && yarn build",
     "build:client": "cd client && yarn build",
+    "build": "yarn build:client && yarn build:server",
     "start:server": "cd server && yarn start",
     "start": "yarn build:client && yarn start:server"
   }
