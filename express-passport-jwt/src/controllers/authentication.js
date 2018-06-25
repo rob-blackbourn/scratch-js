@@ -1,6 +1,6 @@
 import config from '../config'
 import jwt from 'jsonwebtoken'
-import User from '../models/user'
+import { getUserByUsername, saveUser } from '../services/user-repository'
 
 export async function register (req, res) {
   if (!req.body.username || !req.body.password) {
@@ -8,11 +8,7 @@ export async function register (req, res) {
   } 
 
   try {
-    const user = new User({
-      username: req.body.username,
-      password: req.body.password
-    })
-    await user.save()
+    await saveUser(req.body.username, req.body.password)
     return res.json({success: true, msg: 'Successful created new user.'})
   } catch (error) {
     return res.json({success: false, msg: 'Username already exists.'})
@@ -21,7 +17,7 @@ export async function register (req, res) {
 
 export async function login (req, res, next) {
   try {
-    const user = await User.findOne({username: req.body.username})
+    const user = await getUserByUsername(req.body.username)
     if (!user) {
       return res.status(401).send({success: false, msg: 'Authentication failed. User not found.'})
     }
