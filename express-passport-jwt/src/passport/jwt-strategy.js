@@ -11,9 +11,9 @@ const opts = {
 
 async function verify (jwtPayload, done) {
   try {
-    const user = await User.findOne({_id: jwtPayload.id})
+    const user = await User.findOne({_id: jwtPayload.sub})
     if (user) {
-      done(null, user)
+      done(null, user, jwtPayload)
     } else {
       done(null, false)
     }

@@ -31,6 +31,8 @@ router.get(
   async (req, res, next) => {
     try {
       // const payload = decodeAuthHeaderBearerToken(req.headers)
+      console.log('user', req.user)
+      console.log('authInfo', req.authInfo)
       const books = await Book.find()
       return res.json(books)
     } catch (error) {

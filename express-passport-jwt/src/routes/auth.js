@@ -1,4 +1,4 @@
-import config from '../config/database'
+import config from '../config'
 import express from 'express'
 import jwt from 'jsonwebtoken'
 import User from '../models/user'
@@ -40,8 +40,8 @@ router.post(
       }
 
       // if user is found and password is right create a token
-      const payload = { id: user.id, name: user.username }
-      const options = { expiresIn: '24h', issuer: 'http://jetblack.net' }
+      const payload = { sub: user.id, user: user.username }
+      const options = { expiresIn: config.expiresIn, issuer: config.issuer }
       const token = jwt.sign(payload, config.secret, options)
 
       // return the information including token as JSON
