@@ -8,10 +8,9 @@ import jwtStrategy from './passport/jwt-strategy'
 import config from './config'
 import UserRespository from './services/user-repository'
 import BookRepository from './services/book-repository'
-import AuthenticationController from './controllers/authentication'
+import { AuthenticationController, BookController } from './controllers'
 import authenticationRouteFactory from './routes/auth'
 import bookRouteFactory from './routes/book'
-import BookController from './controllers/books';
 
 mongoose.connect(config.database)
 const userRepository = new UserRespository()
