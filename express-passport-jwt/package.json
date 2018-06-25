@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "build": "babel src --out-dir lib --source-maps inline",
-    "start": "yarn build && node lib/index.js"
+    "start": "yarn build && node lib/index.js",
+    "start:babel": "babel-node src/index.json"
   },
   "dependencies": {
     "bcrypt": "^2.0.1",

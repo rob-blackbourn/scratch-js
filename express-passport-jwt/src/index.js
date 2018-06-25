@@ -6,21 +6,23 @@ import mongoose from 'mongoose'
 import passport from 'passport'
 import jwtStrategy from './passport/jwt-strategy'
 import config from './config'
-import UserRespository from './services/user-repository'
-import BookRepository from './services/book-repository'
+import { UserRepository, BookRepository } from './services'
 import { AuthenticationController, BookController } from './controllers'
-import authenticationRouteFactory from './routes/auth'
-import bookRouteFactory from './routes/book'
+import apiRouteFactory from './routes/api'
 
 mongoose.connect(config.database)
-const userRepository = new UserRespository()
+const userRepository = new UserRepository()
 const bookRepository = new BookRepository()
 
 passport.use(jwtStrategy)
 
 const app = express()
-const authenticationRoutes = authenticationRouteFactory(new AuthenticationController(userRepository))
-const bookRoutes = bookRouteFactory(new BookController(bookRepository))
+
+const controllers = {
+  authenticationController: new AuthenticationController(userRepository),
+  bookController: new BookController(bookRepository)
+}
+const apiRoutes = apiRouteFactory(controllers)
 
 app.use(logger('dev'))
 app.use(bodyParser.json())
@@ -32,7 +34,6 @@ app.get('/', (req, res) => {
   res.send('Page under construction.')
 })
 
-app.use('/api/auth', authenticationRoutes)
-app.use('/api/book', bookRoutes)
+app.use('/api', apiRoutes)
 
 app.listen(3000, () => console.log('Example app listening on port 3000.'))
