@@ -1,20 +1,46 @@
-import Book from '../models/book'
+import BookSchema from '../schema/book-schema'
 
 class BookRepository {
 
-  createBook (isbn, title, author, publisher) {
-    var book = new Book({
+  constructor (db) {
+    this.db = db
+  }
+
+  async getCollectionAsync () {
+    if (!this._collection) {
+      this._collection = await this.db.createCollection('books', {
+        validator: {
+          $jsonSchema: BookSchema
+        }
+      })
+      await this._collection.createIndex({ isbn: 1 }, { unique: true })
+    }
+
+    return this._collection
+  }
+
+  get collection () {
+    return this.getCollectionAsync()
+  }
+
+  async createBook (isbn, title, author, publisher) {
+    var book = {
       isbn: isbn,
       title: title,
       author: author,
       publisher: publisher
-    })
+    }
   
-    return book.save()
+    const collection = await this.collection
+    const result = await collection.insertOne(book)
+    return result.insertedId
   }
   
-  readBooks () {
-    return Book.find()
+  async readBooks () {
+    const collection = await this.collection
+    const cursor = collection.find({})
+    const books = await cursor.toArray()
+    return books
   }
   
 }

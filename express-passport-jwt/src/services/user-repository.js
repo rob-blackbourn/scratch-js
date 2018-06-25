@@ -1,29 +1,74 @@
-import User from '../models/user'
+import { ObjectID } from 'mongodb'
 import bcrypt from 'bcrypt'
+import UserSchema from '../schema/user-schema'
 
 class UserRepository {
 
+  constructor (db, userCache) {
+    this.db = db
+    this.userCache = userCache
+  }
+
+  async getCollectionAsync () {
+    if (!this._collection) {
+      this._collection = await this.db.createCollection('users', {
+        validator: {
+          $jsonSchema: UserSchema
+        }
+      })
+      await this._collection.createIndex({ email: 1 }, { unique: true })
+    }
+
+    return this._collection
+  }
+
+  get collection () {
+    return this.getCollectionAsync()
+  }
+
   async saveUser (email, password, permissions) {
-    const user = new User({
+    const user = {
       email: email,
       password: await bcrypt.hash(password, 10),
       permissions
-    })
-    await user.save()
+    }
+
+    const collection = await this.collection
+    const result = await collection.insertOne(user)
+    if (!result.insertedId) {
+      return null
+    }
+
+    this.userCache.set(result.insertedId.toHexString(), user)
+    return user
   }
 
-  getUserByEmail (email) {
-    return User.findOne({email: email})
+  async getUserByEmail (email) {
+    const collection = await this.collection
+    const user = await collection.findOne({email: email})
+    if (user) {
+      this.userCache.set(user._id.toHexString(), user)
+    }
+    return user
   }
 
-  getById (id) {
-    return User.findOne({_id: id})
+  async getById (id) {
+    let user = this.userCache.get(id)
+    if (user) {
+      return user
+    }
+
+    const collection = await this.collection
+    user = await collection.findOne({_id: ObjectID.createFromHexString(id)})
+    if (user) {
+      this.userCache.set(user._id.toHexString(), user)
+    }
+    return user
   }
   
   comparePassword (plainTextPassword, hashedPassword) {
     return bcrypt.compare(plainTextPassword, hashedPassword)
   }
-  
 }
 
 export default UserRepository

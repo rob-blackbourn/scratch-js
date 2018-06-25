@@ -33,7 +33,7 @@ class AuthenticationController {
       }
 
       // if user is found and password is right create a token
-      const payload = { sub: user.id, user: user.email }
+      const payload = { sub: user._id.toHexString(), user: user.email }
       const options = { expiresIn: config.expiresIn, issuer: config.issuer }
       const token = jwt.sign(payload, config.secret, options)
 
