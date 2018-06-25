@@ -10,22 +10,22 @@ import { UserCache, UserRepository, BookRepository } from './services'
 import { AuthenticationController, BookController } from './controllers'
 import apiRouteFactory from './routes/api'
 
-async function mainAsync (httpPort, mongoUrl) {
+async function mainAsync (httpPort, databaseConfig, authenticationConfig) {
 
-  const connection = await MongoClient.connect(mongoUrl)
+  const connection = await MongoClient.connect(databaseConfig.mongoUrl)
   const db = connection.db('node-auth')
 
   const userCache = new UserCache()
   const userRepository = new UserRepository(db, userCache)
   const bookRepository = new BookRepository(db)
   
-  const jwtStrategy = jwtStrategyFactory(userRepository)
+  const jwtStrategy = jwtStrategyFactory(userRepository, authenticationConfig)
   passport.use(jwtStrategy)
   
   const app = express()
   
   const controllers = {
-    authenticationController: new AuthenticationController(userRepository),
+    authenticationController: new AuthenticationController(userRepository, authenticationConfig),
     bookController: new BookController(bookRepository)
   }
   const apiRoutes = apiRouteFactory(controllers)
@@ -45,6 +45,6 @@ async function mainAsync (httpPort, mongoUrl) {
   app.listen(httpPort, () => console.log('Example app listening on port 3000.'))
 }
 
-mainAsync(3000, config.database)
+mainAsync(3000, config.database, config.authentication)
   .then(() => console.log('Started ...'))
   .catch(error => console.log('Failed to start', error))

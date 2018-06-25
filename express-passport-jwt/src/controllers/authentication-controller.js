@@ -1,10 +1,14 @@
-import config from '../config'
 import jwt from 'jsonwebtoken'
 
 class AuthenticationController {
 
-  constructor (userRepository) {
+  constructor (userRepository, config) {
     this.userRepository = userRepository
+    this.secret = config.secret
+    this.signOptions = {
+      expiresIn: config.expiresIn,
+      issuer: config.issuer 
+    }
   }
 
   async register (req, res) {
@@ -20,6 +24,11 @@ class AuthenticationController {
     }
   }
 
+  createToken (user) {
+    const payload = { sub: user._id.toHexString(), user: user.email }
+    return jwt.sign(payload, this.secret, this.signOptions)
+  }
+
   async login (req, res, next) {
     try {
       const user = await this.userRepository.getUserByEmail(req.body.email)
@@ -32,12 +41,7 @@ class AuthenticationController {
         return res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'})
       }
 
-      // if user is found and password is right create a token
-      const payload = { sub: user._id.toHexString(), user: user.email }
-      const options = { expiresIn: config.expiresIn, issuer: config.issuer }
-      const token = jwt.sign(payload, config.secret, options)
-
-      // return the information including token as JSON
+      const token = this.createToken(user)
       res.json({ success: true, token })
 
     } catch (error) {

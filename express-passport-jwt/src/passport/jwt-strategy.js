@@ -1,8 +1,6 @@
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 import jwt from 'jsonwebtoken'
 
-import config from '../config'
-
 export function decodeAuthHeaderBearerToken (headers) {
   if (headers && headers.authorization) {
     var parted = headers.authorization.split(' ')
@@ -17,7 +15,7 @@ export function decodeAuthHeaderBearerToken (headers) {
   }
 }
 
-export default (userRepository) => {
+export default (userRepository, config) => {
 
   const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
