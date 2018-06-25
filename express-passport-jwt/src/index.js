@@ -16,7 +16,7 @@ async function mainAsync (httpPort, databaseConfig, authenticationConfig) {
   const db = connection.db('node-auth')
 
   const userCache = new UserCache()
-  const userRepository = new UserRepository(db, userCache)
+  const userRepository = new UserRepository(db, userCache, authenticationConfig)
   const bookRepository = new BookRepository(db)
   
   const jwtStrategy = jwtStrategyFactory(userRepository, authenticationConfig)

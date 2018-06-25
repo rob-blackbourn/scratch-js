@@ -4,9 +4,10 @@ import UserSchema from '../schema/user-schema'
 
 class UserRepository {
 
-  constructor (db, userCache) {
+  constructor (db, userCache, config) {
     this.db = db
     this.userCache = userCache
+    this.saltOrRounds = config.saltOrRounds
   }
 
   async getCollectionAsync () {
@@ -26,10 +27,14 @@ class UserRepository {
     return this.getCollectionAsync()
   }
 
+  encryptPasswordAsync (password) {
+    return bcrypt.hash(password, this.saltOrRounds)
+  }
+
   async saveUser (email, password, permissions) {
     const user = {
       email: email,
-      password: await bcrypt.hash(password, 10),
+      password: await this.encryptPasswordAsync(password),
       permissions
     }
 

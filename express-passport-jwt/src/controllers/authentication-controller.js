@@ -9,6 +9,7 @@ class AuthenticationController {
       expiresIn: config.expiresIn,
       issuer: config.issuer 
     }
+    this.defaultPermissions = config.defaultPermissions
   }
 
   async register (req, res) {
@@ -17,10 +18,11 @@ class AuthenticationController {
     } 
 
     try {
-      await this.userRepository.saveUser(req.body.email, req.body.password, [{target: '*', roles: ['guest']}])
-      return res.json({success: true, msg: 'Successful created new user.'})
+      const user = await this.userRepository.saveUser(req.body.email, req.body.password, this.defaultPermissions)
+      const token = this.createToken(user)
+      return res.json({ success: true, token })
     } catch (error) {
-      return res.json({success: false, msg: 'Username already exists.'})
+      return res.json({success: false, msg: error.message})
     }
   }
 
