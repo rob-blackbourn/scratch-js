@@ -24,7 +24,7 @@ export default (userRepository, config) => {
   
   async function verify (jwtPayload, done) {
     try {
-      const user = await userRepository.getById(jwtPayload.sub)
+      const user = await userRepository.read(jwtPayload.sub)
       if (user) {
         done(null, user, jwtPayload)
       } else {

@@ -27,11 +27,7 @@ class UserRepository {
     return this.getCollectionAsync()
   }
 
-  encryptPasswordAsync (password) {
-    return bcrypt.hash(password, this.saltOrRounds)
-  }
-
-  async saveUser (email, password, permissions) {
+  async create (email, password, permissions) {
     const user = {
       email: email,
       password: await this.encryptPasswordAsync(password),
@@ -48,7 +44,7 @@ class UserRepository {
     return user
   }
 
-  async getUserByEmail (email) {
+  async readByEmail (email) {
     const collection = await this.collection
     const user = await collection.findOne({email: email})
     if (user) {
@@ -57,7 +53,7 @@ class UserRepository {
     return user
   }
 
-  async getById (id) {
+  async read (id) {
     let user = this.userCache.get(id)
     if (user) {
       return user
@@ -69,6 +65,28 @@ class UserRepository {
       this.userCache.set(user._id.toHexString(), user)
     }
     return user
+  }
+
+  async readAll () {
+    const collection = await this.collection
+    const cursor = await collection.find({})
+    const users = await cursor.toArray()
+    return users
+  }
+
+  async update (id, fields) {
+    const collection = await this.collection
+    const result = await collection.updateOne({ _id: ObjectID.createFromHexString(id) }, { $set: fields })
+    return result.result
+  }
+
+  async delete (id) {
+    const collection = await this.collection
+    await collection.deleteOne({ _id: ObjectID.createFromHexString(id) })
+  }
+
+  encryptPasswordAsync (password) {
+    return bcrypt.hash(password, this.saltOrRounds)
   }
   
   comparePassword (plainTextPassword, hashedPassword) {

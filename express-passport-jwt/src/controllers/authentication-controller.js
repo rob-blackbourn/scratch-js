@@ -18,7 +18,7 @@ class AuthenticationController {
     } 
 
     try {
-      const user = await this.userRepository.saveUser(req.body.email, req.body.password, this.defaultPermissions)
+      const user = await this.userRepository.create(req.body.email, req.body.password, this.defaultPermissions)
       const token = this.createToken(user)
       return res.json({ success: true, token })
     } catch (error) {
@@ -33,7 +33,7 @@ class AuthenticationController {
 
   async login (req, res, next) {
     try {
-      const user = await this.userRepository.getUserByEmail(req.body.email)
+      const user = await this.userRepository.readByEmail(req.body.email)
       if (!user) {
         return res.status(401).send({success: false, msg: 'Authentication failed. User not found.'})
       }
