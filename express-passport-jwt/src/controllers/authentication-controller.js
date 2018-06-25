@@ -27,7 +27,7 @@ class AuthenticationController {
         return res.status(401).send({success: false, msg: 'Authentication failed. User not found.'})
       }
 
-      const isMatch = await user.comparePassword(req.body.password)
+      const isMatch = await this.userRepository.comparePassword(req.body.password, user.password)
       if (!isMatch) {
         return res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'})
       }
