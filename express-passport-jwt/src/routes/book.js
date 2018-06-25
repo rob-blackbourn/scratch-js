@@ -1,11 +1,13 @@
 import passport from 'passport'
 import express from 'express'
-import { create, read } from '../controllers/books'
 
-const router = express.Router()
+export default (bookController) => {
 
-router
-  .get('/', passport.authenticate('jwt', { session: false }), read)
-  .post('/', passport.authenticate('jwt', { session: false }), create)
+  const router = express.Router()
 
-export default router
+  router
+    .get('/', passport.authenticate('jwt', { session: false }), (req, res, next) => bookController.read(req, res, next))
+    .post('/', passport.authenticate('jwt', { session: false }), (req, res, next) => bookController.create(req, res, next))
+
+  return router
+}

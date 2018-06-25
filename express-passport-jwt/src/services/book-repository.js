@@ -1,16 +1,22 @@
 import Book from '../models/book'
 
-export function createBook (isbn, title, author, publisher) {
-  var book = new Book({
-    isbn: isbn,
-    title: title,
-    author: author,
-    publisher: publisher
-  })
+class BookRepository {
 
-  return book.save()
+  createBook (isbn, title, author, publisher) {
+    var book = new Book({
+      isbn: isbn,
+      title: title,
+      author: author,
+      publisher: publisher
+    })
+  
+    return book.save()
+  }
+  
+  readBooks () {
+    return Book.find()
+  }
+  
 }
 
-export async function readBooks () {
-  return Book.find()
-}
+export default BookRepository
