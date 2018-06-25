@@ -1,28 +1,7 @@
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 import jwt from 'jsonwebtoken'
 
-import User from '../models/user'
 import config from '../config'
-
-const opts = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: config.secret
-}
-
-async function verify (jwtPayload, done) {
-  try {
-    const user = await User.findOne({_id: jwtPayload.sub})
-    if (user) {
-      done(null, user, jwtPayload)
-    } else {
-      done(null, false)
-    }
-  } catch (error) {
-    return done(error, false)
-  }
-}
-
-const strategy = new JwtStrategy(opts, verify)
 
 export function decodeAuthHeaderBearerToken (headers) {
   if (headers && headers.authorization) {
@@ -38,4 +17,25 @@ export function decodeAuthHeaderBearerToken (headers) {
   }
 }
 
-export default strategy
+export default (userRepository) => {
+
+  const opts = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: config.secret
+  }
+  
+  async function verify (jwtPayload, done) {
+    try {
+      const user = await userRepository.getById(jwtPayload.sub)
+      if (user) {
+        done(null, user, jwtPayload)
+      } else {
+        done(null, false)
+      }
+    } catch (error) {
+      return done(error, false)
+    }
+  }
+  
+  return new JwtStrategy(opts, verify)
+}

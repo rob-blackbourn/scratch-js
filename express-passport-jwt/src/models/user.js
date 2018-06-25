@@ -11,7 +11,8 @@ var UserSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  permissions: [{ target: String, roles: [String] }]
 })
 
 export default mongoose.model('User', UserSchema)

@@ -4,7 +4,7 @@ import logger from 'morgan'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import passport from 'passport'
-import jwtStrategy from './passport/jwt-strategy'
+import jwtStrategyFactory from './passport/jwt-strategy'
 import config from './config'
 import { UserRepository, BookRepository } from './services'
 import { AuthenticationController, BookController } from './controllers'
@@ -14,6 +14,7 @@ mongoose.connect(config.database)
 const userRepository = new UserRepository()
 const bookRepository = new BookRepository()
 
+const jwtStrategy = jwtStrategyFactory(userRepository)
 passport.use(jwtStrategy)
 
 const app = express()
