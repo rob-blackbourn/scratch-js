@@ -8,12 +8,12 @@ class AuthenticationController {
   }
 
   async register (req, res) {
-    if (!req.body.username || !req.body.password) {
+    if (!req.body.email || !req.body.password) {
       return res.json({success: false, msg: 'Please pass username and password.'})
     } 
 
     try {
-      await this.userRepository.saveUser(req.body.username, req.body.password)
+      await this.userRepository.saveUser(req.body.email, req.body.password)
       return res.json({success: true, msg: 'Successful created new user.'})
     } catch (error) {
       return res.json({success: false, msg: 'Username already exists.'})
@@ -22,7 +22,7 @@ class AuthenticationController {
 
   async login (req, res, next) {
     try {
-      const user = await this.userRepository.getUserByUsername(req.body.username)
+      const user = await this.userRepository.getUserByEmail(req.body.email)
       if (!user) {
         return res.status(401).send({success: false, msg: 'Authentication failed. User not found.'})
       }
@@ -33,7 +33,7 @@ class AuthenticationController {
       }
 
       // if user is found and password is right create a token
-      const payload = { sub: user.id, user: user.username }
+      const payload = { sub: user.id, user: user.email }
       const options = { expiresIn: config.expiresIn, issuer: config.issuer }
       const token = jwt.sign(payload, config.secret, options)
 

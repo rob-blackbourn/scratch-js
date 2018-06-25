@@ -3,16 +3,16 @@ import bcrypt from 'bcrypt'
 
 class UserRepository {
 
-  async saveUser (username, password) {
+  async saveUser (email, password) {
     const user = new User({
-      username: username,
+      email: email,
       password: await bcrypt.hash(password, 10)
     })
     await user.save()
   }
 
-  getUserByUsername (username) {
-    return User.findOne({username: username})
+  getUserByEmail (email) {
+    return User.findOne({email: email})
   }
   
   comparePassword (plainTextPassword, hashedPassword) {
