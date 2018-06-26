@@ -15,6 +15,30 @@ export function decodeAuthHeaderBearerToken (headers) {
   }
 }
 
+function checkPermissions (requiredPermissions, userPermissions) {
+  return userPermissions.some(userPermission => {
+    return requiredPermissions.some(requiredPermission => {
+      return userPermission.target === requiredPermission.target && userPermission.roles.some(userRole => {
+        return requiredPermission.roles.includes(userRole)
+      })
+    })
+  })
+}
+
+export function roleCheckerFactory (userService) {
+
+  return (requiredPermissions) => {
+    return async (req, res, next) => {
+      const user = await userService.read(req.authInfo.sub)
+      if (checkPermissions(requiredPermissions, user.permissions)) {
+        next()
+      } else {
+        res.status(401).send('Unauthorized')
+      }
+    }
+  }
+}
+
 export default (userService, config) => {
 
   const opts = {

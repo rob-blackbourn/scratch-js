@@ -1,5 +1,5 @@
 import passport from 'passport'
-import { jwtStrategyFactory, UserCache, UserService, BookService } from './services'
+import { jwtStrategyFactory, UserCache, UserService, BookService, roleCheckerFactory } from './services'
 import UserStoreMock from './services/user-store.mock'
 import BookStoreMock from './services/book-store.mock'
 import { AuthenticationController, BookController } from './controllers'
@@ -18,5 +18,5 @@ export default async function initAsync (databaseConfig, authenticationConfig) {
     bookController: new BookController(bookService)
   }
 
-  return apiRouteFactory(controllers)
+  return apiRouteFactory(controllers, roleCheckerFactory(userService))
 }

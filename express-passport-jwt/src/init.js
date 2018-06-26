@@ -1,6 +1,6 @@
 import {MongoClient} from 'mongodb'
 import passport from 'passport'
-import { jwtStrategyFactory, UserCache, UserStore, UserService, BookStore, BookService } from './services'
+import { jwtStrategyFactory, UserCache, UserStore, UserService, BookStore, BookService, roleCheckerFactory } from './services'
 import { AuthenticationController, BookController } from './controllers'
 import apiRouteFactory from './routes/api'
 
@@ -20,5 +20,5 @@ export default async function initAsync (databaseConfig, authenticationConfig) {
     bookController: new BookController(bookService)
   }
 
-  return apiRouteFactory(controllers)
+  return apiRouteFactory(controllers, roleCheckerFactory(userService))
 }
