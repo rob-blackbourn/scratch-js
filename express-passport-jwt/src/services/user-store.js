@@ -27,7 +27,7 @@ class UserStore {
   async create (user) {
     const collection = await this.collection
     const result = await collection.insertOne(user)
-    return result.insertedId ? result.insertedId.toHexString() : null
+    return result.insertedId ? user : null
   }
 
   async readByEmail (email) {

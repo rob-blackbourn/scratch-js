@@ -9,18 +9,18 @@ class UserService {
   }
 
   async create (email, password, permissions) {
-    const user = {
+    let user = {
       email: email,
       password: await this.encryptPasswordAsync(password),
       permissions
     }
 
-    const id = await this.userStore.create(user)
-    if (id) {
-      this.userCache.set(id, user)
+    user = await this.userStore.create(user)
+    if (user) {
+      this.userCache.set(user._id.toString(), user)
     }
 
-    return id
+    return user
   }
 
   async readByEmail (email) {

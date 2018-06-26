@@ -29,10 +29,10 @@ describe('testing user service', () => {
   
     const userService = new UserService(userStore, userCache, config)
   
-    const id = await userService.create(email, password, config.defaultPermissions)
-    expect(id).toBeDefined()
+    let user = await userService.create(email, password, config.defaultPermissions)
+    expect(user._id).toBeDefined()
   
-    let user = await userService.read(id)
+    user = await userService.read(user._id.toString())
     expect(user.email).toBe(email)
   
     expect(userService.comparePassword(password, user.password)).toBeTruthy()
@@ -42,7 +42,7 @@ describe('testing user service', () => {
     expect(userService.comparePassword(otherPassword, user.password)).toBeTruthy()
     
     await userService.delete(user._id.toString())
-    user = await userService.read(id)
+    user = await userService.read(user._id.toString())
     expect(user).toBeUndefined()
   })
 

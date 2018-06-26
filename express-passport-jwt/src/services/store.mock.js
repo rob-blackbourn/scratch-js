@@ -15,7 +15,7 @@ class StoreMock {
       item._id = new ObjectID()
       const id = item._id.toString()
       this.store.set(id, item)
-      resolve(id)
+      resolve(item)
     })
   }
 
