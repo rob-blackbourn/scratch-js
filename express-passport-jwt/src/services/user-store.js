@@ -49,7 +49,8 @@ class UserStore {
 
   async update (id, fields) {
     const collection = await this.collection
-    const result = await collection.updateOne({ _id: ObjectID.createFromHexString(id) }, { $set: fields })
+    const _id = ObjectID.createFromHexString(id)
+    const result = await collection.updateOne({ _id }, { $set: fields })
     return result.result
   }
 

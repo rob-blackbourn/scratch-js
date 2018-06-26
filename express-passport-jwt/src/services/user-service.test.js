@@ -2,9 +2,8 @@ import UserService from './user-service'
 import UserCache from './user-cache'
 import UserStoreMock from './user-store.mock'
 
-test('Smoke test', async () => {
-  const userStore = new UserStoreMock()
-  const userCache = new UserCache()
+describe('testing user service', () => {
+
   const config = {
     secret: 'test secret',
     expiresIn: '24h',
@@ -20,14 +19,49 @@ test('Smoke test', async () => {
     ]
   }
 
-  const userService = new UserService(userStore, userCache, config)
+  test('create, read, update, delete', async () => {
 
-  const idFoo = await userService.create('foo@bar.com', 'my password', config.defaultPermissions)
-  expect(idFoo).toBeDefined()
+    const userStore = new UserStoreMock()
+    const userCache = new UserCache()
+  
+    const email = 'foo@bar.com'
+    const password = 'my password'
+  
+    const userService = new UserService(userStore, userCache, config)
+  
+    const id = await userService.create(email, password, config.defaultPermissions)
+    expect(id).toBeDefined()
+  
+    let user = await userService.read(id)
+    expect(user.email).toBe(email)
+  
+    expect(userService.comparePassword(password, user.password)).toBeTruthy()
 
-  const user = await userService.read(idFoo)
-  expect(user.email).toBe('foo@bar.com')
+    const otherPassword = 'my other password'
+    user = await userService.update(user._id.toString(), { password: otherPassword })
+    expect(userService.comparePassword(otherPassword, user.password)).toBeTruthy()
+    
+    await userService.delete(user._id.toString())
+    user = await userService.read(id)
+    expect(user).toBeUndefined()
+  })
 
-  const userByEmail = await userService.readByEmail('foo@bar.com')
-  expect(userByEmail.email).toBe('foo@bar.com')
+  test('create and read by email', async () => {
+
+    const userStore = new UserStoreMock()
+    const userCache = new UserCache()
+  
+    const email = 'foo@bar.com'
+    const password = 'my password'
+  
+    const userService = new UserService(userStore, userCache, config)
+  
+    const idFoo = await userService.create(email, password, config.defaultPermissions)
+    expect(idFoo).toBeDefined()
+  
+    const user = await userService.readByEmail(email)
+    expect(user.email).toBe(email)
+    expect(userService.comparePassword(password, user.password)).toBeTruthy()
+  })
+  
 })

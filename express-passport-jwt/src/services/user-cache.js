@@ -12,6 +12,9 @@ class UserCache {
     this.users[id] = user
   }
   
+  delete (id) {
+    return delete this.users[id]
+  }
 }
 
 export default UserCache

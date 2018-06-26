@@ -13,8 +13,9 @@ class StoreMock {
         reject(new Error('record exists'))
       }
       item._id = new ObjectID()
-      this.store.set(item._id, item)
-      resolve(item._id.toString())
+      const id = item._id.toString()
+      this.store.set(id, item)
+      resolve(id)
     })
   }
 
@@ -28,7 +29,7 @@ class StoreMock {
 
   async update (id, fields) {
     return new Promise((resolve, reject) => {
-      const item = this.store.get(ObjectID.createFromHexString(id))
+      const item = this.store.get(id)
       if (item) {
         for (const key in fields) {
           item[key] = fields[key]
