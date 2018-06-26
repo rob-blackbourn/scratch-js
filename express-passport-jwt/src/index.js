@@ -1,50 +1,7 @@
-import express from 'express'
-import path from 'path'
-import logger from 'morgan'
-import bodyParser from 'body-parser'
-import {MongoClient} from 'mongodb'
-import passport from 'passport'
 import config from './config'
-import { jwtStrategyFactory, UserCache, UserStore, UserService, BookService } from './services'
-import { AuthenticationController, BookController } from './controllers'
-import apiRouteFactory from './routes/api'
+import initAsync from './init'
+import serverAsync from './server'
 
-async function mainAsync (httpPort, databaseConfig, authenticationConfig) {
-
-  const connection = await MongoClient.connect(databaseConfig.mongoUrl)
-  const db = connection.db('node-auth')
-
-  const userCache = new UserCache()
-  const userStore = new UserStore(db)
-  const userService = new UserService(userStore, userCache, authenticationConfig)
-  const bookService = new BookService(db)
-  
-  const jwtStrategy = jwtStrategyFactory(userService, authenticationConfig)
-  passport.use(jwtStrategy)
-  
-  const app = express()
-  
-  const controllers = {
-    authenticationController: new AuthenticationController(userService, authenticationConfig),
-    bookController: new BookController(bookService)
-  }
-  const apiRoutes = apiRouteFactory(controllers)
-  
-  app.use(logger('dev'))
-  app.use(bodyParser.json())
-  app.use(bodyParser.urlencoded({ extended: false }))
-  app.use(express.static(path.join(__dirname, 'public')))
-  app.use(passport.initialize())
-  
-  app.get('/', (req, res) => {
-    res.send('Page under construction.')
-  })
-  
-  app.use('/api', apiRoutes)
-  
-  app.listen(httpPort, () => console.log('Example app listening on port 3000.'))
-}
-
-mainAsync(3000, config.database, config.authentication)
+serverAsync(3000, config.database, config.authentication, initAsync)
   .then(() => console.log('Started ...'))
   .catch(error => console.log('Failed to start', error))

@@ -1,3 +1,4 @@
+export { default as BookStore } from './book-store'
 export { default as BookService } from './book-service'
 export { default as UserCache } from './user-cache'
 export { default as UserService } from './user-service'
