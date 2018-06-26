@@ -6,7 +6,7 @@ import passport from 'passport'
 
 export default async function serverAsync (httpPort, databaseConfig, authenticationConfig, initAsync) {
 
-  const apiRoutes = await initAsync(authenticationConfig)
+  const apiRoutes = await initAsync(databaseConfig, authenticationConfig)
 
   const app = express()
   app.use(logger('dev'))

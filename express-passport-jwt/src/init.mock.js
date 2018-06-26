@@ -5,7 +5,7 @@ import BookStoreMock from './services/book-store.mock'
 import { AuthenticationController, BookController } from './controllers'
 import apiRouteFactory from './routes/api'
 
-export default async function initAsync (authenticationConfig) {
+export default async function initAsync (databaseConfig, authenticationConfig) {
 
   const userService = new UserService(new UserStoreMock(), new UserCache(), authenticationConfig)
   const bookService = new BookService(new BookStoreMock())
