@@ -82,6 +82,13 @@ describe('server test', () => {
     expect(readBookResponse.status).toBe(200)
     expect(readBookResponse.data[0].title).toBe(book1Data.title)
 
+    try {
+      await axios.get('http://localhost:3000/api/book', { headers: { 'authorization': 'Bearer XXX.YYY.ZZZ' } })
+      expect(false).toBeTruthy()
+    } catch (error) {
+      expect(error.response.status).toBe(401)
+    }
+
     server.close()
   })
 })
