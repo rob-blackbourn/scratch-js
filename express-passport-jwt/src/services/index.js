@@ -1,4 +1,5 @@
-export { default as BookRepository } from './book-repository'
+export { default as BookService } from './book-service'
 export { default as UserCache } from './user-cache'
-export { default as UserRepository } from './user-repository'
+export { default as UserService } from './user-service'
+export { default as UserStore } from './user-store'
 export { default as jwtStrategyFactory } from './jwt-strategy'

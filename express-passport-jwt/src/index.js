@@ -5,7 +5,7 @@ import bodyParser from 'body-parser'
 import {MongoClient} from 'mongodb'
 import passport from 'passport'
 import config from './config'
-import { jwtStrategyFactory, UserCache, UserRepository, BookRepository } from './services'
+import { jwtStrategyFactory, UserCache, UserStore, UserService, BookService } from './services'
 import { AuthenticationController, BookController } from './controllers'
 import apiRouteFactory from './routes/api'
 
@@ -15,17 +15,18 @@ async function mainAsync (httpPort, databaseConfig, authenticationConfig) {
   const db = connection.db('node-auth')
 
   const userCache = new UserCache()
-  const userRepository = new UserRepository(db, userCache, authenticationConfig)
-  const bookRepository = new BookRepository(db)
+  const userStore = new UserStore(db)
+  const userService = new UserService(userStore, userCache, authenticationConfig)
+  const bookService = new BookService(db)
   
-  const jwtStrategy = jwtStrategyFactory(userRepository, authenticationConfig)
+  const jwtStrategy = jwtStrategyFactory(userService, authenticationConfig)
   passport.use(jwtStrategy)
   
   const app = express()
   
   const controllers = {
-    authenticationController: new AuthenticationController(userRepository, authenticationConfig),
-    bookController: new BookController(bookRepository)
+    authenticationController: new AuthenticationController(userService, authenticationConfig),
+    bookController: new BookController(bookService)
   }
   const apiRoutes = apiRouteFactory(controllers)
   

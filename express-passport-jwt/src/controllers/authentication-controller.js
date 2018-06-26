@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken'
 
 class AuthenticationController {
 
-  constructor (userRepository, config) {
-    this.userRepository = userRepository
+  constructor (userService, config) {
+    this.userService = userService
     this.secret = config.secret
     this.signOptions = {
       expiresIn: config.expiresIn,
@@ -18,7 +18,7 @@ class AuthenticationController {
     } 
 
     try {
-      const user = await this.userRepository.create(req.body.email, req.body.password, this.defaultPermissions)
+      const user = await this.userService.create(req.body.email, req.body.password, this.defaultPermissions)
       const token = this.createToken(user)
       return res.json({ success: true, token })
     } catch (error) {
@@ -33,12 +33,12 @@ class AuthenticationController {
 
   async login (req, res, next) {
     try {
-      const user = await this.userRepository.readByEmail(req.body.email)
+      const user = await this.userService.readByEmail(req.body.email)
       if (!user) {
         return res.status(401).send({success: false, msg: 'Authentication failed. User not found.'})
       }
 
-      const isMatch = await this.userRepository.comparePassword(req.body.password, user.password)
+      const isMatch = await this.userService.comparePassword(req.body.password, user.password)
       if (!isMatch) {
         return res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'})
       }

@@ -15,7 +15,7 @@ export function decodeAuthHeaderBearerToken (headers) {
   }
 }
 
-export default (userRepository, config) => {
+export default (userService, config) => {
 
   const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -24,7 +24,7 @@ export default (userRepository, config) => {
   
   async function verify (jwtPayload, done) {
     try {
-      const user = await userRepository.read(jwtPayload.sub)
+      const user = await userService.read(jwtPayload.sub)
       if (user) {
         done(null, user, jwtPayload)
       } else {

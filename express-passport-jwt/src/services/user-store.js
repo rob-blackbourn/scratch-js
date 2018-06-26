@@ -1,13 +1,10 @@
 import { ObjectID } from 'mongodb'
-import bcrypt from 'bcrypt'
 import UserSchema from '../schema/user-schema'
 
-class UserRepository {
+class UserStore {
 
-  constructor (db, userCache, config) {
+  constructor (db) {
     this.db = db
-    this.userCache = userCache
-    this.saltOrRounds = config.saltOrRounds
   }
 
   async getCollectionAsync () {
@@ -27,51 +24,27 @@ class UserRepository {
     return this.getCollectionAsync()
   }
 
-  async create (email, password, permissions) {
-    const user = {
-      email: email,
-      password: await this.encryptPasswordAsync(password),
-      permissions
-    }
-
+  async create (user) {
     const collection = await this.collection
     const result = await collection.insertOne(user)
-    if (!result.insertedId) {
-      return null
-    }
-
-    this.userCache.set(result.insertedId.toHexString(), user)
-    return user
+    return result.insertedId ? result.insertedId.toHexString() : null
   }
 
   async readByEmail (email) {
     const collection = await this.collection
     const user = await collection.findOne({email: email})
-    if (user) {
-      this.userCache.set(user._id.toHexString(), user)
-    }
     return user
   }
 
   async read (id) {
-    let user = this.userCache.get(id)
-    if (user) {
-      return user
-    }
-
     const collection = await this.collection
-    user = await collection.findOne({_id: ObjectID.createFromHexString(id)})
-    if (user) {
-      this.userCache.set(user._id.toHexString(), user)
-    }
-    return user
+    return collection.findOne({_id: ObjectID.createFromHexString(id)})
   }
 
   async readAll () {
     const collection = await this.collection
     const cursor = await collection.find({})
-    const users = await cursor.toArray()
-    return users
+    return cursor.toArray()
   }
 
   async update (id, fields) {
@@ -84,14 +57,6 @@ class UserRepository {
     const collection = await this.collection
     await collection.deleteOne({ _id: ObjectID.createFromHexString(id) })
   }
-
-  encryptPasswordAsync (password) {
-    return bcrypt.hash(password, this.saltOrRounds)
-  }
-  
-  comparePassword (plainTextPassword, hashedPassword) {
-    return bcrypt.compare(plainTextPassword, hashedPassword)
-  }
 }
 
-export default UserRepository
+export default UserStore

@@ -1,7 +1,7 @@
 import { ObjectID } from 'mongodb'
 import BookSchema from '../schema/book-schema'
 
-class BookRepository {
+class BookService {
 
   constructor (db) {
     this.db = db
@@ -71,4 +71,4 @@ class BookRepository {
 
 }
 
-export default BookRepository
+export default BookService

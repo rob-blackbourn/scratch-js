@@ -14,9 +14,38 @@
         {
             "type": "node",
             "request": "launch",
+            "preLaunchTask": "build",
+            "name": "Debug Built Tests",
+            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+            "cwd": "${workspaceRoot}",
+            "args": [
+                "lib/.*\\.test\\.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Tests",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
+            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+            "cwd": "${workspaceRoot}",
+            "args": [
+                "src/.*\\.test\\.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
             "name": "Launch Program with Babel Node",
             "program": "${workspaceFolder}\\src\\index.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
+            "name": "Launch File with Babel Node",
+            "program": "${file}"
         }
     ]
 }
