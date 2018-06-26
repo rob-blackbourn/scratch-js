@@ -53,7 +53,8 @@ class UserService {
     if (fields.password) {
       fields.password = await this.encryptPasswordAsync(fields.password)
     }
-    return this.userStore.update(id, fields)
+    await this.userStore.update(id, fields)
+    this.userCache.delete(id)
   }
 
   async delete (id) {

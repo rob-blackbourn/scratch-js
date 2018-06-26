@@ -18,5 +18,7 @@ export default async function initAsync (databaseConfig, authenticationConfig) {
     bookController: new BookController(bookService)
   }
 
+  userService.create('admin@localhost', 'admin', [ {target: 'public', roles: ['read']}, {target: 'admin', roles: ['read', 'write', 'grant']} ])
+
   return apiRouteFactory(controllers, roleCheckerFactory(userService))
 }

@@ -14,7 +14,7 @@ describe('server test', () => {
       {
         target: 'public',
         roles: [
-          'guest'
+          'read'
         ]
       }
     ]
@@ -55,9 +55,33 @@ describe('server test', () => {
     expect(registerMary.status).toBe(200)
     expect(registerMary.data.success).toBeTruthy()
 
-    const loginJohn = await axios.post('http://localhost:3000/api/auth/login', querystring.stringify(john))
-    expect(loginJohn.status).toBe(200)
-    expect(loginJohn.data.success).toBeTruthy()
+    const admin = {
+      email: 'admin@localhost',
+      password: 'admin'
+    }
+
+    console.log('login admin')
+    const loginAdmin = await axios.post('http://localhost:3000/api/auth/login', querystring.stringify(admin))
+    expect(loginAdmin.status).toBe(200)
+    expect(loginAdmin.data.success).toBeTruthy()
+
+    // Update john as a book writer
+    console.log('updating user')
+    const updateDate = {
+      permissions: [{target: 'public', roles: ['read']}, {target: 'books', roles: ['read', 'write']}]
+    }
+    const updateOptions = {
+      method: 'POST',
+      headers: { 
+        'content-type': 'application/x-www-form-urlencoded',
+        'authorization': `Bearer ${loginAdmin.data.token}`
+      },
+      data: querystring.stringify(updateDate),
+      url: 'http://localhost:3000/api/auth/update/' + john.email
+    }
+    const updatejohn = await axios(updateOptions)
+    expect(updatejohn.status).toBe(200)
+    expect(updatejohn.data.success).toBeTruthy()
 
     const book1Data = {
       isbn: 'XY123456789',
@@ -69,16 +93,18 @@ describe('server test', () => {
       method: 'POST',
       headers: { 
         'content-type': 'application/x-www-form-urlencoded',
-        'authorization': `Bearer ${loginJohn.data.token}`
+        'authorization': `Bearer ${registerJohn.data.token}`
       },
       data: querystring.stringify(book1Data),
       url: 'http://localhost:3000/api/book'
     }
+    console.log('create book')
     const createBook = await axios(createBook1Options)
     expect(createBook.status).toBe(200)
     expect(createBook.data.success).toBeTruthy()
 
-    const readBookResponse = await axios.get('http://localhost:3000/api/book', { headers: { 'authorization': `Bearer ${loginJohn.data.token}` } })
+    console.log('read book')
+    const readBookResponse = await axios.get('http://localhost:3000/api/book', { headers: { 'authorization': `Bearer ${registerJohn.data.token}` } })
     expect(readBookResponse.status).toBe(200)
     expect(readBookResponse.data[0].title).toBe(book1Data.title)
 

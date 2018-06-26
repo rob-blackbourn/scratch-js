@@ -38,7 +38,7 @@ describe('testing user service', () => {
     expect(userService.comparePassword(password, user.password)).toBeTruthy()
 
     const otherPassword = 'my other password'
-    user = await userService.update(user._id.toString(), { password: otherPassword })
+    await userService.update(user._id.toString(), { password: otherPassword })
     expect(userService.comparePassword(otherPassword, user.password)).toBeTruthy()
     
     await userService.delete(user._id.toString())

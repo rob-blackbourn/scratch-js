@@ -50,6 +50,30 @@ class AuthenticationController {
       next(error)
     }
   }
+
+  async update (req, res, next) {
+    try {
+      const user = await this.userService.readByEmail(req.params.email)
+      if (!user) {
+        return res.status(401).send({success: false, msg: 'Authentication failed. User not found.'})
+      }
+
+      const fields = {}
+      if (req.body.email) {
+        fields.email = req.body.email
+      }
+      if (req.body.permissions) {
+        fields.permissions = JSON.parse(req.body.permissions)
+      }
+
+      await this.userService.update(user._id.toString(), fields)
+      await this.userService.read(user._id.toString())
+
+      res.json({ success: true, message: 'Updated' })
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 export default AuthenticationController

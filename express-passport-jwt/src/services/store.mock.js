@@ -34,7 +34,7 @@ class StoreMock {
         for (const key in fields) {
           item[key] = fields[key]
         }
-        resolve(item)
+        resolve()
       } else {
         reject(new Error('key not found'))
       }
