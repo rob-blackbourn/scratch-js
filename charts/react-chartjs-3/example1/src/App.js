@@ -4,9 +4,9 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import YearOnYearChart from './components/YearOnYearChart'
 
 const theme = createMuiTheme({
-  // palette: {
-  //   type: 'dark',
-  // },
+  palette: {
+    type: 'dark',
+  },
   typography: {
     useNextVariants: true,
   },

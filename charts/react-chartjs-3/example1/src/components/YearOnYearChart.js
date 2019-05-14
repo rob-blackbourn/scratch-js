@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import { DateTime } from 'luxon'
 import { Line } from 'react-chartjs-3'
+import 'chartjs-plugin-colorschemes'
 import dornumAll from '../data/dornum-all'
 
 const styles = {
@@ -79,7 +80,10 @@ class YearOnYearChart extends React.Component {
       if (!(year in obj)) {
         obj[year] = []
       }
-      obj[year].push({ x: date.toJSDate(), y: mean })
+      obj[year].push({
+        x: DateTime.utc(2000, date.month, date.day).toJSDate(),
+        y: mean,
+      })
       return obj
     }, {})
 
@@ -88,9 +92,15 @@ class YearOnYearChart extends React.Component {
     const datasets = Object.entries(series).map(([label, data]) => ({
       label,
       data,
+      fill: false,
+      pointRadius: 0,
+      xAxisID: 'x-axis',
+      yAxisID: 'y-axis',
     }))
 
     const data = { datasets }
+
+    console.log(data)
 
     return (
       <div>
@@ -100,10 +110,59 @@ class YearOnYearChart extends React.Component {
         <Typography variant="body2">This is some content</Typography>
         <Line
           data={data}
-          width={100}
-          height={50}
           options={{
+            plugins: {
+              colorschemes: {
+                scheme: 'brewer.PuBu3',
+              },
+            },
             maintainAspectRatio: false,
+            legend: {
+              labels: {
+                fontColor: '#ccc',
+                usePointStyle: true,
+              },
+            },
+            scales: {
+              xAxes: [
+                {
+                  id: 'x-axis',
+                  gridLines: {
+                    color: 'rgba(255, 255, 255, 0.2)',
+                    zeroLineColor: 'rgba(255, 255, 255, 0.5)',
+                  },
+                  ticks: {
+                    fontStyle: 'bold',
+                    major: {
+                      fontColor: '#ccc',
+                    },
+                  },
+                  type: 'time',
+                  display: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Date',
+                  },
+                },
+              ],
+              yAxes: [
+                {
+                  id: 'y-axis',
+                  display: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'value',
+                  },
+                  gridLines: {
+                    color: 'rgba(255, 255, 255, 0.2)',
+                    zeroLineColor: 'rgba(255, 255, 255, 0.5)',
+                  },
+                  ticks: {
+                    fontColor: '#ccc',
+                  },
+                },
+              ],
+            },
           }}
         />
       </div>
