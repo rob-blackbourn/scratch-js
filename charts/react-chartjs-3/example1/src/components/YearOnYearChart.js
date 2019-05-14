@@ -14,78 +14,96 @@ const styles = {
   },
 }
 
+function summarizeDataDaily(data, getDate, getValue) {
+  const groupedByDay = data.reduce((obj, item) => {
+    const date = getDate(item)
+    const value = getValue(item)
+
+    const dateKey = DateTime.fromMillis(date).toISODate()
+    if (!(dateKey in obj)) {
+      obj[dateKey] = []
+    }
+    obj[dateKey].push({ date, value })
+    return obj
+  }, {})
+
+  const dailyIntermediate = Object.entries(groupedByDay).reduce(
+    (obj, [dateKey, values]) => {
+      obj[dateKey] = values.reduce(
+        ({ open, high, low, close, sum, sumsq, count }, { date, value }) => {
+          return {
+            open: open === null ? value : open,
+            high: high === null || value > high ? value : high,
+            low: low == null || value < low ? value : low,
+            close: value,
+            sum: sum + value,
+            sumsq: sumsq + value * value,
+            count: count + 1,
+          }
+        },
+        {
+          open: null,
+          high: null,
+          low: null,
+          close: null,
+          sum: 0,
+          sumsq: 0,
+          count: 0,
+        }
+      )
+      return obj
+    },
+    {}
+  )
+
+  const dailySummarized = Object.entries(dailyIntermediate).map(
+    ([date, { open, high, low, close, sum, sumsq, count }]) => ({
+      date: DateTime.fromISO(date, { zone: 'utc' }),
+      open,
+      high,
+      low,
+      close,
+      mean: count > 0 ? sum / count : null,
+      stdev:
+        count > 1
+          ? Math.sqrt((sumsq - (sum * sum) / count) / (count - 1))
+          : null,
+    })
+  )
+  return dailySummarized
+}
+
+function groupByYear(data, getDate, getValue) {
+  return data.reduce((obj, item) => {
+    const date = getDate(item)
+    const value = getValue(item)
+    const year = date.year.toString()
+    if (!(year in obj)) {
+      obj[year] = []
+    }
+    obj[year].push({
+      x: DateTime.utc(2000, date.month, date.day).toJSDate(),
+      y: value,
+    })
+    return obj
+  }, {})
+}
+
 class YearOnYearChart extends React.Component {
   render() {
-    const groupedByDay = dornumAll.data.reduce((obj, { x, y }) => {
-      const date = DateTime.fromMillis(x).toISODate()
-      if (!(date in obj)) {
-        obj[date] = []
-      }
-      obj[date].push({ x, y })
-      return obj
-    }, {})
-
-    console.log(groupedByDay)
-
-    const dailyIntermediate = Object.entries(groupedByDay).reduce(
-      (obj, [date, values]) => {
-        obj[date] = values.reduce(
-          ({ open, high, low, close, sum, sumsq, count }, { x, y }) => {
-            return {
-              open: open === null ? y : open,
-              high: high === null || y > high ? y : high,
-              low: low == null || y < low ? y : low,
-              close: y,
-              sum: sum + y,
-              sumsq: sumsq + y * y,
-              count: count + 1,
-            }
-          },
-          {
-            open: null,
-            high: null,
-            low: null,
-            close: null,
-            sum: 0,
-            sumsq: 0,
-            count: 0,
-          }
-        )
-        return obj
-      },
-      {}
-    )
-
-    console.log(dailyIntermediate)
-
-    const dailySummarized = Object.entries(dailyIntermediate).map(
-      ([date, { open, high, low, close, sum, sumsq, count }]) => ({
-        date: DateTime.fromISO(date, { zone: 'utc' }),
-        open,
-        high,
-        low,
-        close,
-        mean: count > 0 ? sum / count : null,
-        stdev:
-          count > 1
-            ? Math.sqrt((sumsq - (sum * sum) / count) / (count - 1))
-            : null,
-      })
+    const dailySummarized = summarizeDataDaily(
+      dornumAll.data,
+      item => item.x,
+      item => item.y
     )
 
     console.log(dailySummarized)
 
-    const series = dailySummarized.reduce((obj, { date, mean }) => {
-      const year = date.year.toString()
-      if (!(year in obj)) {
-        obj[year] = []
-      }
-      obj[year].push({
-        x: DateTime.utc(2000, date.month, date.day).toJSDate(),
-        y: mean,
-      })
-      return obj
-    }, {})
+    const series = groupByYear(
+      dailySummarized,
+      item => item.date,
+      item => item.mean
+    )
 
     console.log(series)
 
