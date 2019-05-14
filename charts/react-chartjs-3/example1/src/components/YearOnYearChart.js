@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { DateTime } from 'luxon'
 import { Line } from 'react-chartjs-3'
 import 'chartjs-plugin-colorschemes'
+import { rtbLargestTriangleThreeBuckets } from './downsample'
 import dornumAll from '../data/dornum-all'
 
 const styles = {
@@ -107,9 +108,23 @@ class YearOnYearChart extends React.Component {
 
     console.log(series)
 
+    // const datasets = Object.entries(series).map(([label, data]) => ({
+    //   label,
+    //   data,
+    //   fill: false,
+    //   pointRadius: 0,
+    //   xAxisID: 'x-axis',
+    //   yAxisID: 'y-axis',
+    // }))
+
     const datasets = Object.entries(series).map(([label, data]) => ({
       label,
-      data,
+      data: rtbLargestTriangleThreeBuckets(
+        data,
+        item => item.x.valueOf(),
+        item => item.y,
+        100
+      ),
       fill: false,
       pointRadius: 0,
       xAxisID: 'x-axis',
@@ -129,6 +144,7 @@ class YearOnYearChart extends React.Component {
         <Line
           data={data}
           options={{
+            responsive: true,
             plugins: {
               colorschemes: {
                 scheme: 'brewer.PuBu3',
