@@ -1,7 +1,7 @@
 import React from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-import YearOnYearChart from './components/YearOnYearChart'
+import FlowControl from './components/FlowControl'
 
 const theme = createMuiTheme({
   palette: {
@@ -16,7 +16,7 @@ function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
-      <YearOnYearChart />
+      <FlowControl />
     </MuiThemeProvider>
   )
 }
