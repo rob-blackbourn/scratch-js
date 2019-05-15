@@ -8,12 +8,12 @@ import 'chartjs-plugin-colorschemes'
 import { rtbLargestTriangleThreeBuckets } from './downsample'
 import dornumAll from '../data/dornum-all'
 
-const styles = {
+const styles = theme => ({
   root: {
     width: '100%',
     maxWidth: 500,
   },
-}
+})
 
 function summarizeDataDaily(data, getDate, getValue) {
   const groupedByDay = data.reduce((obj, item) => {
