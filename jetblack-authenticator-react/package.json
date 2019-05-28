@@ -1,0 +1,23 @@
+{
+  "name": "jetblack-authenticator-react",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production",
+    "lint": "eslint --cache --format codeframe --ext mjs,jsx,js src"
+  },
+  "devDependencies": {
+    "@neutrinojs/react-components": "^9.0.0-rc.3",
+    "@neutrinojs/standardjs": "^9.0.0-rc.3",
+    "eslint": "^5",
+    "neutrino": "^9.0.0-rc.3",
+    "prop-types": "^15",
+    "react": "^16",
+    "react-dom": "^16",
+    "webpack": "^4",
+    "webpack-cli": "^3",
+    "webpack-dev-server": "^3"
+  }
+}
